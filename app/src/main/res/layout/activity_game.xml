@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ick.kalambury.drawing.GameViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/backgroundColor"
+        app:layoutDescription="@xml/draw_activity_transitions"
+        tools:context=".drawing.GameActivity">
+
+        <!-- Must be first as rest of the elements needs to be drawn on top -->
+        <com.ick.kalambury.drawing.CanvasView
+            android:id="@+id/drawing_area"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onDrawListener="@{(d) -> viewModel.onDraw(d)}" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/left_panel"
+            android:layout_width="45dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <RelativeLayout
+                android:id="@+id/button_color"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="?selectableItemBackground"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="H,1:1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:padding="3dp"
+                    android:src="@drawable/circle_white"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@+id/button_color_foreground"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:padding="6dp"
+                    android:src="@drawable/circle_white"
+                    android:tintMode="src_in"
+                    tools:tint="@color/cl_cyan"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/button_tool"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:background="?selectableItemBackground"
+                android:src="@drawable/ic_line_weight_white_24dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_color"
+                app:layout_constraintDimensionRatio="H,1:1"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/button_delete"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="?selectableItemBackground"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_undo_white_24dp"
+                android:onClick="@{() -> viewModel.onDelete()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_tool"
+                app:layout_constraintDimensionRatio="H,1:1"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/button_clear"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="?selectableItemBackground"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_delete_white_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/button_delete"
+                app:layout_constraintDimensionRatio="H,1:1"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_panel"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible">
+
+            <EditText
+                android:id="@+id/answer_field"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="65dp"
+                android:layout_marginEnd="10dp"
+                android:hint="@string/ga_answer_hint"
+                android:imeOptions="actionSend|flagNoExtractUi|flagNoFullscreen"
+                android:inputType="textAutoComplete|textAutoCorrect"
+                android:maxLines="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_send"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="Autofill" />
+
+            <ImageButton
+                android:id="@+id/button_send"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="10dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_send_white_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_speech_recognizer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="H,1:1"
+                tools:ignore="ContentDescription" />
+
+            <ImageButton
+                android:id="@+id/button_speech_recognizer"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="20dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_mic_white_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintDimensionRatio="H,1:1"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/button_menu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="?selectableItemBackground"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_menu_white_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/label_timer"
+            style="@style/labels_text_style"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="@+id/drawing_area"
+            app:layout_constraintStart_toStartOf="@+id/drawing_area"
+            app:layout_constraintTop_toTopOf="@id/drawing_area"
+            app:timer="@{viewModel.timer}"
+            app:timerMode="@{viewModel.timerMode}"
+            tools:text="2:55" />
+
+        <TextView
+            android:id="@+id/label_left"
+            style="@style/labels_text_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center_vertical|start"
+            app:label="@{viewModel.leftLabel}"
+            app:layout_constraintEnd_toStartOf="@+id/label_timer"
+            app:layout_constraintStart_toStartOf="@+id/drawing_area"
+            app:layout_constraintTop_toTopOf="@id/drawing_area"
+            tools:text="Word to draw: Sun" />
+
+        <TextView
+            android:id="@+id/label_right"
+            style="@style/labels_text_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center_vertical|end"
+            app:label="@{viewModel.rightLabel}"
+            app:layout_constraintEnd_toEndOf="@+id/drawing_area"
+            app:layout_constraintStart_toEndOf="@+id/label_timer"
+            app:layout_constraintTop_toTopOf="@id/drawing_area"
+            tools:text="Category: Objects" />
+
+        <TextView
+            android:id="@+id/small_chat"
+            style="@style/chat_messages_text_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="bottom|start"
+            android:text="@{viewModel.smallChatMessages}"
+            app:layout_constraintBottom_toBottomOf="@id/drawing_area"
+            app:layout_constraintEnd_toStartOf="@+id/small_chat_guideline"
+            app:layout_constraintStart_toStartOf="@+id/drawing_area"
+            tools:text="@tools:sample/lorem[22]" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/full_chat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scrollbars="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/full_chat_input_panel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/full_chat_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="1"
+            tools:listitem="@layout/list_item_simple" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/full_chat_input_panel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/full_chat_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_panel"
+            app:layout_constraintHorizontal_bias="1">
+
+            <EditText
+                android:id="@+id/full_chat_input_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSend|flagNoExtractUi|flagNoFullscreen"
+                android:inputType="textAutoComplete|textAutoCorrect"
+                android:hint="@string/ga_message_hint"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/button_full_chat_send"
+                android:importantForAutofill="no" />
+
+            <ImageButton
+                android:id="@+id/button_full_chat_send"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_send_white_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/full_chat_input_field"
+                tools:ignore="ContentDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/full_chat_open"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:onClick="@{() -> viewModel.onFullChatOpened()}"
+            android:src="@drawable/ic_baseline_chat_24"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/bottom_panel"
+            app:layout_constraintEnd_toStartOf="@id/full_chat"
+            app:tint="@color/open_chat_icon"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/full_chat_close"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_margin="8dp"
+            android:padding="8dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_round_close_24"
+            android:visibility="invisible"
+            android:onClick="@{() -> viewModel.onFullChatClosed()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible"
+            tools:ignore="ContentDescription" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/small_chat_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/full_chat_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.66" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>

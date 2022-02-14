@@ -1,0 +1,15 @@
+captures/
+.gradle
+/local.properties
+/signing.properties
+/app/google-services.json
+.DS_Store
+build
+bin/
+gen/
+obj/
+.idea/
+*.iml
+*.sh
+*.jks
+*.p12

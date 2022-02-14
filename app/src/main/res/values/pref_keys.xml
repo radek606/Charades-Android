@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string translatable="false" name="key_settings_version_code">com.ick.kalambury.SETTINGS_VERSION_CODE</string>
+    <string translatable="false" name="key_first_run">com.ick.kalambury.APP_FIRST_RUN</string>
+    <string translatable="false" name="key_first_install_time">com.ick.kalambury.APP_FIRST_INSTALL_TIME</string>
+    <string translatable="false" name="key_first_install_version">com.ick.kalambury.APP_FIRST_INSTALL_VERSION</string>
+
+    <string translatable="false" name="key_user_uuid">com.ick.kalambury.UUID</string>
+    <string translatable="false" name="key_nickname">com.ick.kalambury.NICKNAME</string>
+    <string translatable="false" name="key_password">com.ick.kalambury.API_PASSWORD</string>
+    <string translatable="false" name="key_words_language">com.ick.kalambury.WORDS_LANGUAGE</string>
+    <string translatable="false" name="key_chat_size">com.ick.kalambury.CHAT_SIZE_INT</string>
+    <string translatable="false" name="key_show_category_name">com.ick.kalambury.SHOW_CAT_NAMES</string>
+    <string translatable="false" name="key_vibration_notification">com.ick.kalambury.VIBRATE</string>
+    <string translatable="false" name="key_send_usage_statistics">com.ick.kalambury.SEND_ANALYTICS_DATA</string>
+
+    <string translatable="false" name="key_round_length_showing">com.ick.kalambury.SHOWING_ROUND_LENGTH</string>
+    <string translatable="false" name="key_round_length_local">com.ick.kalambury.LOCAL_ROUND_LENGTH</string>
+    <string translatable="false" name="key_round_length_online">com.ick.kalambury.ONLINE_ROUND_LENGTH</string>
+
+    <string translatable="false" name="key_points_limit_local">com.ick.kalambury.LOCAL_POINTS_LIMIT</string>
+    <string translatable="false" name="key_points_limit_online">com.ick.kalambury.ONLINE_POINTS_LIMIT</string>
+
+    <string translatable="false" name="key_drawing_player_choose_method_local">com.ick.kalambury.KEY_LOCAL_DRAWING_PLAYER_CHOOSE_METHOD</string>
+    <string translatable="false" name="key_drawing_player_choose_method_online">com.ick.kalambury.KEY_ONLINE_DRAWING_PLAYER_CHOOSE_METHOD</string>
+
+    <string translatable="false" name="key_has_app_crashed">com.ick.kalambury.KEY_HAS_APP_CRASHED</string>
+
+    <string translatable="false" name="key_rate_app_next_prompt_time">com.ick.kalambury.KEY_RATE_APP_NEXT_PROMPT_TIME</string>
+    <string translatable="false" name="key_last_game_without_error">com.ick.kalambury.KEY_LAST_GAME_WITHOUT_ERROR</string>
+
+    <string translatable="false" name="key_app_update_in_progress">com.ick.kalambury.KEY_APP_UPDATE_IN_PROGRESS</string>
+    <string translatable="false" name="key_app_update_next_prompt_time">com.ick.kalambury.KEY_APP_UPDATE_NEXT_PROMPT_TIME</string>
+
+    <string translatable="false" name="key_words_unencrypted_secret">com.ick.kalambury.WORDS_UNENCRYPTED_SECRET</string>
+    <string translatable="false" name="key_words_encrypted_secret">com.ick.kalambury.WORDS_ENCRYPTED_SECRET</string>
+
+</resources>

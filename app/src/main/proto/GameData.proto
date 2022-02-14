@@ -1,0 +1,128 @@
+syntax = "proto2";
+
+package kalambury;
+
+option java_package = "com.ick.kalambury.entities";
+option java_outer_classname = "GameDataProtos";
+
+message Envelope {
+    enum Type {
+        KEEPALIVE = 1 [deprecated = true];
+        CONTENT = 2;
+    }
+
+    optional Type  type    = 1;
+    optional bytes content = 2;
+}
+
+message Content {
+    optional GameData data = 1;
+}
+
+message GameConfig {
+    enum PlayerChooseMethod {
+        GUESSING_PLAYER        = 1;
+        LONGEST_WAITING_PLAYER = 2;
+        RANDOM_PLAYER          = 3;
+    }
+
+    optional string name                     = 1;
+    optional uint32 roundTime                = 2;
+    optional uint32 pointsLimit              = 3;
+    optional PlayerChooseMethod chooseMethod = 4;
+    optional string language                 = 5;
+}
+
+message GameData {
+    optional uint32      action     = 1;
+    optional string      actionData = 2;
+    optional GameConfig  config     = 7;
+    optional GameState   gameState  = 3;
+    map<string, Player>  players    = 4;
+    repeated ChatMessage messages   = 5;
+    repeated Drawable    drawables  = 6;
+}
+
+message GameState {
+    enum State {
+        NO_PLAYERS = 1;
+        WAITING    = 2;
+        IN_GAME    = 3;
+        FINISHED   = 4;
+    }
+
+    optional State  state            = 1;
+    optional string operatorPlayerId = 2;
+    optional string drawingPlayerId  = 3;
+    optional string winnerPlayerId   = 4;
+    optional string wordToGuess      = 5;
+    optional string category         = 6;
+    optional uint32 timeLeft         = 7;
+    optional uint32 roundTime        = 8 [deprecated = true];
+    optional uint32 pointsLimit      = 9 [deprecated = true];
+}
+
+message Player {
+    enum State {
+        INITIALIZING = 1;
+        IN_GAME      = 2;
+        VOTING       = 3;
+    }
+
+    optional State  state    = 1;
+    optional string id       = 2;
+    optional string nickname = 3;
+    optional uint32 points   = 4;
+    optional bool   active   = 5;
+    optional bool   operator = 6;
+    optional bool   winner   = 7;
+}
+
+message Drawable {
+    enum Tool {
+        PENCIL     = 1;
+        BRUSH      = 2;
+        FILL       = 3;
+        BACKGROUND = 4;
+    }
+
+    message Point {
+        optional uint32 x = 1;
+        optional uint32 y = 2;
+    }
+
+    optional Tool   tool        = 1;
+    optional uint32 strokeWidth = 2;
+    optional sint32 color       = 3;
+    optional uint32 width       = 4;
+    optional uint32 height      = 5;
+    repeated Point  points      = 6;
+}
+
+message ChatMessage {
+    enum Type {
+        PLAIN               = 1;
+        PLAYER_ANSWER       = 2;
+        PLAYER_WRITE        = 3;
+        PLAYER_JOIN         = 4;
+        PLAYER_LEFT         = 5;
+        PLAYER_GUESS        = 6;
+        PLAYER_DRAW         = 7;
+        PLAYER_ABANDON      = 8;
+        PLAYER_INACTIVE     = 9;
+        PLAYER_KICKED       = 10;
+        PLAYER_WON          = 11;
+        TIME_IS_UP          = 12;
+        INACTIVITY_WARN     = 13;
+        LITTLE_TIME_WARN    = 14;
+        PASSWORD            = 15;
+        HINT                = 16;
+        CLOSE_ENOUGH_ANSWER = 17;
+        NEW_OPERATOR        = 18;
+        WAITING             = 19;
+    }
+
+    optional Type   type   = 1 [default = PLAYER_ANSWER];
+    optional string body   = 2;
+    optional string source = 3;
+}

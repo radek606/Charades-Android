@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+        <import type="com.ick.kalambury.GameMode"/>
+        <variable
+            name="viewModel"
+            type="com.ick.kalambury.create.CreateGameViewModel" />
+        <variable
+            name="gameMode"
+            type="com.ick.kalambury.GameMode" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:background="@color/backgroundColor">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/rounds_picker_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/time_picker_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="20"
+            app:goneUnless="@{gameMode != GameMode.SHOWING}"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:text="@string/ca_lcvtf_number_of_rounds"
+                    android:textAppearance="@android:style/TextAppearance" />
+
+                <include layout="@layout/card_divider" />
+
+                <com.ick.kalambury.util.CustomNumberPicker
+                    android:id="@+id/rounds_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:max="20"
+                    app:min="1"
+                    app:picker_mode="number"
+                    app:step="1"
+                    app:value="@={viewModel.pointsLimit}" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/time_picker_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/drawing_player_choose_mode_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rounds_picker_card"
+            app:layout_constraintVertical_weight="20">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/time_picker_card_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:textAppearance="@android:style/TextAppearance"
+                    tools:text="@string/ca_lcvtf_time_drawing" />
+
+                <include layout="@layout/card_divider" />
+
+                <com.ick.kalambury.util.CustomNumberPicker
+                    android:id="@+id/time_picker"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:max="300"
+                    app:min="30"
+                    app:picker_mode="duration"
+                    app:step="10"
+                    app:value="@={viewModel.roundLength}" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/drawing_player_choose_mode_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/categories_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/time_picker_card"
+            app:layout_constraintVertical_weight="20"
+            app:goneUnless="@{gameMode != GameMode.SHOWING}"
+            tools:visibility="visible">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center"
+                    android:text="@string/ca_lcvtf_drawing_player_choose_mode"
+                    android:textAppearance="@android:style/TextAppearance" />
+
+                <include layout="@layout/card_divider" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <Spinner
+                        android:id="@+id/drawing_player_choose_mode_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:entries="@array/drawing_player_choose_modes"
+                        android:minHeight="48dp"
+                        android:selectedItemPosition="@={viewModel.playerChooseMethodId}" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/categories_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/drawing_player_choose_mode_card"
+            app:layout_constraintVertical_weight="50">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp">
+
+                <TextView
+                    android:id="@+id/cat_card_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="@string/ca_lcvtf_selected_cats"
+                    android:textAppearance="@android:style/TextAppearance"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/divider"
+                    layout="@layout/card_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cat_card_title" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/cat_card_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintBottom_toTopOf="@id/cat_card_edit_categories"
+                    app:layout_constraintTop_toBottomOf="@id/divider"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_words_set" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/cat_card_edit_categories"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onEdit()}"
+                    android:text="@string/ca_lcvb_edit_categories"
+                    app:icon="@drawable/ic_edit_white_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cat_card_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="2dp"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="?attr/colorPrimary"
+                    android:visibility="gone"
+                    app:drawableStartCompat="@drawable/ic_baseline_info_24"
+                    app:drawableTint="?attr/colorPrimary"
+                    app:goneUnless="@{viewModel.hasNewSets}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cat_card_list"
+                    tools:text="New categories available"
+                    tools:visibility="visible" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

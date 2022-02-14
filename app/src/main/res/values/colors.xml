@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primaryColor">#2196f3</color>
+    <color name="primaryLightColor">#6ec6ff</color>
+    <color name="primaryDarkColor">#0069c0</color>
+
+    <color name="secondaryColor">#ff9800</color>
+    <color name="secondaryLightColor">#ffc947</color>
+    <color name="secondaryDarkColor">#c66900</color>
+    <color name="onSecondaryColor">@android:color/white</color>
+
+    <color name="system_ui_scrim_light">@android:color/white</color>
+    <color name="status_bar_scrim">@color/system_ui_scrim_light</color>
+    <color name="nav_bar_scrim">@color/status_bar_scrim</color>
+
+    <color name="backgroundColor">#f5f5f5</color>
+
+    <color name="open_chat_icon">#e0e0e0</color>
+
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
+
+    <array name="color_palette">
+        <item>@color/cl_black</item>
+        <item>@color/cl_red</item>
+        <item>@color/cl_green</item>
+        <item>@color/cl_blue</item>
+        <item>@color/cl_yellow</item>
+        <item>@color/cl_magenta</item>
+        <item>@color/cl_gray</item>
+        <item>@color/cl_cyan</item>
+        <item>@color/cl_brown</item>
+        <item>@color/cl_orange</item>
+    </array>
+
+    <color name="cl_black">#FF000000</color>
+    <color name="cl_red">#FFFF0000</color>
+    <color name="cl_green">#FF00FF00</color>
+    <color name="cl_blue">#FF0000FF</color>
+    <color name="cl_yellow">#FFFFFF00</color>
+    <color name="cl_magenta">#FFFF00FF</color>
+    <color name="cl_gray">#FFBEBEBE</color>
+    <color name="cl_cyan">#FF00FFFF</color>
+    <color name="cl_brown">#FF964B00</color>
+    <color name="cl_orange">#FFFF8000</color>
+
+    <integer-array name="swipe_refresh_colors">
+        <item>@color/secondaryColor</item>
+    </integer-array>
+    
+</resources>

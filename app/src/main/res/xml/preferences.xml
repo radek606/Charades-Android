@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/oa_c_game">
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="@string/key_nickname"
+            app:persistent="false"
+            app:title="@string/dialog_nickname_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:entries="@array/language_names"
+            app:entryValues="@array/language_values"
+            app:iconSpaceReserved="false"
+            app:key="@string/key_words_language"
+            app:persistent="false"
+            app:title="@string/oa_o_language"
+            app:useSimpleSummaryProvider="true" />
+
+        <SeekBarPreference
+            android:max="10"
+            app:defaultValue="5"
+            app:iconSpaceReserved="false"
+            app:key="@string/key_chat_size"
+            app:min="1"
+            app:persistent="false"
+            app:seekBarIncrement="1"
+            app:showSeekBarValue="true"
+            app:summary="@string/oa_o_line_number_desc"
+            app:title="@string/oa_o_line_number" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="@string/key_show_category_name"
+            app:persistent="false"
+            app:summary="@string/oa_o_show_category_desc"
+            app:title="@string/oa_o_show_category" />
+
+        <SwitchPreferenceCompat
+            app:defaultValue="false"
+            app:iconSpaceReserved="false"
+            app:key="@string/key_vibration_notification"
+            app:persistent="false"
+            app:summary="@string/oa_o_vibrate_desc"
+            app:title="@string/oa_o_vibrate" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/oa_c_others">
+
+        <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:iconSpaceReserved="false"
+            app:key="@string/key_send_usage_statistics"
+            app:persistent="false"
+            app:title="@string/oa_o_send_usage_statistics_title" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="pref_submit_logs"
+            app:persistent="false"
+            app:title="@string/oa_o_submit_logs"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/oa_c_about">
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false"
+            app:key="pref_suggest_pass"
+            app:persistent="false"
+            app:title="@string/oa_o_suggest_pass" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:title="@string/oa_o_rate_app">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="market://details?id=com.ick.kalambury" />
+        </Preference>
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="pref_privacy"
+            app:persistent="false"
+            app:title="@string/oa_o_pivacy_policy" />
+
+        <Preference
+            app:iconSpaceReserved="false"
+            app:key="pref_version"
+            app:persistent="false"
+            app:selectable="false" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,230 @@
+<resources>
+    <string name="app_name">Kalambury</string>
+
+    <string name="player_operator_label">%s (op)</string>
+
+    <string name="activity_main_button_generator">Generator haseł</string>
+    <string name="activity_main_button_create_local">Utwórz lokalną grę</string>
+    <string name="activity_main_button_join_local">Dołącz do lokalnej gry</string>
+    <string name="activity_main_button_play_online">Graj online</string>
+    <string name="activity_main_button_settings">Ustawienia</string>
+    <string name="activity_main_button_help">Pomoc</string>
+
+    <string name="mma_ltb_title">Kalambury</string>
+
+    <string name="ca_ltb_game_title">Utwórz nową grę</string>
+    <string name="ca_ltb_table_title">Utwórz nowy stół</string>
+    <string name="ca_lcvtf_time_drawing">Czas na rysowanie:</string>
+    <string name="ca_lcvtf_time_showing">Czas na pokazywanie:</string>
+    <string name="ca_lcvtf_number_of_rounds">Limit punktów:</string>
+    <string name="ca_lcvtf_drawing_player_choose_mode">Sposób wyboru rysującego:</string>
+    <string name="ca_lcvtf_selected_cats">Wybrane kategorie:</string>
+    <string name="ca_lcvtf_new_cats_info">Dostępne nowe kategorie haseł.</string>
+    <string name="ca_lcvtf_start">Start</string>
+    <string name="ca_lcvtf_create">Utwórz</string>
+    <string name="ca_ltbo_settings">Ustawienia</string>
+    <string-array name="drawing_player_choose_modes">
+        <item>Ten, kto odgadł</item>
+        <item>Najdłużej oczekujący</item>
+        <item>Losowo</item>
+    </string-array>
+    <string name="ca_lcvb_edit_categories">Edytuj</string>
+    <string name="ca_category_label_new">Nowa</string>
+    <string name="ca_category_label_updated">Nowe hasła</string>
+
+    <string name="sca_ltb_title">Wybierz kategorie</string>
+    <string name="sca_ltbo_select_all">Zaznacz wszystkie</string>
+    <string name="sca_ltbo_save">Zapisz</string>
+
+    <string name="ja_ltb_title_local">Dołącz do gry</string>
+    <string name="ja_ltb_title_online">Dołącz do gry</string>
+    <string name="ja_ltb_subtitle_local">Wybierz urządzenie hosta:</string>
+    <string name="ja_ltb_subtitle_online">Wybierz dostępny stół:</string>
+    <string name="ja_ltbo_refresh">Odśwież</string>
+
+    <string name="ja_ltb_tables_default">Publiczne</string>
+    <string name="ja_ltb_tables_public">Własne</string>
+
+    <string name="oa_ltb_title">Ustawienia</string>
+    <string name="oa_c_game">Gra</string>
+    <string name="oa_c_others">Inne</string>
+    <string name="oa_c_about">O aplikacji</string>
+    <string name="oa_o_language">Język haseł</string>
+    <string name="oa_o_line_number">Wielkość czatu</string>
+    <string name="oa_o_line_number_desc">Liczba wyświetlanych linii czatu</string>
+    <string name="oa_o_show_category">Pokazuj nazwy kategorii</string>
+    <string name="oa_o_show_category_desc">Jeśli włączone, kategoria bieżącego hasła będzie widoczna dla wszystkich graczy.</string>
+    <string name="oa_o_vibrate">Sygnalizuj koniec czasu</string>
+    <string name="oa_o_vibrate_desc">Jeśli włączone, urządzenie zawibruje raz, na 15 sekund przed końcem czasu na rysowanie/pokazywanie, oraz 3 razy na końcu.</string>
+    <string name="oa_o_vibrate_denied">Wibracje niedostępne</string>
+    <string name="oa_o_send_usage_statistics_title">Wysyłaj anonimowe statystyki użytkowania</string>
+    <string name="oa_o_suggest_pass">Zaproponuj hasło</string>
+    <string name="oa_o_suggest_pass_confirmation">Propozycja wysłana. Dzięki!</string>
+    <string name="oa_o_rate_app">Oceń aplikację</string>
+    <string name="oa_o_about">O aplikacji</string>
+    <string name="oa_o_pivacy_policy">Polityka prywatności</string>
+    <string name="oa_o_submit_logs">Dziennik debugowania</string>
+
+    <string name="sdlf_title">Dziennik debugowania</string>
+    <string name="sdlf_menu_submit">Wyślij</string>
+    <string name="sdlf_note">Ten log zostanie wysłany do twórcy aplikacji do sprawdzenia. Możesz go przejrzeć przed wysłaniem.</string>
+
+    <string name="aa_ltf_version">Wersja: %1$s (%2$d)</string>
+    <string name="aa_ltf_contact"><![CDATA[<b><u>Kontakt</u></b>]]></string>
+    <string name="aa_ltf_action_send">Wyślij email…</string>
+    <string name="aa_ltf_action_send_subject">Kalambury - %s</string>
+    <string name="aa_ltf_action_send_choose_subject">Temat wiadomości:</string>
+    <string-array name="aa_email_subjects">
+        <item>Pytanie</item>
+        <item>Sugestia</item>
+        <item>Raport o błędzie</item>
+        <item>Inne</item>
+    </string-array>
+
+    <string name="pa_ltb_title">Polityka prywatności</string>
+
+    <string name="jlr_ltf_room_name">Stół %s</string>
+    <string name="jlr_ltf_players">Gracze: %1$d/%2$d</string>
+    <string name="jlr_ltf_lang">Język: %s</string>
+    <string name="jlr_ltf_points">Punkty: %d</string>
+    <string name="jlr_ltf_time">Czas: %s m</string>
+    <string name="jlr_ltf_operator">Op: %s</string>
+
+    <string name="sa_ltb_title">Pokazywanie</string>
+    <string name="sa_ltf_category">Kategoria: %s</string>
+    <string name="sa_ltf_timer_end">KONIEC CZASU</string>
+    <string name="sa_ltbo_draw_word">Losuj hasło</string>
+    <string name="sa_ltf_password_init_val">Naciśnij \"LOSUJ HASŁO\", aby rozpocząć.</string>
+    
+    <string name="menu_players">Lista graczy</string>
+    <string name="menu_kick">Wyproś…</string>
+    <string name="menu_full_chat_open">Otwórz pełny czat</string>
+    <string name="menu_full_chat_close">Zamknij pełny czat</string>
+    <string name="menu_write">Napisz na czacie</string>
+    <string name="menu_abandon">Zrezygnuj z rysowania</string>
+    <string name="menu_exit">Wyjdź</string>
+
+    <string name="da_password" formatted="false"><![CDATA[Hasło: <b>%s</b> (%s)]]></string>
+    <string name="ga_drawing_player" formatted="false"><![CDATA[Rysuje: <b>%s</b>]]></string>
+    <string name="ga_points_limit">Limit punktów: %d</string>
+    <string name="ga_table_name" formatted="false"><![CDATA[Stół: <b>%s</b>]]></string>
+    <string name="ga_table_name_and_points" formatted="false"><![CDATA[Stół: <b>%s</b> (do %d pkt.)]]></string>
+    <string name="ga_answer_hint">Wpisz odpowiedź</string>
+    <string name="ga_message_hint">Wiadomość</string>
+
+    <string name="chat_msg_player_join" formatted="false"><![CDATA[<font color=\'gray\'><i>dołączył(a) do gry: <b>%s</b></i></font>]]></string>
+    <string name="chat_msg_player_left" formatted="false"><![CDATA[<font color=\'gray\'><i>opuścił(a) grę: <b>%s</b></i></font>]]></string>
+    <string name="chat_msg_player_kicked" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> wyproszony(-na) od stołu</i></font>]]></string>
+    <string name="chat_msg_player_draw" formatted="false"><![CDATA[<font color=\'blue\'><i>rysuje: <b>%s</b></i></font>]]></string>
+    <string name="chat_msg_player_guess" formatted="false"><![CDATA[<font color=\'blue\'><i><b>%s</b> odgaduje hasło: \"%s\"</i></font>]]></string>
+    <string name="chat_msg_player_answer" formatted="false"><![CDATA[<b>%s</b>: %s]]></string>
+    <string name="chat_msg_player_abandon" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> zrezygnował(a)</i></font>]]></string>
+    <string name="chat_msg_player_inactive" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> zbyt długo nieaktywny(-a)</i></font>]]></string>
+    <string name="chat_msg_player_won" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> wygrywa!</i></font>]]></string>
+    <string name="chat_msg_password" formatted="false"><![CDATA[<font color=\'gray\'><i>hasło: </i>%s</font>]]></string>
+    <string name="chat_msg_close_answer" formatted="false"><![CDATA[<font color=\'gray\'><i>blisko: </i>%s</font>]]></string>
+    <string name="chat_msg_time_up" formatted="false"><![CDATA[<font color=\'red\'><i>koniec czasu</i></font>]]></string>
+    <string name="chat_msg_waiting" formatted="false"><![CDATA[<font color=\'gray\'><i>Oczekiwanie na innych graczy…</i></font>]]></string>
+    <string name="chat_msg_hint" formatted="false"><![CDATA[<font color=\'gray\'><i>hasło rozpoczyna się od: </i><b>%s</b></font>]]></string>
+    <string name="chat_msg_inactivity_warn" formatted="false"><![CDATA[<font color=\'red\'><b>UWAGA! Brak aktywności</b></font>]]></string>
+    <string name="chat_msg_little_time_warn" formatted="false"><![CDATA[<font color=\'red\'><b>Czas się kończy!</b></font>]]></string>
+    <string name="chat_msg_new_operator" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> został(a) operatorem stołu</i></font>]]></string>
+    <string name="chat_msg_plain" formatted="false"><![CDATA[<font color=\'gray\'><i>%s</i></font>]]></string>
+
+    <string name="dialog_nickname_title">Twój nick:</string>
+
+    <string name="dialog_write_to_chat_title">Napisz na czacie</string>
+
+    <string name="dialog_suggest_pass_title">Zaproponuj hasło</string>
+    
+    <string name="dialog_speech_result_title">Wybierz pasujący tekst:</string>
+
+    <string name="dialog_connecting_simple">Łączenie…</string>
+
+    <string name="dialog_creating_simple">Tworzenie…</string>
+    <string name="dialog_creating_table">Tworzenie stołu…</string>
+
+    <string name="dialog_players_winner">Wygrywa: %s</string>
+    <string name="dialog_players_title">Lista graczy:</string>
+    <string name="dialog_players_list_nick">Nick:</string>
+    <string name="dialog_players_list_points">Punkty:</string>
+
+    <string name="dialog_kick_players_title">Wybierz graczy:</string>
+
+    <string name="alert_wifi_not_enabled">Brak dostępu do internetu.</string>
+
+    <string name="alert_permission_localization_request_message">Tryb gry lokalnej korzysta z Wi-Fi i Bluetooth, aby umożliwić graczom połączenie się ze sobą, ale aby Bluetooth mógł zostać użyty, wymagane jest pozwolenie na dostęp do lokalizacji.</string>
+    <string name="alert_permission_localization_denied_message">Brak pozwolenia na dostęp do lokalizacji. Opcje gry lokalnej będą niedostępne dopóki zgoda na dostęp do lokalizacji nie zostanie udzielona.</string>
+
+    <string name="alert_speech_not_supported_message">Twoje urządzenie nie obsługuje rozpoznawania mowy.</string>
+
+    <string name="alert_host_terminated">Gracz hostujący zakończył rozgrywkę.\nPowrót do menu głównego.</string>
+    <string name="alert_connection_lost">Utracono połączenie.\nPowrót do menu głównego.</string>
+    <string name="alert_app_backgrounded">Rozłączono z powodu braku aktywności.\nPowrót do menu głównego.</string>
+    <string name="alert_kicked">Zostałeś(-aś) wyproszony(-na) od stołu.\nPowrót do menu głównego.</string>
+
+    <string name="alert_advertising_failed">Błąd podczas tworzenia gry. Proszę spróbować ponownie później.</string>
+
+    <string name="alert_nothing_found">Brak elementów do wyświetlenia.</string>
+    <string name="alert_nothing_found_action">Ponów</string>
+
+    <string name="alert_create_table_failed_title">Błąd</string>
+    <string name="alert_create_table_failed_message">Błąd podczas tworzenia stołu. Spróbuj ponownie później.</string>
+
+    <string name="snackbar_kicked">Zostałeś(-aś) wyproszony(-na) od stołu. Nie możesz ponownie dołączyć, dopóki bieżąca gra się nie zakończy.</string>
+    <string name="snackbar_player_limit_exceeded">Stół jest pełny, wybierz inny.</string>
+    <string name="snackbar_table_not_found">Nie ma takiego stołu, wybierz inny.</string>
+    <string name="snackbar_connection_fail">Nie udało się dołączyć, spróbuj ponownie później.</string>
+
+    <string name="alert_discovery_failed_message">Nie udało się rozpocząć wyszukiwania hostów, spróbuj ponownie później.</string>
+
+    <string name="alert_empty_input">Pole nie może być puste.</string>
+
+    <string name="alert_old_version_title">Niezgodna wersja</string>
+    <string name="alert_old_version_message_plain">
+        Gracze z różnymi wersjami gry nie mogą się ze sobą połączyć.
+        Sprawdź czy dostępna jest aktualizacja, lub jeśli masz najnowszą wersję, poleć aktualizację pozostałym graczom.
+    </string>
+    <string name="alert_old_version_message_detailed">
+        Twoja wersja to: %1$s, serwer wymaga wersji: %2$s lub nowszej. Zaktualizuj, aby dołączyć.
+    </string>
+    <string name="alert_old_version_update">Sprawdź aktualizacje</string>
+    <string name="alert_old_version_cancel">Anuluj</string>
+
+    <string name="alert_clear_message">Czy chcesz wyczyścić ekran?</string>
+
+    <string name="alert_abandon_message">Czy chcesz zrezygnować z rysowania tego hasła? Skutkować to będzie odjęciem jednego punktu.</string>
+
+    <string name="alert_close_message">Czy chcesz wyjść z gry?</string>
+    <string name="alert_close_message_sever">Czy chcesz wyjść z gry?\n\nSpowoduje to zakończenie gry dla pozostałych graczy.</string>
+
+    <string name="alert_choose_categories">Wybierz przynajmniej jedną kategorię.</string>
+
+    <string name="alert_empty_nickname">Nick nie może być pusty.</string>
+
+    <string name="alert_create_game_failed">Błąd podczas tworzenia gry.</string>
+
+    <string name="alert_crash_title">Raport o błędzie</string>
+    <string name="alert_crash_message">Podczas poprzedniego uruchomienia w aplikacji wystąpił błąd. Czy chcesz wysłać raport o błędzie zawierający logi aplikacji? Pomogą one w rozwiązaniu problemu.</string>
+
+    <string name="log_submit_success_toast">Raport wysłany. Dzięki!</string>
+    <string name="log_submit_already_sent_toast">Raport już wysłany. Dzięki!</string>
+    <string name="log_submit_to_many_requests_toast">Za dużo prób wysłania, spróbuj ponownie później.</string>
+    <string name="log_submit_failed_toast">Błąd podczas wysyłania, spróbuj ponownie później.</string>
+
+    <string name="dialog_button_continue">Kontynuuj</string>
+    <string name="dialog_button_send">Wyślij</string>
+    <string name="dialog_button_close">Zamknij</string>
+    <string name="dialog_button_leave">Wyjdź</string>
+    <string name="dialog_button_kick">Wyproś</string>
+
+    <string name="alert_no_internet">Brak połączenia z Internetem. Aby móc grać online, włącz Wi-FI lub dane mobilne.</string>
+
+    <string name="in_app_update_downloading_text">Pobieranie aktualizacji…</string>
+    <string name="in_app_update_ready_text">Aktualizacja gotowa do zainstalowania.</string>
+    <string name="in_app_update_ready_action">Aktualizuj</string>
+
+    <string name="yes">tak</string>
+    <string name="no">nie</string>
+
+</resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.ick.kalambury.list.model.Connectable" />
+        <import type="com.ick.kalambury.list.ListType.ItemMode" />
+        <variable
+            name="data"
+            type="com.ick.kalambury.list.model.EndpointData" />
+        <variable
+            name="itemMode"
+            type="com.ick.kalambury.list.ListType.ItemMode" />
+        <variable
+            name="isChecked"
+            type="Boolean" />
+    </data>
+
+    <com.ick.kalambury.list.views.DeviceListItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/checkbox"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="start|center_vertical"
+                android:text="@{data.text}"
+                android:textAppearance="?android:attr/textAppearanceListItem"
+                tools:text="Simple item" />
+
+            <LinearLayout
+                android:id="@+id/progress_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                app:goneUnless="@{((Connectable) data).connecting}"
+                tools:visibility="visible">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    app:indicatorSize="24dp" />
+
+                <TextView
+                    android:id="@+id/progress_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="@string/dialog_connecting_simple" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:checked="@{isChecked}"
+            android:clickable="false"
+            android:focusable="false"
+            app:goneUnless="@{itemMode == ItemMode.SELECTABLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="visible" />
+
+    </com.ick.kalambury.list.views.DeviceListItem>
+
+</layout>

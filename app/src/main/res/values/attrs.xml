@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CustomNumberPicker">
+        <attr name="picker_mode">
+            <enum name="number" value="0" />
+            <enum name="duration" value="1" />
+        </attr>
+        <attr name="value" format="integer" />
+        <attr name="min" format="integer" />
+        <attr name="max" format="integer" />
+        <attr name="step" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CanvasView">
+        <attr name="view_mode">
+            <enum name="draw" value="0"/>
+            <enum name="display" value="1"/>
+        </attr>
+    </declare-styleable>
+    
+</resources>

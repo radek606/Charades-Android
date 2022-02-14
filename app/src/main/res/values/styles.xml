@@ -1,0 +1,53 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppTheme.Widget.AppBar" parent="Widget.MaterialComponents.AppBarLayout.Surface">
+        <item name="android:elevation">8dp</item>
+    </style>
+
+    <style name="AppTheme.Widget.Toolbar.ColoredAction" parent="ThemeOverlay.MaterialComponents.Toolbar.Surface">
+        <item name="actionMenuTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.Widget.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">@color/card_view_stroke_color</item>
+        <item name="cardCornerRadius">4dp</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.TitleText" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.TitlePanel" parent="MaterialAlertDialog.MaterialComponents.Title.Panel">
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:paddingTop">?attr/dialogPreferredPadding</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.BodyText" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.ButtonBar" parent="@style/Widget.AppCompat.ButtonBar.AlertDialog">
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+    </style>
+
+    <style name="labels_text_style" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:shadowColor">@android:color/white</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+
+    <style name="chat_messages_text_style" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:shadowColor">@android:color/white</item>
+        <item name="android:shadowDx">2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">1</item>
+    </style>
+    
+</resources>

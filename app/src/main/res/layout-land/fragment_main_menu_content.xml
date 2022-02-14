@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+        <import type="com.ick.kalambury.MainMenuOptions" />
+        <variable
+            name="viewModel"
+            type="com.ick.kalambury.MainMenuViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button_generator"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/activity_main_button_generator"
+            android:onClick="@{() -> viewModel.onOption(MainMenuOptions.GENERATOR)}"
+            app:layout_constraintBottom_toTopOf="@+id/button_create_local"
+            app:layout_constraintEnd_toStartOf="@+id/inner_left_guideline"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <Button
+            android:id="@+id/button_create_local"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/activity_main_button_create_local"
+            android:onClick="@{() -> viewModel.onOption(MainMenuOptions.CREATE_LOCAL)}"
+            app:layout_constraintBottom_toTopOf="@+id/button_join_local"
+            app:layout_constraintEnd_toStartOf="@+id/inner_left_guideline"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/button_generator" />
+
+        <Button
+            android:id="@+id/button_join_local"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/activity_main_button_join_local"
+            android:onClick="@{() -> viewModel.onOption(MainMenuOptions.JOIN_LOCAL)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/inner_left_guideline"
+            app:layout_constraintStart_toStartOf="@+id/left_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/button_create_local" />
+
+        <Button
+            android:id="@+id/button_play_online"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/activity_main_button_play_online"
+            android:onClick="@{() -> viewModel.onOption(MainMenuOptions.JOIN_ONLINE)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/button_settings"
+            app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/inner_right_guideline"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+        <Button
+            android:id="@+id/button_settings"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/activity_main_button_settings"
+            android:onClick="@{() -> viewModel.onOption(MainMenuOptions.SETTINGS)}"
+            app:layout_constraintBottom_toTopOf="@+id/button_help"
+            app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/inner_right_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/button_play_online" />
+
+        <Button
+            android:id="@+id/button_help"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:text="@string/activity_main_button_help"
+            android:onClick="@{() -> viewModel.onOption(MainMenuOptions.HELP)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/right_guideline"
+            app:layout_constraintStart_toStartOf="@+id/inner_right_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/button_settings" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.15" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/inner_left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.45" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/inner_right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.55" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+

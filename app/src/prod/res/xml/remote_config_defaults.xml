@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>in_app_review_enabled</key>
+        <value>true</value>
+    </entry>
+    <entry>
+        <key>app_updates</key>
+        <value>{"updates":[{"versionCode":79,"priority":1},{"versionCode":80,"priority":2},{"versionCode":81,"priority":2}]}</value>
+    </entry>
+    <entry>
+        <key>words_manifest</key>
+        <value>{"version":0}</value>
+    </entry>
+</defaultsMap>

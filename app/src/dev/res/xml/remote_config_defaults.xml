@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>test_in_app_review_enabled</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>test_app_updates</key>
+        <value>{"updates":[{"versionCode":0,"priority":0}]}</value>
+    </entry>
+    <entry>
+        <key>test_words_manifest</key>
+        <value>{"version":0}</value>
+    </entry>
+</defaultsMap>

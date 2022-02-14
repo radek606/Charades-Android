@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:padding="5dp">
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/circle_white"/>
+
+    <ImageView
+        android:id="@+id/button_color_foreground"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/circle_white"
+        android:layout_gravity="center"
+        android:tintMode="src_in"
+        tools:tint="@android:color/black"/>
+
+</FrameLayout>

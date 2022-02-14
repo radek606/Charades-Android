@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="com.ick.kalambury.list.ListType.ItemMode"/>
+        <variable
+            name="data"
+            type="com.ick.kalambury.list.model.WordsSetData" />
+        <variable
+            name="itemMode"
+            type="com.ick.kalambury.list.ListType.ItemMode" />
+        <variable
+            name="isChecked"
+            type="Boolean" />
+    </data>
+
+    <com.ick.kalambury.list.views.WordsSetListItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@{data.text}"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Category 1" />
+
+        <TextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/label_background"
+            android:textColor="@android:color/white"
+            app:isNew="@{data.new}"
+            app:isUpdated="@{data.updated}"
+            app:itemMode="@{itemMode}"
+            app:layout_constraintBottom_toTopOf="@id/desc"
+            app:layout_constraintEnd_toStartOf="@id/checkbox"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="New" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:lines="2"
+            android:scrollHorizontally="false"
+            android:text="@{data.desc}"
+            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/checkbox"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:text="@tools:sample/lorem[12]" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:checked="@{isChecked}"
+            android:clickable="false"
+            android:focusable="false"
+            android:text=""
+            app:goneUnless="@{itemMode == ItemMode.SELECTABLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/desc"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible"/>
+
+    </com.ick.kalambury.list.views.WordsSetListItem>
+</layout>

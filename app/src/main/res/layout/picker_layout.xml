@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout"
+    tools:viewBindingIgnore="true">
+
+    <EditText
+        android:id="@+id/picker_value"
+        android:layout_width="@dimen/chooser_width"
+        android:layout_height="@dimen/chooser_height"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:editable="false"
+        android:gravity="center"
+        android:importantForAutofill="noExcludeDescendants"
+        android:inputType="none"
+        android:textSize="@dimen/menu_title_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/picker_add"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/picker_subtract"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="LabelFor"
+        tools:text="15" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/picker_subtract"
+        android:layout_width="@dimen/menu_image_button_width"
+        android:layout_height="@dimen/menu_image_button_height"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_remove_circle_outline_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/picker_value"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/picker_add"
+        android:layout_width="@dimen/menu_image_button_width"
+        android:layout_height="@dimen/menu_image_button_height"
+        android:background="?selectableItemBackgroundBorderless"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_add_circle_outline_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/picker_value"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+</merge>

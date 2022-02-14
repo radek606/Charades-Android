@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<import type="com.ick.kalambury.list.ListType.ItemMode"/>
+		<variable
+			name="data"
+			type="com.ick.kalambury.list.model.Player" />
+		<variable
+			name="itemMode"
+			type="ItemMode" />
+		<variable
+			name="isChecked"
+			type="Boolean" />
+	</data>
+
+	<com.ick.kalambury.list.views.PlayerListItem
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="?selectableItemBackground"
+		android:focusable="true"
+		android:minHeight="40dp">
+
+		<TextView
+			android:id="@+id/name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:textAppearance="?android:attr/textAppearanceListItem"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/points"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintHorizontal_chainStyle="spread_inside"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:name="@{data.name}"
+			app:active="@{data.active}"
+			app:operator="@{data.operator}"
+			app:winner="@{data.winner}"
+			tools:text="Player 1" />
+
+		<TextView
+			android:id="@+id/points"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:text="@{String.valueOf(data.points)}"
+			android:textAppearance="?android:attr/textAppearanceListItem"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toStartOf="@+id/checkbox"
+			app:layout_constraintHorizontal_bias="0.5"
+			app:layout_constraintStart_toEndOf="@+id/name"
+			app:layout_constraintTop_toTopOf="parent"
+			app:active="@{data.active}"
+			app:operator="@{data.operator}"
+			app:winner="@{data.winner}"
+			tools:text="10" />
+
+		<CheckBox
+			android:id="@+id/checkbox"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:checked="@{isChecked}"
+			android:clickable="false"
+			android:focusable="false"
+			app:goneUnless="@{itemMode == ItemMode.SELECTABLE}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:visibility="visible" />
+
+	</com.ick.kalambury.list.views.PlayerListItem>
+
+</layout>

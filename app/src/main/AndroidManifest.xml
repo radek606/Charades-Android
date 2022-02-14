@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.ick.kalambury">
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false" />
+    <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
+
+    <supports-screens
+        android:smallScreens="false"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name=".KalamburyApplication"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:appCategory="game"
+        android:isGame="true"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:supportsRtl="true"
+        android:resizeableActivity="false"
+        android:theme="@style/AppTheme"
+        tools:ignore="UnusedAttribute">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="unused" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
+
+        <meta-data
+            android:name="google_analytics_default_allow_ad_personalization_signals"
+            android:value="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/mma_ltb_title"
+            android:screenOrientation="user"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".drawing.GameActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme.FullScreen"
+            android:configChanges="locale|keyboard|keyboardHidden|screenLayout|fontScale|uiMode|orientation|density|screenSize|smallestScreenSize"
+            tools:ignore="LockedOrientationActivity" />
+
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.WorkManagerInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.AdsInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.CrashHandlingInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.LogInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.PeriodicTasksInitializer"
+                android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.StrictModeInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.ick.kalambury.util.ViewBindingConverters" />
+        <import type="com.ick.kalambury.list.model.Connectable" />
+        <import type="com.ick.kalambury.list.ListType.ItemMode"/>
+        <variable
+            name="data"
+            type="com.ick.kalambury.list.model.TableData" />
+        <variable
+            name="itemMode"
+            type="ItemMode" />
+        <variable
+            name="isChecked"
+            type="Boolean" />
+    </data>
+
+    <com.ick.kalambury.list.views.TableListItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/jlr_ltf_room_name(data.text)}"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="#Table 1" />
+
+        <TextView
+            android:id="@+id/players"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:layout_marginTop="4dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/lang"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            app:players="@{data.players}"
+            app:playersLimit="@{data.playersLimit}"
+            tools:text="Players: 5/10" />
+
+        <TextView
+            android:id="@+id/lang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="4dp"
+            android:text="@{@string/jlr_ltf_lang(data.lang)}"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/checkbox"
+            app:layout_constraintStart_toEndOf="@+id/players"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            tools:text="Language: PL" />
+
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{@string/jlr_ltf_points(data.points)}"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/time"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/players"
+            tools:text="Points: 5" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{@string/jlr_ltf_time(ViewBindingConverters.secondsToTime(data.roundTime))}"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/checkbox"
+            app:layout_constraintStart_toEndOf="@+id/points"
+            app:layout_constraintTop_toBottomOf="@id/lang"
+            tools:text="Time: 2:00 m" />
+
+        <TextView
+            android:id="@+id/operator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{@string/jlr_ltf_operator(data.operator)}"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            app:goneUnless="@{data.operator != null}"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/points"
+            tools:text="Operator: Player_4321"
+            tools:visibility="visible" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:checked="@{isChecked}"
+            android:clickable="false"
+            android:focusable="false"
+            app:goneUnless="@{itemMode == ItemMode.SELECTABLE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:orientation="horizontal"
+            app:goneUnless="@{((Connectable) data).connecting}"
+            app:layout_constraintStart_toStartOf="@id/name"
+            app:layout_constraintTop_toBottomOf="@id/operator"
+            app:layout_constraintEnd_toStartOf="@id/checkbox"
+            tools:visibility="visible">
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                app:indicatorSize="24dp"
+                app:indicatorColor="@color/secondaryColor"/>
+
+            <TextView
+                android:id="@+id/progress_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="@string/dialog_connecting_simple"/>
+
+        </LinearLayout>
+
+    </com.ick.kalambury.list.views.TableListItem>
+
+</layout>

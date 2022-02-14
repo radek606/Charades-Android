@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package kalambury;
+
+option java_package = "com.ick.kalambury.entities";
+option java_outer_classname = "ConnectionProtos";
+option java_multiple_files = true;
+
+message ConnectionData {
+  string endpoint = 1;
+  string nickname = 2;
+  string uuid = 3;
+  int32 version = 4;
+}
+
+message EndpointData {
+  string id = 1;
+  string name = 2;
+  int32 minVersionCode = 3;
+  string minVersionName = 4;
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
+        <item name="colorSecondary">@color/secondaryColor</item>
+        <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
+        <item name="colorOnSecondary">@color/onSecondaryColor</item>
+        
+        <item name="colorControlHighlight">?attr/colorSecondary</item>
+
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+
+        <item name="android:windowLightStatusBar" tools:targetApi="23">@bool/use_light_system_bars</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">@bool/use_light_system_bars</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/nav_bar_scrim</item>
+
+        <item name="appBarLayoutStyle">@style/AppTheme.Widget.AppBar</item>
+        <item name="materialCardViewStyle">@style/AppTheme.Widget.CardView</item>
+        <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialog.Theme</item>
+    </style>
+
+    <style name="AppTheme.FullScreen" parent="@style/AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="AppTheme.AlertDialog.Theme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="dialogPreferredPadding">24dp</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/AppTheme.AlertDialog.TitleText</item>
+        <item name="materialAlertDialogTitlePanelStyle">@style/AppTheme.AlertDialog.TitlePanel</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/AppTheme.AlertDialog.BodyText</item>
+        <item name="buttonBarStyle">@style/AppTheme.AlertDialog.ButtonBar</item>
+    </style>
+
+</resources>

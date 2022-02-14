@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content xmlns:tools="http://schemas.android.com/tools">
+    <exclude domain="file" path="words" tools:ignore="FullBackupContent"/>
+</full-backup-content>

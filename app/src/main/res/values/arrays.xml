@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <integer-array name="line_weights_dp">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>8</item>
+        <item>10</item>
+    </integer-array>
+
+    <string-array name="language_names">
+        <item>English</item>
+        <item>Polish</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>en</item>
+        <item>pl</item>
+    </string-array>
+
+</resources>

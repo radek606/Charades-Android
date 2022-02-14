@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/mainMenuFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ick.kalambury.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings"/>
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <dialog
+        android:id="@+id/text_input_dialog"
+        android:name="com.ick.kalambury.TextInputDialogFragment"
+        android:label="NicknameInputDialog"
+        tools:layout="@layout/dialog_text_input">
+        <argument
+            android:name="title"
+            android:defaultValue="0"
+            app:argType="reference" />
+        <argument
+            android:name="buttonText"
+            android:defaultValue="@android:string/ok"
+            app:argType="reference" />
+        <argument
+            android:name="inputLengthLimit"
+            android:defaultValue="30"
+            app:argType="integer" />
+        <argument
+            android:name="defaultText"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true"/>
+    </dialog>
+    <action
+        android:id="@+id/action_global_text_input_dialog"
+        app:destination="@id/text_input_dialog"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/submitDebugLogFragment"
+        android:name="com.ick.kalambury.logsubmit.SubmitDebugLogFragment"
+        android:label="SubmitDebugLogFragment"
+        tools:layout="@layout/fragment_submit_debug_log" />
+    <action
+        android:id="@+id/action_global_submitDebugLogFragment"
+        app:destination="@id/submitDebugLogFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <activity
+        android:id="@+id/play_store"
+        app:action="android.intent.action.VIEW"
+        app:data="market://details?id=com.ick.kalambury"/>
+    <action
+        android:id="@+id/action_global_play_store"
+        app:destination="@id/play_store"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.ick.kalambury.MainMenuFragment"
+        android:label="MainMenuFragment"
+        tools:layout="@layout/fragment_main_menu">
+        <action
+            android:id="@+id/main_menu_fragment_to_create_game"
+            app:destination="@id/create_game_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="gameMode"
+                android:defaultValue="SHOWING"
+                app:argType=".GameMode"/>
+        </action>
+        <action
+            android:id="@+id/action_mainMenuFragment_to_joinLocalGameFragment"
+            app:destination="@id/joinLocalGameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_joinOnlineGameFragment"
+            app:destination="@id/joinOnlineGameFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <navigation android:id="@+id/create_game_nav"
+        app:startDestination="@id/createFragment">
+
+        <fragment
+            android:id="@+id/createFragment"
+            android:name="com.ick.kalambury.create.CreateGameFragment"
+            android:label="CreateFragment"
+            tools:layout="@layout/fragment_create">
+            <action
+                android:id="@+id/action_createFragment_to_selectCategoriesFragment"
+                app:destination="@id/selectCategoriesFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            <action
+                android:id="@+id/action_createFragment_to_gameActivity"
+                app:destination="@id/gameActivity"
+                app:popUpTo="@id/mainMenuFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            <action
+                android:id="@+id/action_createFragment_to_showingFragment"
+                app:destination="@id/showingFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+                <argument
+                    android:name="gameConfig"
+                    app:argType="com.ick.kalambury.GameConfig" />
+            </action>
+            <action
+                android:id="@+id/action_createFragment_to_mainMenuFragment"
+                app:popUpTo="@id/mainMenuFragment"
+                app:popUpToInclusive="true"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/selectCategoriesFragment"
+            android:name="com.ick.kalambury.create.SelectCategoriesFragment"
+            android:label="SelectCategoriesFragment"
+            tools:layout="@layout/fragment_select_categories"/>
+
+    </navigation>
+
+    <fragment
+        android:id="@+id/joinLocalGameFragment"
+        android:name="com.ick.kalambury.join.JoinLocalGameFragment"
+        android:label="JoinLocalGameFragment"
+        tools:layout="@layout/fragment_join_local">
+        <action
+            android:id="@+id/action_joinLocalGameFragment_to_gameActivity"
+            app:destination="@id/gameActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/joinOnlineGameFragment"
+        android:name="com.ick.kalambury.join.JoinOnlineGameFragment"
+        android:label="JoinOnlineGameFragment"
+        tools:layout="@layout/fragment_join_online">
+        <action
+            android:id="@+id/action_joinOnlineGameFragment_to_create_game"
+            app:destination="@id/create_game_nav"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" >
+            <argument
+                android:name="gameMode"
+                android:defaultValue="DRAWING_ONLINE"
+                app:argType=".GameMode"/>
+        </action>
+        <action
+            android:id="@+id/action_joinOnlineGameFragment_to_gameActivity"
+            app:destination="@id/gameActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <activity
+        android:id="@+id/gameActivity"
+        android:name="com.ick.kalambury.drawing.GameActivity"
+        android:label="GameFragment"
+        tools:layout="@layout/activity_game"/>
+
+    <fragment
+        android:id="@+id/showingFragment"
+        android:name="com.ick.kalambury.showing.ShowingFragment"
+        android:label="ShowingFragment"
+        tools:layout="@layout/fragment_showing">
+        <argument
+            android:name="gameConfig"
+            app:argType="com.ick.kalambury.GameConfig" />
+    </fragment>
+
+</navigation>

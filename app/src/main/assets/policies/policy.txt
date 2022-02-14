@@ -1,0 +1,30 @@
+﻿POLITYKA PRYWATNOŚCI
+
+1. Niniejsza polityka prywatności określa jakiego rodzaju dane dotyczące Użytkownika są pobierane w trakcie korzystania z Aplikacji Kalambury Online, kto pobiera te dane i w jakim celu są one następnie wykorzystywane.
+
+2. Korzystając z Aplikacji Użytkownik oświadcza, że zapoznał się z treścią i wyraża zgodę na postanowienia niniejszej Polityki Prywatności.
+
+3. Aplikacja nie zbiera danych osobowych ani wrażliwych, pozwalających na identyfikację Użytkownika.
+
+4. Na potrzeby dostarczania reklam Aplikacja korzysta z oprogramowania Google Admob. Oprogramowanie to pobiera Google Advertising ID tego urządzenia, czyli unikalny, anonimowy, możliwy do zresetowania przez Użytkownika identyfikator przypisywany przez system.
+
+5. Aplikacja nie stosuje personalizacji reklam. (Nie zbiera historii przeglądania czy podobnych danych, używanych do wyświetlania reklam dopasowanych do zainteresowań Użytkownika).
+
+6. Aplikacja (po wcześniejszym uzyskaniu zgody od Użytkownika), może wykorzystywać dane o lokalizacji urządzenia na potrzeby realizacji funkcji lokalnej gry wieloosobowej. Brak zgody uniemożliwia korzystanie z tego trybu gry, jednak pozostałe opcje są nadal dostępne. Zgoda na dostęp do lokalizacji może być w dowolnym momencie cofnięta przez Użytkownika, poprzez zmianę ustawień urządzenia.
+
+7. W Aplikacji zintegrowany jest kod, który automatycznie zbiera podstawowe dane o urządzeniu oraz aktywności użytkownika w aplikacji. Dane te mogą obejmować: markę, model oraz podstawowe parametry urządzenia (np. rozdzielczość ekranu), wersję systemu operacyjnego, adres IP, język i strefę czasową, przybliżoną lokalizację (na podstawie danych operatora sieci komórkowej lub dostawcy usług internetowych - zależnie od ustawień urządzenia), odwiedzone ekrany oraz zdarzenia w Aplikacji, (np. pierwsze uruchomienie, dołączenie do stołu itp.)
+
+8. Powyższe dane są zbierane, administrowane i anonimowo przetwarzane przez usługi analityczne Google Analytics oraz Firebase Crashlytics. Dane te służą wyłącznie do analizy sposobu używania Aplikacji oraz wykrywania błędów, co pozwala na poprawianie jakości aplikacji. Zakres wymienionych danych jak sposób ich przetwarzania uniemożliwia identyfikację Użytkownika.
+
+9. Precyzyjne informacje dotyczące zbierania i przetwarzania danych przez usługi trzecie, można znaleźć w polityce prywatności danej usługi:
+ - Google AdMob (https://www.google.com/policies/privacy/)
+ - Google Analytics for Firebase (https://firebase.google.com/policies/analytics)
+ - Firebase Crashlytics (https://firebase.google.com/support/privacy/)
+
+10. Użytkownik ma prawo dostępu, sprostowania, ograniczenia, usunięcia lub przenoszenia swoich danych. Ze względu na zakres i anonimowość zbieranych danych, identyfikacja Użytkownika niezbędna do realizacji przysługujących mu praw, może być utrudniona lub niemożliwa oraz może wymagać udzielenia określonych informacji lub przedstawienia dokumentów oraz urządzenia mobilnego.
+
+11. Na zbieranie i przetwarzanie danych Użytkownik może wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych. 
+
+12. W przypadku pytań dotyczących niniejszej Polityki Prywatności proszę o kontakt poprzez formularz kontaktowy w Aplikacji.
+
+13. Ostatnia aktualizacja niniejszej Polityki Prywatności nastąpiła dnia 24 lutego 2021 roku.

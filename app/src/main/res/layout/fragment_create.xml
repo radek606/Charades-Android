@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ick.kalambury.create.CreateGameViewModel" />
+        <variable
+            name="gameMode"
+            type="com.ick.kalambury.GameMode" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:theme="@style/AppTheme.Widget.Toolbar.ColoredAction"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:menu="@menu/ca_toolbar_options" >
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/create_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:indeterminate="true"
+                    android:indeterminateOnly="true"
+                    android:clickable="false"
+                    app:indicatorColor="@color/secondaryColor"
+                    app:goneUnless="@{viewModel.createInProgress}"/>
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <include
+            android:id="@+id/content"
+            layout="@layout/fragment_create_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:viewModel="@{viewModel}"
+            app:gameMode="@{gameMode}"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

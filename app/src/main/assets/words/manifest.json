@@ -1,0 +1,56 @@
+{
+  "version": 0,
+  "sets": [
+    {
+      "id": "a92b46b6",
+      "version": 0,
+      "name": "Czynności",
+      "description": "50 nazw różnych codziennych czynności.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "0f60b9b1",
+      "version": 0,
+      "name": "Professions",
+      "description": "Contains over 80 names of professions.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "ce230694",
+      "version": 0,
+      "name": "Sport",
+      "description": "Contains over 40 names of sports and team games.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    }
+  ]
+}

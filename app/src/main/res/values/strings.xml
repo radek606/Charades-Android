@@ -1,0 +1,230 @@
+<resources>
+    <string name="app_name">Charades</string>
+
+    <string name="player_operator_label">%s (op)</string>
+
+    <string name="activity_main_button_generator">Words generator</string>
+    <string name="activity_main_button_create_local">Create local game</string>
+    <string name="activity_main_button_join_local">Join local game</string>
+    <string name="activity_main_button_play_online">Play online</string>
+    <string name="activity_main_button_settings">Settings</string>
+    <string name="activity_main_button_help">Help</string>
+
+    <string name="mma_ltb_title">Charades</string>
+
+    <string name="ca_ltb_game_title">Create new game</string>
+    <string name="ca_ltb_table_title">Create new table</string>
+    <string name="ca_lcvtf_time_drawing">Time for drawing:</string>
+    <string name="ca_lcvtf_time_showing">Time for showing:</string>
+    <string name="ca_lcvtf_number_of_rounds">Points limit:</string>
+    <string name="ca_lcvtf_drawing_player_choose_mode">Next drawing player:</string>
+    <string name="ca_lcvtf_selected_cats">Selected categories:</string>
+    <string name="ca_lcvtf_new_cats_info">New categories available.</string>
+    <string name="ca_lcvtf_start">Start</string>
+    <string name="ca_lcvtf_create">Create</string>
+    <string name="ca_ltbo_settings">Settings</string>
+    <string-array name="drawing_player_choose_modes">
+        <item>The one who guessed</item>
+        <item>Longest waiting player</item>
+        <item>Random player</item>
+    </string-array>
+    <string name="ca_lcvb_edit_categories">Edit</string>
+    <string name="ca_category_label_new">New</string>
+    <string name="ca_category_label_updated">New words</string>
+
+    <string name="sca_ltb_title">Select categories</string>
+    <string name="sca_ltbo_select_all">Select all</string>
+    <string name="sca_ltbo_save">Save</string>
+
+    <string name="ja_ltb_title_local">Join the game</string>
+    <string name="ja_ltb_title_online">Join the game</string>
+    <string name="ja_ltb_subtitle_local">Choose host device:</string>
+    <string name="ja_ltb_subtitle_online">Choose available table:</string>
+    <string name="ja_ltbo_refresh">Refresh</string>
+
+    <string name="ja_ltb_tables_default">Public</string>
+    <string name="ja_ltb_tables_public">Players\' own</string>
+
+    <string name="oa_ltb_title">Settings</string>
+    <string name="oa_c_game">Game</string>
+    <string name="oa_c_others">Others</string>
+    <string name="oa_c_about">About</string>
+    <string name="oa_o_language">Words language</string>
+    <string name="oa_o_line_number">Chat size</string>
+    <string name="oa_o_line_number_desc">Number of displayed chat lines</string>
+    <string name="oa_o_show_category">Show category names</string>
+    <string name="oa_o_show_category_desc">If enabled, category name for current word will be visible for all players.</string>
+    <string name="oa_o_vibrate">Warn on time end</string>
+    <string name="oa_o_vibrate_desc">If enabled, phone will vibrate one time, 15 seconds before time for drawing/showing will end and 3 times at the end.</string>
+    <string name="oa_o_vibrate_denied">Vibration unavailable</string>
+    <string name="oa_o_send_usage_statistics_title">Send anonymous usage statistics</string>
+    <string name="oa_o_suggest_pass">Suggest a word</string>
+    <string name="oa_o_suggest_pass_confirmation">Suggestion sent. Thanks!</string>
+    <string name="oa_o_rate_app">Rate app</string>
+    <string name="oa_o_about">About</string>
+    <string name="oa_o_pivacy_policy">Privacy Policy</string>
+    <string name="oa_o_submit_logs">Debug logs</string>
+
+    <string name="sdlf_title">Debug log</string>
+    <string name="sdlf_menu_submit">Submit</string>
+    <string name="sdlf_note">This log will be send to app developer for review. You may examine it before uploading.</string>
+
+    <string name="aa_ltf_version">Version: %1$s (%2$d)</string>
+    <string name="aa_ltf_contact"><![CDATA[<b><u>Contact</u></b>]]></string>
+    <string name="aa_ltf_action_send">Send mail…</string>
+    <string name="aa_ltf_action_send_subject">Charades - %s</string>
+    <string name="aa_ltf_action_send_choose_subject">Message subject:</string>
+    <string-array name="aa_email_subjects">
+        <item>Question</item>
+        <item>Suggestion</item>
+        <item>Error report</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="pa_ltb_title">Privacy policy</string>
+
+    <string name="jlr_ltf_room_name">Table %s</string>
+    <string name="jlr_ltf_players">Players: %1$d/%2$d</string>
+    <string name="jlr_ltf_lang">Language: %s</string>
+    <string name="jlr_ltf_points">Points: %d</string>
+    <string name="jlr_ltf_time">Time: %s m</string>
+    <string name="jlr_ltf_operator">Op: %s</string>
+
+    <string name="sa_ltb_title">Showing</string>
+    <string name="sa_ltf_category">Category: %s</string>
+    <string name="sa_ltf_timer_end">TIME\'S UP</string>
+    <string name="sa_ltbo_draw_word">Next word</string>
+    <string name="sa_ltf_password_init_val">Press \"NEXT WORD\" to start.</string>
+
+    <string name="menu_players">Players list</string>
+    <string name="menu_kick">Kick player</string>
+    <string name="menu_full_chat_open">Open full chat</string>
+    <string name="menu_full_chat_close">Close full chat</string>
+    <string name="menu_write">Write in chat</string>
+    <string name="menu_abandon">Resign</string>
+    <string name="menu_exit">Leave</string>
+
+    <string name="da_password" formatted="false"><![CDATA[Word: <b>%s</b> (%s)]]></string>
+    <string name="ga_drawing_player" formatted="false"><![CDATA[Is drawing: <b>%s</b>]]></string>
+    <string name="ga_points_limit">Points limit: %d</string>
+    <string name="ga_table_name" formatted="false"><![CDATA[Table: <b>%s</b>]]></string>
+    <string name="ga_table_name_and_points" formatted="false"><![CDATA[Table: <b>%s</b> (max %d pts.)]]></string>
+    <string name="ga_answer_hint">Enter answer</string>
+    <string name="ga_message_hint">Message</string>
+
+    <string name="chat_msg_player_join" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> joined the game</i></font>]]></string>
+    <string name="chat_msg_player_left" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> left</i></font>]]></string>
+    <string name="chat_msg_player_kicked" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> kicked</i></font>]]></string>
+    <string name="chat_msg_player_draw" formatted="false"><![CDATA[<font color=\'blue\'><i><b>%s</b> is drawing</i></font>]]></string>
+    <string name="chat_msg_player_guess" formatted="false"><![CDATA[<font color=\'blue\'><i><b>%s</b> guessed password: \"%s\"</i></font>]]></string>
+    <string name="chat_msg_player_answer" formatted="false"><![CDATA[<b>%s</b>: %s]]></string>
+    <string name="chat_msg_player_abandon" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> resigned</i></font>]]></string>
+    <string name="chat_msg_player_inactive" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> inactive for too long</i></font>]]></string>
+    <string name="chat_msg_player_won" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> won!</i></font>]]></string>
+    <string name="chat_msg_password" formatted="false"><![CDATA[<font color=\'gray\'><i>word to guess: </i>%s</font>]]></string>
+    <string name="chat_msg_close_answer" formatted="false"><![CDATA[<font color=\'gray\'><i>close: </i>%s</font>]]></string>
+    <string name="chat_msg_waiting" formatted="false"><![CDATA[<font color=\'gray\'><i>Waiting for other players…</i></font>]]></string>
+    <string name="chat_msg_time_up" formatted="false"><![CDATA[<font color=\'red\'><i>time is up!</i></font>]]></string>
+    <string name="chat_msg_hint" formatted="false"><![CDATA[<font color=\'gray\'><i>word to guess starts with: </i><b>%s</b></font>]]></string>
+    <string name="chat_msg_inactivity_warn" formatted="false"><![CDATA[<font color=\'red\'><b>Inactivity warn</b></font>]]></string>
+    <string name="chat_msg_little_time_warn" formatted="false"><![CDATA[<font color=\'red\'><b>Time is running out!</b></font>]]></string>
+    <string name="chat_msg_new_operator" formatted="false"><![CDATA[<font color=\'gray\'><i><b>%s</b> is new table operator</i></font>]]></string>
+    <string name="chat_msg_plain" formatted="false"><![CDATA[<font color=\'gray\'><i>%s</i></font>]]></string>
+
+    <string name="dialog_nickname_title">Your nickname:</string>
+
+    <string name="dialog_write_to_chat_title">Write to chat</string>
+
+    <string name="dialog_suggest_pass_title">Suggest a word</string>
+
+    <string name="dialog_speech_result_title">Choose matching text:</string>
+
+    <string name="dialog_connecting_simple">Connecting…</string>
+
+    <string name="dialog_creating_simple">Creating…</string>
+    <string name="dialog_creating_table">Creating table…</string>
+
+    <string name="dialog_players_winner">Winner: %s</string>
+    <string name="dialog_players_title">Players list:</string>
+    <string name="dialog_players_list_nick">Nick:</string>
+    <string name="dialog_players_list_points">Scores:</string>
+
+    <string name="dialog_kick_players_title">Select players:</string>
+
+    <string name="alert_wifi_not_enabled">No internet connection.</string>
+
+    <string name="alert_permission_localization_request_message">Local game mode uses Wi-Fi and Bluetooth to let players connect but to be able to use Bluetooth, app will ask for location permission.</string>
+    <string name="alert_permission_localization_denied_message">Location permission permanently denied. Local game options will become unavailable until location permission will be granted.</string>
+
+    <string name="alert_speech_not_supported_message">Your device doesn\'t support voice recognition.</string>
+
+    <string name="alert_advertising_failed">Could not start game. Please try again later.</string>
+
+    <string name="alert_host_terminated">Host player ended game.\nReturn to main menu.</string>
+    <string name="alert_connection_lost">Connection failed.\nReturn to main menu.</string>
+    <string name="alert_app_backgrounded">Disconnected due to inactivity.\nReturn to main menu.</string>
+    <string name="alert_kicked">You\'ve been kicked.\nReturn to main menu.</string>
+
+    <string name="alert_nothing_found">Nothing found.</string>
+    <string name="alert_nothing_found_action">Retry</string>
+
+    <string name="alert_create_table_failed_title">Error</string>
+    <string name="alert_create_table_failed_message">Create table failed. Please try again later.</string>
+
+    <string name="snackbar_kicked">You\'ve been kicked. You can\'t join this table again until current game ends.</string>
+    <string name="snackbar_player_limit_exceeded">Table is full. Choose another table.</string>
+    <string name="snackbar_table_not_found">Table not found. Choose another table.</string>
+    <string name="snackbar_connection_fail">Connection failed, please try again later.</string>
+
+    <string name="alert_discovery_failed_message">Could not start discovering hosts. Please try again later.</string>
+
+    <string name="alert_empty_input">Field can\'t be empty.</string>
+
+    <string name="alert_old_version_title">Incompatible app version</string>
+    <string name="alert_old_version_message_plain">
+		Players with different versions of the game can\'t connect to each other.
+		Check if update is available or if you have the latest version, recommend update to other players.
+    </string>
+    <string name="alert_old_version_message_detailed">
+        Your version: %1$s, server requires: %2$s or newer. Update app to be able to join.
+    </string>
+    <string name="alert_old_version_update">Check for update</string>
+    <string name="alert_old_version_cancel">Cancel</string>
+
+    <string name="alert_clear_message">Clear the screen?</string>
+
+    <string name="alert_abandon_message">Give up drawing? This will cause a point loss.</string>
+
+    <string name="alert_close_message">Do you want to leave?</string>
+    <string name="alert_close_message_sever">Do you want to leave the current game?\n\nThis will cause the end of the game for the rest of the players.</string>
+
+    <string name="alert_choose_categories">Choose at least one category.</string>
+
+    <string name="alert_empty_nickname">Nickname can\'t be empty.</string>
+
+    <string name="alert_create_game_failed">Create game failed. Please try again later.</string>
+
+    <string name="alert_crash_title">Crash report</string>
+    <string name="alert_crash_message">App crashed last time. Do you want to send a report? It will help to fix this problems.</string>
+
+    <string name="log_submit_success_toast">Report sent. Thanks!</string>
+    <string name="log_submit_already_sent_toast">Already submitted. Thanks!</string>
+    <string name="log_submit_to_many_requests_toast">To many tries, please try again later.</string>
+    <string name="log_submit_failed_toast">Submit failed, please try again later.</string>
+
+    <string name="dialog_button_continue">Continue</string>
+    <string name="dialog_button_send">Send</string>
+    <string name="dialog_button_close">Close</string>
+    <string name="dialog_button_leave">Leave</string>
+    <string name="dialog_button_kick">Kick</string>
+
+    <string name="alert_no_internet">Internet connection required. To be able to play, enable Wi-Fi or mobile data.</string>
+
+    <string name="in_app_update_downloading_text">Downloading update…</string>
+    <string name="in_app_update_ready_text">Update ready to install.</string>
+    <string name="in_app_update_ready_action">Update</string>
+
+    <string name="yes">yes</string>
+    <string name="no">no</string>
+
+</resources>
