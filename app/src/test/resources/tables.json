@@ -1,0 +1,53 @@
+{
+  "tables": {
+    "PUBLIC": [
+      {
+        "id": "4cabde58",
+        "kind": "PUBLIC",
+        "name": "dev#200",
+        "pointsLimit": 5,
+        "maxPlayers": 10,
+        "playersCount": 1,
+        "roundTime": 120,
+        "language": "pl",
+        "operatorName": "1_c32687ad"
+      }
+    ],
+    "PRIVATE": [],
+    "DEFAULT": [
+      {
+        "id": "dev-1",
+        "kind": "DEFAULT",
+        "name": "dev#100",
+        "pointsLimit": 5,
+        "maxPlayers": 10,
+        "playersCount": 0,
+        "roundTime": 120,
+        "language": "pl",
+        "operatorName": null
+      },
+      {
+        "id": "dev-2",
+        "kind": "DEFAULT",
+        "name": "dev#101",
+        "pointsLimit": 10,
+        "maxPlayers": 10,
+        "playersCount": 2,
+        "roundTime": 120,
+        "language": "pl",
+        "operatorName": null
+      },
+      {
+        "id": "dev-11",
+        "kind": "DEFAULT",
+        "name": "dev#102",
+        "pointsLimit": 5,
+        "maxPlayers": 10,
+        "playersCount": 5,
+        "roundTime": 180,
+        "language": "en",
+        "operatorName": null
+      }
+    ]
+  }
+}

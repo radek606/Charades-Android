@@ -5,4 +5,11 @@ data class User(
     val uuid: String,
     val nickname: String,
     var connectionState: ConnectionState = ConnectionState.CONNECTING
-)
+) {
+
+    constructor(
+        uuid: String,
+        nickname: String,
+    ): this(uuid, uuid, nickname)
+
+}

@@ -9,25 +9,24 @@ import com.ick.kalambury.R
 import com.ick.kalambury.TableKind
 import com.ick.kalambury.join.JoinGameNavigationActions.NavigateToCreateGame
 import com.ick.kalambury.list.model.TableData
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.api.RestApiManager
 import com.ick.kalambury.net.api.dto.TablesDto
 import com.ick.kalambury.service.GameEvent
 import com.ick.kalambury.service.GameEvent.State
 import com.ick.kalambury.service.GameHandlerRepository
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.SchedulerProvider
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
 class JoinOnlineGameViewModel @Inject constructor(
     private val apiManager: RestApiManager,
     gameHandlerRepository: GameHandlerRepository,
-) : JoinGameViewModel<TableData>(gameHandlerRepository) {
+    private val schedulers: SchedulerProvider,
+) : JoinGameViewModel<TableData>(gameHandlerRepository, schedulers) {
 
     override val gameMode = GameMode.DRAWING_ONLINE
 
@@ -36,8 +35,7 @@ class JoinOnlineGameViewModel @Inject constructor(
     private fun fetchTables() {
         _swipeRefreshing.value = true
         disposables += apiManager.getTables()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulers.main())
             .subscribe(::handleResult, ::handleError)
     }
 

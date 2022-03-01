@@ -10,12 +10,12 @@ import com.ick.kalambury.R
 import com.ick.kalambury.service.RxCountDownTimer
 import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.Label
+import com.ick.kalambury.util.SchedulerProvider
 import com.ick.kalambury.util.TimerMode
-import com.ick.kalambury.words.WordsRepository
+import com.ick.kalambury.words.InstanceId
+import com.ick.kalambury.wordsrepository.WordsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -24,6 +24,7 @@ class ShowingViewModel @Inject constructor(
     preferenceStorage: MainPreferenceStorage,
     private val wordsRepository: WordsRepository,
     private val vibrator: Vibrator?,
+    private val schedulerProvider: SchedulerProvider,
     stateHandle: SavedStateHandle,
 ) : BaseViewModel<Unit>() {
 
@@ -48,14 +49,17 @@ class ShowingViewModel @Inject constructor(
 
     private var gameTimer: RxCountDownTimer? = null
 
+    private val vibrate
+        get() = vibrator != null && vibrator.hasVibrator() && vibrationEnabled
+
     init {
         disposables += preferenceStorage.vibrationEnabled
             .firstOrError()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.main())
             .subscribe { state -> vibrationEnabled = state }
 
         disposables += wordsRepository.getWordsObservable()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.main())
             .subscribe { word ->
                 _categoryLabel.value = Label.res(R.string.sa_ltf_category, false, word.setName!!)
                 _wordLabel.value = Label.text(word.wordString)
@@ -63,7 +67,7 @@ class ShowingViewModel @Inject constructor(
     }
 
     fun onNextWord() {
-        wordsRepository.requestWord(gameConfig.gameMode, gameConfig.language)
+        wordsRepository.requestWord(InstanceId(gameConfig.gameMode, gameConfig.language))
         setGameTimer(gameConfig.roundTime)
     }
 
@@ -77,11 +81,11 @@ class ShowingViewModel @Inject constructor(
         _timerMode.value = TimerMode.NORMAL
         _timeUpLabel.value = null
 
-        gameTimer = object : RxCountDownTimer(seconds.toLong(), 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread()) {
+        gameTimer = object : RxCountDownTimer(seconds.toLong(), 1, TimeUnit.SECONDS, schedulerProvider.main()) {
             override fun onTick(tick: Long) {
                 _timer.value = tick.toInt()
-                if (tick == 15L && vibrator != null && vibrator.hasVibrator() && vibrationEnabled) {
-                    vibrator.vibrate(VIBRATE_SHORT, -1)
+                if (tick == 15L && vibrate) {
+                    vibrator!!.vibrate(VIBRATE_SHORT, -1)
                 }
                 if (tick <= 15L) {
                     _timerMode.value = TimerMode.WARN
@@ -91,8 +95,8 @@ class ShowingViewModel @Inject constructor(
             override fun onFinish() {
                 _timerMode.value = TimerMode.GONE
                 _timeUpLabel.value = Label.res(R.string.sa_ltf_timer_end)
-                if (vibrator != null && vibrator.hasVibrator() && vibrationEnabled) {
-                    vibrator.vibrate(VIBRATE_LONG, -1)
+                if (vibrate) {
+                    vibrator!!.vibrate(VIBRATE_LONG, -1)
                 }
             }
         }.start()
@@ -102,8 +106,7 @@ class ShowingViewModel @Inject constructor(
         super.onCleared()
 
         gameTimer?.cancel()
-        wordsRepository.saveWordsInstance(gameConfig.gameMode, gameConfig.language)
-            .subscribeOn(Schedulers.io())
+        wordsRepository.saveWordsInstance(InstanceId(gameConfig.gameMode, gameConfig.language))
             .subscribe()
     }
 

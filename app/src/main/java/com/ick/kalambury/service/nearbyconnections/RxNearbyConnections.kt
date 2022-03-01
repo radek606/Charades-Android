@@ -4,9 +4,9 @@ import android.content.Context
 import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.connection.*
 import com.ick.kalambury.BuildConfig
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.service.MessageEvent
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.processors.PublishProcessor

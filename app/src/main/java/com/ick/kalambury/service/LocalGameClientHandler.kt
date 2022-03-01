@@ -7,17 +7,16 @@ import com.google.protobuf.InvalidProtocolBufferException
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.entities.connectionData
 import com.ick.kalambury.list.model.EndpointData
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.GameData
 import com.ick.kalambury.service.nearbyconnections.NearbyConnectionsEvent
 import com.ick.kalambury.service.nearbyconnections.RxClientNearbyConnections
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.plusAssign
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import com.ick.kalambury.entities.EndpointData as EndpointDataProto
 
@@ -36,7 +35,7 @@ class LocalGameClientHandler(
 
     init {
         disposables += connection.connectionEvents()
-            .observeOn(Schedulers.newThread())
+            .observeOn(handlerThreadScheduler)
             .subscribe(::handleNearbyConnectionsEvents)
     }
 

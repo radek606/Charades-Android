@@ -15,12 +15,12 @@ import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.R
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.remoteconfig.AppUpdateData
 import com.ick.kalambury.remoteconfig.RemoteConfigHelper
 import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.JsonUtils
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.snackbar
 import io.reactivex.rxjava3.core.Single
 import java.io.IOException

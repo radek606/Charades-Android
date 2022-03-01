@@ -1,10 +1,10 @@
 package com.ick.kalambury.service.websocket
 
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.exceptions.ConnectionException
 import com.ick.kalambury.net.connection.exceptions.MessageSendFailedException
 import com.ick.kalambury.service.MessageEvent
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.processors.PublishProcessor

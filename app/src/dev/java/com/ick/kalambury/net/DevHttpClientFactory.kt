@@ -1,6 +1,5 @@
 package com.ick.kalambury.net
 
-import android.content.Context
 import android.os.Build
 import com.ick.kalambury.BuildConfig
 import okhttp3.ConnectionSpec
@@ -9,13 +8,14 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.internal.immutableListOf
 import okhttp3.logging.HttpLoggingInterceptor
-import java.nio.charset.StandardCharsets
+import java.nio.charset.StandardCharsets.UTF_8
 import java.time.Duration
-import javax.inject.Inject
 
-class DevHttpClientFactory @Inject constructor() : HttpClientFactory {
+object DevHttpClientFactory : HttpClientFactory {
 
-    override fun create(context: Context, credentials: CredentialsProvider?): OkHttpClient {
+    private const val TIMEOUT_SECONDS = 60L
+
+    override fun create(trustStore: TrustStore, credentials: CredentialsProvider?): OkHttpClient {
         val builder = OkHttpClient.Builder()
             .connectionSpecs(immutableListOf(ConnectionSpec.CLEARTEXT))
             .readTimeout(Duration.ofSeconds(TIMEOUT_SECONDS))
@@ -31,19 +31,17 @@ class DevHttpClientFactory @Inject constructor() : HttpClientFactory {
         return builder.build()
     }
 
-    private fun createAuthorizationHeaderInterceptor(credentialsProvider: CredentialsProvider): Interceptor {
-        val credentials = basic(credentialsProvider.user,
-            credentialsProvider.password, StandardCharsets.UTF_8)
-        return Interceptor { chain: Interceptor.Chain ->
+    private fun createAuthorizationHeaderInterceptor(credentials: CredentialsProvider): Interceptor {
+        return Interceptor { chain ->
             chain.proceed(chain.request().newBuilder()
-                .addHeader("Authorization", credentials)
+                .addHeader("Authorization", basic(credentials.user, credentials.password, UTF_8))
                 .build())
         }
     }
 
     private fun createUserAgentHeaderInterceptor(): Interceptor {
         val userAgent = "Kalambury ${BuildConfig.VERSION_NAME} (API ${Build.VERSION.SDK_INT})"
-        return Interceptor { chain: Interceptor.Chain ->
+        return Interceptor { chain ->
             chain.proceed(chain.request().newBuilder()
                 .addHeader("User-Agent", userAgent)
                 .build())
@@ -54,10 +52,6 @@ class DevHttpClientFactory @Inject constructor() : HttpClientFactory {
         return HttpLoggingInterceptor().apply {
             setLevel(HttpLoggingInterceptor.Level.BASIC)
         }
-    }
-
-    companion object {
-        private const val TIMEOUT_SECONDS = 60L
     }
 
 }

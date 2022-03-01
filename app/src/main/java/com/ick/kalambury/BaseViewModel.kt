@@ -3,8 +3,8 @@ package com.ick.kalambury
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ick.kalambury.logging.Log
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 abstract class BaseViewModel<T> : ViewModel() {

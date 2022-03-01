@@ -7,8 +7,8 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.R
-import com.ick.kalambury.logging.Log
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 
 object RemoteConfigHelper {
 

@@ -1,18 +1,23 @@
 package com.ick.kalambury.words
 
+import com.ick.kalambury.wordsrepository.datasource.WordsSetDataSource
+import com.ick.kalambury.wordsrepository.model.WordsSet
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import java.io.InputStream
-import com.ick.kalambury.model.TestData
 import java.io.File
+import java.io.InputStream
 
 class MockWordsSetDataSource : WordsSetDataSource {
 
-    override fun getWordsSet(setId: String): Single<WordsSet> {
-        return Single.just(TestData.wordsSetsMap[setId]!!)
+    override fun getAssetsWordsSet(setId: String): Single<WordsSet> {
+        return Single.never()
     }
 
-    override fun getWordsSetDirectory(setId: String, createIfNecessary: Boolean): File {
+    override fun getLocalWordsSet(setId: String): Single<WordsSet> {
+        return Single.never()
+    }
+
+    override fun getLocalWordsSetDirectory(setId: String): File {
         TODO("Not yet implemented")
     }
 

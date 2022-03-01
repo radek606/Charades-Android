@@ -9,10 +9,10 @@ import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
 import com.google.android.play.core.install.model.InstallStatus
 import com.ick.kalambury.R
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.action
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.snackbar
 import io.reactivex.rxjava3.core.Single
 

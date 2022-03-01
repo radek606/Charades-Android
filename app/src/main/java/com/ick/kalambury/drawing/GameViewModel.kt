@@ -15,7 +15,6 @@ import com.ick.kalambury.R
 import com.ick.kalambury.entities.GameDataProtos
 import com.ick.kalambury.list.model.Player
 import com.ick.kalambury.list.model.SimpleData
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.ChatMessage
 import com.ick.kalambury.net.connection.model.DrawableData
@@ -28,11 +27,12 @@ import com.ick.kalambury.service.GameState
 import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.Label
 import com.ick.kalambury.util.LimitedMutableList
+import com.ick.kalambury.util.SchedulerProvider
 import com.ick.kalambury.util.TimerMode
-import com.ick.kalambury.util.logTag
-import com.ick.kalambury.words.Language
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
+import com.ick.kalambury.wordsrepository.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.plusAssign
 import javax.inject.Inject
 
@@ -41,6 +41,7 @@ class GameViewModel @Inject constructor(
     gameHandlerRepository: GameHandlerRepository,
     private val preferenceStorage: MainPreferenceStorage,
     private val messageFormatter: MessageFormatter,
+    private val schedulerProvider: SchedulerProvider,
 ) : BaseViewModel<Unit>() {
 
     enum class ViewTransitions {
@@ -141,17 +142,17 @@ class GameViewModel @Inject constructor(
 
     init {
         disposables += gameHandler.getGameEvents()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::handleGameEvents)
+            .observeOn(schedulerProvider.main())
+            .subscribe(::handleGameEvents)
 
         disposables += preferenceStorage.localUserData
-                .firstOrError()
-                .doAfterSuccess { self = it }
-                .flatMap { preferenceStorage.chatSize.firstOrError() }
-                .doAfterSuccess { lastMessages = LimitedMutableList(it) }
-                .flatMapCompletable { gameHandler.ready() }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+            .firstOrError()
+            .doAfterSuccess { self = it }
+            .flatMap { preferenceStorage.chatSize.firstOrError() }
+            .doAfterSuccess { lastMessages = LimitedMutableList(it) }
+            .flatMapCompletable { gameHandler.ready() }
+            .observeOn(schedulerProvider.main())
+            .subscribe()
 
         val config = gameHandler.config
         if (config.name.isNullOrEmpty()) {

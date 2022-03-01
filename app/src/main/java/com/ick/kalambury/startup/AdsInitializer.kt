@@ -1,11 +1,11 @@
 package com.ick.kalambury.startup
 
 import android.content.Context
-import android.util.Log
 import androidx.startup.Initializer
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 
 class AdsInitializer : Initializer<Unit> {
 

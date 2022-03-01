@@ -9,6 +9,7 @@ object Versions {
 
     const val APPCOMPAT = "1.3.1"
     const val CORE_KTX = "1.6.0"
+    const val ANNOTATION = "1.3.0"
 
     const val FRAGMENT = "1.3.6"
     const val BROWSER = "1.3.0"
@@ -54,7 +55,10 @@ object Versions {
 
     const val AUTO_VALUE = "1.9"
 
+    const val ARCH_TESTING = "2.1.0"
+
     const val TESTING_JUNIT = "4.13.2"
     const val TESTING_MOCKITO = "4.2.0"
+    const val TESTING_MOCKITO_KTX = "4.0.0"
 
 }

@@ -82,8 +82,6 @@ inline val Number.toPx
         this.toFloat(),
         Resources.getSystem().displayMetrics)
 
-inline fun <reified T : Any> T.logTag(): String = this.javaClass.simpleName
-
 inline fun consume(f: () -> Unit): Boolean {
     f()
     return true

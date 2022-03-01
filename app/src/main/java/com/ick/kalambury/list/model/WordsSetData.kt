@@ -1,7 +1,7 @@
 package com.ick.kalambury.list.model
 
 import androidx.databinding.BaseObservable
-import com.ick.kalambury.words.WordsSetInfo
+import com.ick.kalambury.wordsrepository.WordsSetInfo
 
 data class WordsSetData(
         override val id: String,
@@ -12,13 +12,13 @@ data class WordsSetData(
         override val selected: Boolean = false,
 ) : ListableData, BaseObservable() {
 
-    constructor(info: WordsSetInfo, selected: Boolean = false) : this(
+    constructor(info: WordsSetInfo) : this(
         info.id,
         info.name,
         info.description,
-        info.isNew,
-        info.isUpdated,
-        selected
+        info.new,
+        info.updated,
+        info.selected
     )
 
 }

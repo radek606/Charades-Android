@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.ick.kalambury.BaseViewModel
 import com.ick.kalambury.Event
 import com.ick.kalambury.R
-import com.ick.kalambury.words.Language
+import com.ick.kalambury.wordsrepository.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.plusAssign
 import javax.inject.Inject
@@ -39,7 +39,7 @@ class SettingsViewModel @Inject constructor(
             .subscribe(_nickname::postValue)
 
         disposables += mainPreferenceStorage.wordsLanguage
-            .subscribe { _language.postValue(it.asString()) }
+            .subscribe { _language.postValue(it.toString()) }
 
         disposables += mainPreferenceStorage.chatSize
             .subscribe(_chatSize::postValue)

@@ -6,9 +6,9 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import com.ick.kalambury.MainNavDirections
 import com.ick.kalambury.R
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.showMessageDialog
 import io.reactivex.rxjava3.core.Single
 

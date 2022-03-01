@@ -3,10 +3,8 @@ package com.ick.kalambury.settings
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.GameMode
 import com.ick.kalambury.PlayerChooseMethod
-import com.ick.kalambury.model.TestData
 import com.ick.kalambury.net.connection.User
-import com.ick.kalambury.words.Language
-import io.reactivex.rxjava3.core.Completable
+import com.ick.kalambury.wordsrepository.Language
 import io.reactivex.rxjava3.core.Flowable
 import java.util.*
 
@@ -31,7 +29,6 @@ class MockMainPreferenceStorage(
     roundLength: Int = 120,
     pointsLimit: Int = 5,
     drawingPlayerChooseMethod: PlayerChooseMethod = PlayerChooseMethod.GUESSING_PLAYER,
-    selectedSets: List<String> = listOf(TestData.set2Id),
 ) : MainPreferenceStorage {
 
     private var _nickname = Flowable.just(nickname)
@@ -152,12 +149,6 @@ class MockMainPreferenceStorage(
         _drawingPlayerChooseMethod = Flowable.just(method)
     }
 
-    private var _selectedSets = Flowable.just(selectedSets)
 
-    override fun getSelectedWordsSets(instanceId: String): Flowable<List<String>> = _selectedSets
-    override fun setSelectedWordsSets(instanceId: String, sets: List<String>): Completable {
-        _selectedSets = Flowable.just(sets)
-        return Completable.complete()
-    }
 
 }

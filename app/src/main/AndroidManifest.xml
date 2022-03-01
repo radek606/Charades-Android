@@ -97,6 +97,9 @@
             <meta-data
                 android:name="com.ick.kalambury.startup.StrictModeInitializer"
                 android:value="androidx.startup" />
+            <meta-data
+                android:name="com.ick.kalambury.startup.WordsRepositoryInitializer"
+                android:value="androidx.startup" />
         </provider>
 
     </application>

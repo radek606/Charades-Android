@@ -1,9 +1,9 @@
 package com.ick.kalambury.service
 
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.GameData
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy

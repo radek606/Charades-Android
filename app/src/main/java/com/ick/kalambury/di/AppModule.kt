@@ -17,6 +17,6 @@ class AppModule {
     @Provides
     @Nullable
     fun provideVibratorService(@ApplicationContext context: Context): Vibrator? =
-        context.applicationContext.getSystemService()
+        context.getSystemService()
 
 }

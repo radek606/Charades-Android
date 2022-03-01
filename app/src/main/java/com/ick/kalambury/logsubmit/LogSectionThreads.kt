@@ -1,7 +1,5 @@
 package com.ick.kalambury.logsubmit
 
-import java.util.*
-
 class LogSectionThreads : LogSection {
 
     override val title: String
@@ -12,7 +10,7 @@ class LogSectionThreads : LogSection {
 
         Thread.getAllStackTraces()
             .keys
-            .sortedWith(Comparator.comparing(Thread::getId))
+            .sortedWith(compareBy(Thread::getId))
             .forEach {
                 builder.append("[").append(it.id).append("] ").append(it.name).appendLine()
             }

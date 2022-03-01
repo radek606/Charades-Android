@@ -4,7 +4,6 @@ import android.graphics.*
 import com.ick.kalambury.entities.GameDataProtos
 import com.ick.kalambury.entities.GameDataProtos.Drawable.Tool
 import com.ick.kalambury.util.toPx
-import java.util.*
 
 class DrawableData(
     private val strokeWidth: Int,

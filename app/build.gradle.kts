@@ -65,9 +65,7 @@ android {
 
         buildConfigField("int", "DRAWING_PLAYER_INACTIVITY_LIMIT_SECONDS", project.properties["drawing_player_inactivity_limit_seconds"] as String)
 
-        buildConfigField("String", "LOCAL_WORDS_ROOT_DIR", project.properties["local_words_root_dir"] as String)
-        buildConfigField("String", "LOCAL_WORDS_MANIFEST_FILE_NAME", project.properties["local_words_manifest_file_name"] as String)
-        buildConfigField("String", "LOCAL_WORDS_SET_FILE_NAME", project.properties["local_words_set_file_name"] as String)
+        buildConfigField("String", "WORDS_ROOT_DIR", project.properties["words_root_dir"] as String)
     }
 
     compileOptions {
@@ -154,9 +152,13 @@ kapt {
 }
 
 dependencies {
+    implementation(project(":words-repository"))
+    implementation(project(":util"))
+
     implementation(Libs.KOTLIN_REFLECT)
     implementation(Libs.KOTLIN_COROUTINES)
     implementation(Libs.KOTLIN_COROUTINES_ANDROID)
+    implementation(Libs.KOTLIN_COROUTINES_RXJAVA)
 
     implementation(Libs.CORE_KTX)
     implementation(Libs.APPCOMPAT)
@@ -219,12 +221,10 @@ dependencies {
     implementation(Libs.RXANDROID)
     implementation(Libs.RXKOTLIN)
 
-    implementation(Libs.JACKSON)
-    implementation(Libs.JACKSON_MODULE_KOTLIN)
-
     implementation(platform(Libs.OKHTTP_BOM))
     implementation(Libs.OKHTTP)
-    "devImplementation"(Libs.OKHTTP_LOGGING_INTERCEPTOR)
+    add("devImplementation", Libs.OKHTTP_LOGGING_INTERCEPTOR)
+    testImplementation(Libs.OKHTTP_MOCK_WEBSERVER)
 
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_CONVERTER_JACKSON)
@@ -235,8 +235,11 @@ dependencies {
     implementation(Libs.AUTO_VALUE_ANNOTATIONS)
     kapt(Libs.AUTO_VALUE_PROCESSOR)
 
+    testImplementation(Libs.ARCH_TESTING)
+
     testImplementation(Libs.TESTING_JUNIT)
     testImplementation(Libs.TESTING_MOCKITO)
+    testImplementation(Libs.TESTING_MOCKITO_KTX)
 }
 
 fun getTagName(): String {

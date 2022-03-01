@@ -7,7 +7,7 @@ import com.ick.kalambury.service.nearbyconnections.RxClientNearbyConnections
 import com.ick.kalambury.service.nearbyconnections.RxHostNearbyConnections
 import com.ick.kalambury.service.websocket.RxWebSocket
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.words.WordsRepository
+import com.ick.kalambury.wordsrepository.WordsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -23,9 +23,9 @@ class GameHandlersModule {
     @IntoMap
     @GameHandlerKey(mode = GameMode.DRAWING_LOCAL, host = true)
     fun provideLocalHostHandler(
-            connection: RxHostNearbyConnections,
-            wordsRepository: WordsRepository,
-            mainPreferenceStorage: MainPreferenceStorage,
+        connection: RxHostNearbyConnections,
+        wordsRepository: WordsRepository,
+        mainPreferenceStorage: MainPreferenceStorage,
     ): GameHandler {
         return LocalGameHostHandler(connection, wordsRepository, mainPreferenceStorage)
     }
@@ -69,7 +69,7 @@ class GameHandlersModule {
 abstract class GameHandlerRepositoryModule {
 
     @Binds
-    abstract fun provideGameHandlerRepository(repository: GameHandlerRepositoryImpl): GameHandlerRepository
+    abstract fun bindGameHandlerRepository(repository: GameHandlerRepositoryImpl): GameHandlerRepository
 
 }
 

@@ -1,11 +1,13 @@
 package com.ick.kalambury.logging
 
 import android.os.Looper
-import com.ick.kalambury.util.SchedulerProvider
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.Logger
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.kotlin.subscribeBy
+import io.reactivex.rxjava3.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.getOrSet
@@ -14,24 +16,22 @@ import android.util.Log as SystemLog
 class PersistentLogger(
     private val repository: LogFilesRepository,
     private val logTag: String,
-    schedulerProvider: SchedulerProvider,
+    private val scheduler: Scheduler = Schedulers.single(),
 ) : Logger() {
 
     private val cachedThreadString: ThreadLocal<String> = ThreadLocal()
 
-    private val sequentialScheduler: Scheduler = schedulerProvider.single()
-
     override fun log(priority: Log.Level, tag: String, message: String?, throwable: Throwable?) {
         for (entry in buildLogEntries(priority.toValue(), tag, message, throwable, threadString)) {
             repository.write(entry)
-                .subscribeOn(sequentialScheduler)
+                .subscribeOn(scheduler)
                 .subscribeBy(onError = { SystemLog.w(logTag(), "Failed to write line.") })
         }
     }
 
     override fun blockUntilAllWritesFinished() {
         Completable.fromAction { repository.close() }
-            .subscribeOn(sequentialScheduler)
+            .subscribeOn(scheduler)
             .blockingAwait()
     }
 
@@ -76,7 +76,7 @@ class PersistentLogger(
                 if (Looper.myLooper() == Looper.getMainLooper()) {
                     "main"
                 } else {
-                    String.format("%-5s", Thread.currentThread().id)
+                    String.format("%-4s", Thread.currentThread().id)
                 }
             }
         }

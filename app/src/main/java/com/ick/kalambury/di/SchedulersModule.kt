@@ -13,7 +13,7 @@ class SchedulersModule {
 
     @Provides
     fun provideSchedulerProvider(): SchedulerProvider {
-        return MainSchedulerProvider()
+        return MainSchedulerProvider
     }
 
 }

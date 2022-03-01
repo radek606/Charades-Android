@@ -1,11 +1,11 @@
 package com.ick.kalambury.net.api
 
-import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.net.api.dto.TableConfigDto
 import com.ick.kalambury.net.api.dto.TableIdDto
 import com.ick.kalambury.net.api.dto.TablesDto
 import com.ick.kalambury.net.api.exceptions.*
 import com.ick.kalambury.util.JsonUtils
+import com.ick.kalambury.util.SchedulerProvider
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import okhttp3.MultipartBody
@@ -20,10 +20,14 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import retrofit2.adapter.rxjava3.Result as RetrofitResult
 
-class RestApiManager(client: OkHttpClient) {
+class RestApiManager(
+    client: OkHttpClient,
+    baseUrl: String,
+    private val schedulers: SchedulerProvider,
+) {
 
     private val api: RestApiInterface = Retrofit.Builder()
-        .baseUrl(BuildConfig.SERVICE_URL)
+        .baseUrl(baseUrl)
         .client(client)
         .addConverterFactory(JacksonConverterFactory.create(JsonUtils.objectMapper))
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
@@ -31,7 +35,9 @@ class RestApiManager(client: OkHttpClient) {
         .create(RestApiInterface::class.java)
 
     fun getTables(): Single<Result<TablesDto>> {
-        return api.getTables().map(this::handleResult)
+        return api.getTables()
+            .subscribeOn(schedulers.io())
+            .map(this::handleResult)
     }
 
     fun createTable(
@@ -39,11 +45,15 @@ class RestApiManager(client: OkHttpClient) {
         nickname: String,
         config: TableConfigDto
     ): Single<Result<TableIdDto>> {
-        return api.createTable(uuid, nickname, config).map(this::handleResult)
+        return api.createTable(uuid, nickname, config)
+            .subscribeOn(schedulers.io())
+            .map(this::handleResult)
     }
 
     fun getWordsSet(setId: String): Single<Result<ByteArray>> {
-        return api.getWordsSet(setId).map {
+        return api.getWordsSet(setId)
+            .subscribeOn(schedulers.io())
+            .map {
             if (it.isError) return@map Result.failure(getException(it.error()!!))
 
             var body: ResponseBody? = null
@@ -77,6 +87,7 @@ class RestApiManager(client: OkHttpClient) {
 
     fun logSubmit(file: MultipartBody.Part, body: RequestBody): Completable {
         return api.submitLogs(file, body)
+            .subscribeOn(schedulers.io())
             .onErrorResumeNext { Completable.error { getException(it) } }
     }
 

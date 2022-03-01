@@ -30,6 +30,8 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ick.kalambury.*
+import com.ick.kalambury.BuildConfig
+import com.ick.kalambury.R
 import com.ick.kalambury.contracts.SpeechRecognitionContract
 import com.ick.kalambury.databinding.ActivityGameBinding
 import com.ick.kalambury.drawing.GameViewModel.*
@@ -39,9 +41,10 @@ import com.ick.kalambury.drawing.PopupWindows.createLineWeightPopup
 import com.ick.kalambury.list.DataAdapter
 import com.ick.kalambury.list.ListType
 import com.ick.kalambury.list.model.SimpleData
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.service.GameState
 import com.ick.kalambury.util.*
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
@@ -328,7 +331,7 @@ class GameActivity : BaseActivity() {
         }
 
         try {
-            getSpeechRecognitionResults.launch(viewModel.language.asLocale())
+            getSpeechRecognitionResults.launch(viewModel.language.toLocale())
         } catch (ex: ActivityNotFoundException) {
             showMessageDialog(messageId = R.string.alert_speech_not_supported_message)
         }

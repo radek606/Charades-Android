@@ -4,8 +4,12 @@ import android.content.Context
 import androidx.startup.Initializer
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.di.InitializerEntryPoint
-import com.ick.kalambury.logging.*
+import com.ick.kalambury.logging.CrashlyticsLogger
+import com.ick.kalambury.logging.LogFilesRepository
+import com.ick.kalambury.logging.PersistentLogger
 import com.ick.kalambury.util.SchedulerProvider
+import com.ick.kalambury.util.log.AndroidLogger
+import com.ick.kalambury.util.log.Log
 import javax.inject.Inject
 
 class LogInitializer: Initializer<Unit> {
@@ -22,7 +26,7 @@ class LogInitializer: Initializer<Unit> {
         Log.initialize(
             AndroidLogger(),
             CrashlyticsLogger(),
-            PersistentLogger(logFilesRepository, BuildConfig.VERSION_NAME, schedulerProvider)
+            PersistentLogger(logFilesRepository, BuildConfig.VERSION_NAME, schedulerProvider.single())
         )
     }
 

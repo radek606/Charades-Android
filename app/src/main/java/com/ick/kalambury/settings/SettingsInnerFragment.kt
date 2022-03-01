@@ -26,6 +26,9 @@ class SettingsInnerFragment : PreferenceFragmentCompat() {
     @set:Inject
     var vibrator: Vibrator? = null
 
+    @Inject
+    lateinit var keys: PreferenceKeys
+
     private val viewModel: SettingsViewModel by viewModels(
         ownerProducer = { requireParentFragment() }
     )
@@ -47,7 +50,7 @@ class SettingsInnerFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        findPreference<EditTextPreference>(getString(R.string.key_nickname))?.apply {
+        findPreference<EditTextPreference>(keys.nickname.name)?.apply {
             setOnBindEditTextListener {
                 it.filters = arrayOf(LengthFilter(30), CharacterFilter())
             }
@@ -56,56 +59,61 @@ class SettingsInnerFragment : PreferenceFragmentCompat() {
             }
         }
         viewModel.nickname.observe(viewLifecycleOwner) {
-            findPreference<EditTextPreference>(getString(R.string.key_nickname))?.apply {
+            findPreference<EditTextPreference>(keys.nickname.name)?.apply {
                 text = it
             }
         }
 
-        findPreference<ListPreference>(getString(R.string.key_words_language))?.apply {
+        findPreference<ListPreference>(keys.wordsLanguage.name)?.apply {
             setOnPreferenceChangeListener { _, newValue ->
                 consume { viewModel.onLanguage(newValue as String) }
             }
         }
         viewModel.language.observe(viewLifecycleOwner) {
-            findPreference<ListPreference>(getString(R.string.key_words_language))?.apply {
+            findPreference<ListPreference>(keys.wordsLanguage.name)?.apply {
                 value = it
             }
         }
 
-        findPreference<SeekBarPreference>(getString(R.string.key_chat_size))?.apply {
+        findPreference<SeekBarPreference>(keys.chatSize.name)?.apply {
             setOnPreferenceChangeListener { _, newValue ->
                 consume { viewModel.onChatSize(newValue as Int) }
             }
         }
         viewModel.chatSize.observe(viewLifecycleOwner) {
-            findPreference<SeekBarPreference>(getString(R.string.key_chat_size))?.apply {
+            findPreference<SeekBarPreference>(keys.chatSize.name)?.apply {
                 value = it
             }
         }
 
-        findPreference<SwitchPreferenceCompat>(getString(R.string.key_vibration_notification))?.apply {
-            if (vibrator != null && vibrator!!.hasVibrator()) {
-                setOnPreferenceChangeListener { _, newValue ->
-                    consume { viewModel.onVibrationNotification(newValue as Boolean) }
+        findPreference<SwitchPreferenceCompat>(keys.vibrationNotificationEnabled.name)?.apply {
+            vibrator?.let {
+                if (it.hasVibrator()) {
+                    setOnPreferenceChangeListener { _, newValue ->
+                        consume { viewModel.onVibrationNotification(newValue as Boolean) }
+                    }
+                } else {
+                    setSummary(R.string.oa_o_vibrate_denied)
+                    isEnabled = false
                 }
-            } else {
+            } ?: run {
                 setSummary(R.string.oa_o_vibrate_denied)
                 isEnabled = false
             }
         }
         viewModel.notifications.observe(viewLifecycleOwner) {
-            findPreference<SwitchPreferenceCompat>(getString(R.string.key_vibration_notification))?.apply {
+            findPreference<SwitchPreferenceCompat>(keys.vibrationNotificationEnabled.name)?.apply {
                 isChecked = it
             }
         }
 
-        findPreference<SwitchPreferenceCompat>(getString(R.string.key_send_usage_statistics))?.apply {
+        findPreference<SwitchPreferenceCompat>(keys.sendUsageStatistics.name)?.apply {
             setOnPreferenceChangeListener { _, newValue ->
                 consume { viewModel.onSendUsageStatistics(newValue as Boolean) }
             }
         }
         viewModel.statistics.observe(viewLifecycleOwner) {
-            findPreference<SwitchPreferenceCompat>(getString(R.string.key_send_usage_statistics))?.apply {
+            findPreference<SwitchPreferenceCompat>(keys.sendUsageStatistics.name)?.apply {
                 isChecked = it
             }
         }

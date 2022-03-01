@@ -11,13 +11,14 @@ import com.ick.kalambury.service.ClientGameHandler
 import com.ick.kalambury.service.Endpoint
 import com.ick.kalambury.service.GameEvent
 import com.ick.kalambury.service.GameHandlerRepository
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.ick.kalambury.util.SchedulerProvider
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 abstract class JoinGameViewModel<D : ListableData> constructor(
     private val gameHandlerRepository: GameHandlerRepository,
+    private val schedulerProvider: SchedulerProvider,
 ) : BaseViewModel<JoinGameNavigationActions>() {
 
     abstract val gameMode: GameMode
@@ -45,7 +46,7 @@ abstract class JoinGameViewModel<D : ListableData> constructor(
 
         gameEventsDisposable?.dispose()
         gameEventsDisposable = gameHandler.getGameEvents()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.main())
             .subscribe(::handleCommonGameEvent)
     }
 
@@ -56,7 +57,7 @@ abstract class JoinGameViewModel<D : ListableData> constructor(
         selectedItem?.connecting = true
 
         disposables += gameHandler.connect(Endpoint(item.id, item.text.toString()))
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.main())
             .subscribeBy(
                 onComplete = {
                     /* onComplete do nothing, it's just confirmation that connection process

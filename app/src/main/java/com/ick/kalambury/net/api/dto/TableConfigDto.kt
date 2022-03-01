@@ -22,7 +22,7 @@ data class TableConfigDto(
                 config.playerChooseMethod,
                 config.pointsLimit,
                 config.roundTime,
-                config.language.asString(),
+                config.language.toString(),
                 config.categories
             )
         }

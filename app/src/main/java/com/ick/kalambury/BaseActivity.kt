@@ -2,8 +2,8 @@ package com.ick.kalambury
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ick.kalambury.logging.Log
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 
 open class BaseActivity : AppCompatActivity() {
 

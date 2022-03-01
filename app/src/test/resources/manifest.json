@@ -1,0 +1,285 @@
+{
+  "version": 0,
+  "sets": [
+    {
+      "id": "822dd178",
+      "version": 0,
+      "name": "Zwierzęta",
+      "description": "140 nazw zwierząt.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "e1faa8e5",
+      "version": 0,
+      "name": "Jedzenie",
+      "description": "140 nazw różnych produktów spożywczych: owoców, warzyw, napojów, słodyczy i potraw.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "5b6418a0",
+      "version": 0,
+      "name": "Inne",
+      "description": "260 różnych rzeczowników i nazw, które nie pasowały do innych kategorii.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "3bf27bfc",
+      "version": 0,
+      "name": "Zawody",
+      "description": "120 nazw zawodów, od hydraulika po dyrygenta.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "d152ae47",
+      "version": 0,
+      "name": "Powiedzenia i przysłowia",
+      "description": "Ponad 180 różnych powiedzeń, przysłów i złotych myśli.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "dc400574",
+      "version": 1,
+      "name": "Sport",
+      "description": "60 nazw dyscyplin sportowych i gier zespołowych, od golfa po curling.",
+      "language": "pl",
+      "createdTimestamp": 9223372036854775807,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "88161761",
+      "version": 0,
+      "name": "Rzeczy i obiekty",
+      "description": "Ponad 700 nazw różnych przedmiotów i obiektów, (w tym budowli).",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "c7cc1642",
+      "version": 2,
+      "name": "Idiomy",
+      "description": "240 związków frazeologicznych i zwrotów używanych na co dzień.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 9223372036854775807,
+      "usage": {
+        "drawing": {
+          "default": false
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "a92b46b6",
+      "version": 1,
+      "name": "Czynności",
+      "description": "50 nazw różnych codziennych czynności.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "5c34782c",
+      "version": 0,
+      "name": "Gry wideo",
+      "description": "240 gier komputerowych, starych i nowych, z różnych platform.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "showing": {
+          "default": false
+        }
+      }
+    },
+    {
+      "id": "6383d6b1",
+      "version": 0,
+      "name": "Filmy",
+      "description": "240 najbardziej znanych filmów polskich i zagranicznych.",
+      "language": "pl",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "showing": {
+          "default": false
+        }
+      }
+    },
+    {
+      "id": "3d072188",
+      "version": 0,
+      "name": "Animals",
+      "description": "Contains over 80 names of animals.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "2993e4f7",
+      "version": 0,
+      "name": "Food",
+      "description": "Contains over 90 names of fruits, vegetables, drinks, sweets and dishes.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "560a83f9",
+      "version": 0,
+      "name": "Others",
+      "description": "Contains over 200 different names, nouns and others that doesn't match previous categories.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "0f60b9b1",
+      "version": 0,
+      "name": "Professions",
+      "description": "Contains over 80 names of professions.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "ce230694",
+      "version": 0,
+      "name": "Sport",
+      "description": "Contains over 40 names of sports and team games.",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    },
+    {
+      "id": "4462db24",
+      "version": 0,
+      "name": "Things and objects",
+      "description": "Contains nearly 600 names of different objects and things (including constructions).",
+      "language": "en",
+      "createdTimestamp": 1586595249000,
+      "updatedTimestamp": 1586595249000,
+      "usage": {
+        "drawing": {
+          "default": true
+        },
+        "showing": {
+          "default": true
+        }
+      }
+    }
+  ]
+}

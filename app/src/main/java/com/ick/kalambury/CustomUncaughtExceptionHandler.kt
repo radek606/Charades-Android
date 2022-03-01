@@ -1,8 +1,8 @@
 package com.ick.kalambury
 
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import java.lang.Thread.UncaughtExceptionHandler
 
 class CustomUncaughtExceptionHandler(

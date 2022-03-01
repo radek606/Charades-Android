@@ -14,7 +14,6 @@ import com.ick.kalambury.databinding.FragmentMainMenuBinding
 import com.ick.kalambury.util.showMessageDialog
 import com.ick.kalambury.util.snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class MainMenuFragment : BaseFragment() {

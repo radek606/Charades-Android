@@ -2,12 +2,11 @@ package com.ick.kalambury.logging
 
 import android.content.Context
 import com.ick.kalambury.util.closeSilently
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.logTag
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import java.io.*
-import java.util.*
 import javax.inject.Inject
 import android.util.Log as SystemLog
 
@@ -77,7 +76,7 @@ class LogFilesRepository @Inject constructor(@ApplicationContext val context: Co
 
     private fun getSortedLogFiles(): List<File> {
         return getOrCreateLogDirectory().listFiles()
-            ?.sortedWith(Comparator.comparing(File::getName).reversed()) ?: listOf()
+            ?.sortedWith(compareByDescending(File::getName)) ?: listOf()
     }
 
     private fun getOrCreateLogDirectory(): File {

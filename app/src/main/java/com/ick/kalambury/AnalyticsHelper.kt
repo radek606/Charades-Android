@@ -4,9 +4,9 @@ import androidx.core.os.bundleOf
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import javax.inject.Inject
 import javax.inject.Singleton

@@ -3,7 +3,7 @@ package com.ick.kalambury.startup
 import android.content.Context
 import androidx.startup.Initializer
 import androidx.work.*
-import com.ick.kalambury.words.jobs.WordsManifestRefreshJob
+import com.ick.kalambury.words.WordsManifestRefreshJob
 import java.util.concurrent.TimeUnit
 
 class PeriodicTasksInitializer: Initializer<Unit> {

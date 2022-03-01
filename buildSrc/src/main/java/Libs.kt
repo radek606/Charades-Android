@@ -1,11 +1,14 @@
 object Libs {
 
     const val KOTLIN_REFLECT = "org.jetbrains.kotlin:kotlin-reflect:${Versions.KOTLIN}"
+
     const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.KOTLIN_COROUTINES}"
     const val KOTLIN_COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLIN_COROUTINES}"
+    const val KOTLIN_COROUTINES_RXJAVA = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:${Versions.KOTLIN_COROUTINES}"
 
     const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
+    const val ANNOTATION = "androidx.annotation:annotation:${Versions.ANNOTATION}"
 
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT}"
     const val CARDVIEW = "androidx.cardview:cardview:${Versions.CARDVIEW}"
@@ -71,6 +74,7 @@ object Libs {
     const val OKHTTP_BOM = "com.squareup.okhttp3:okhttp-bom:${Versions.OKHTTP_BOM}"
     const val OKHTTP = "com.squareup.okhttp3:okhttp"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
+    const val OKHTTP_MOCK_WEBSERVER = "com.squareup.okhttp3:mockwebserver"
 
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
     const val RETROFIT_CONVERTER_JACKSON = "com.squareup.retrofit2:converter-jackson:${Versions.RETROFIT}"
@@ -81,7 +85,10 @@ object Libs {
     const val AUTO_VALUE_ANNOTATIONS = "com.google.auto.value:auto-value-annotations:${Versions.AUTO_VALUE}"
     const val AUTO_VALUE_PROCESSOR = "com.google.auto.value:auto-value:${Versions.AUTO_VALUE}"
 
+    const val ARCH_TESTING = "androidx.arch.core:core-testing:${Versions.ARCH_TESTING}"
+
     const val TESTING_JUNIT = "junit:junit:${Versions.TESTING_JUNIT}"
     const val TESTING_MOCKITO = "org.mockito:mockito-core:${Versions.TESTING_MOCKITO}"
+    const val TESTING_MOCKITO_KTX = "org.mockito.kotlin:mockito-kotlin:${Versions.TESTING_MOCKITO_KTX}"
 
 }

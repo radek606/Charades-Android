@@ -11,10 +11,10 @@ interface SchedulerProvider {
     fun computation(): Scheduler
     fun single(): Scheduler
     fun main(): Scheduler
-    
+
 }
 
-class MainSchedulerProvider : SchedulerProvider {
+object MainSchedulerProvider : SchedulerProvider {
 
     override fun io(): Scheduler = Schedulers.io()
     override fun computation(): Scheduler = Schedulers.computation()
@@ -23,7 +23,7 @@ class MainSchedulerProvider : SchedulerProvider {
 
 }
 
-class TrampolineSchedulerProvider : SchedulerProvider {
+object TrampolineSchedulerProvider : SchedulerProvider {
 
     override fun io(): Scheduler = Schedulers.trampoline()
     override fun computation(): Scheduler = Schedulers.trampoline()

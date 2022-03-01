@@ -7,10 +7,10 @@ import com.google.android.play.core.review.ReviewInfo
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.ick.kalambury.AnalyticsHelper
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.remoteconfig.RemoteConfigHelper
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Single
 import java.util.concurrent.TimeUnit
 
@@ -30,17 +30,18 @@ class RateAppPrompt(
             preferenceStorage.appCrashed.firstOrError(),
             preferenceStorage.lastGameWithoutError.firstOrError(),
             preferenceStorage.rateAppNextPromptTime.firstOrError(),
-            preferenceStorage.firstInstallTime.firstOrError(),
-            { crash, noError, nextTime, installTime ->
-                if (!RemoteConfigHelper.isInAppReviewEnabled || crash || !noError) {
-                    return@zip false
-                }
+            preferenceStorage.firstInstallTime.firstOrError()
+        ) { crash, noError, nextTime, installTime ->
+            if (!RemoteConfigHelper.isInAppReviewEnabled || crash || !noError) {
+                return@zip false
+            }
 
-                rateAppNextPromptTime = nextTime
-                daysSinceInstalled = TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - installTime)
-                return@zip daysSinceInstalled >= DAYS_SINCE_INSTALL_THRESHOLD &&
-                        System.currentTimeMillis() >= rateAppNextPromptTime
-            })
+            rateAppNextPromptTime = nextTime
+            daysSinceInstalled =
+                TimeUnit.MILLISECONDS.toDays(System.currentTimeMillis() - installTime)
+            return@zip daysSinceInstalled >= DAYS_SINCE_INSTALL_THRESHOLD &&
+                    System.currentTimeMillis() >= rateAppNextPromptTime
+        }
     }
 
     override fun preparePrompt(context: Context): Single<Boolean> {

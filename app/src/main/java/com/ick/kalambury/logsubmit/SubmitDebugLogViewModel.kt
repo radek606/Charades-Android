@@ -7,15 +7,14 @@ import com.ick.kalambury.BaseViewModel
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.Event
 import com.ick.kalambury.R
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.api.RestApiManager
 import com.ick.kalambury.net.api.exceptions.TooManyRequestsException
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.SchedulerProvider
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.kotlin.subscribeBy
-import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -25,6 +24,7 @@ import javax.inject.Inject
 class SubmitDebugLogViewModel @Inject constructor(
     repository: SubmitDebugLogRepository,
     private val apiManager: RestApiManager,
+    private val schedulerProvider: SchedulerProvider,
 ) : BaseViewModel<Unit>() {
 
     private val _logContent: MutableLiveData<String> = MutableLiveData()
@@ -38,7 +38,7 @@ class SubmitDebugLogViewModel @Inject constructor(
 
     init {
         disposables += repository.getComposedLog()
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(schedulerProvider.io())
             .subscribe(_logContent::postValue) {
                 Log.w(logTag(), "Failed getting composed log.", it)
             }
@@ -62,8 +62,8 @@ class SubmitDebugLogViewModel @Inject constructor(
         val file = MultipartBody.Part.createFormData("file", name, body)
 
         disposables += apiManager.logSubmit(file, body)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(schedulerProvider.io())
+            .observeOn(schedulerProvider.main())
             .subscribeBy(
                 onComplete = {
                     uploaded = true

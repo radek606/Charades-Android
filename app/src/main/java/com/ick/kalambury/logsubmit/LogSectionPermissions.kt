@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import com.ick.kalambury.BuildConfig
-import java.util.*
 
 class LogSectionPermissions(val context: Context) : LogSection {
 
@@ -24,7 +23,7 @@ class LogSectionPermissions(val context: Context) : LogSection {
             status.add(string to (info.requestedPermissionsFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0))
         }
 
-        status.sortedWith(Comparator.comparing { it.first }).forEach {
+        status.sortedWith(compareBy { it.first }).forEach {
             builder.append(it.first).append(": ").append(it.second).appendLine()
         }
 

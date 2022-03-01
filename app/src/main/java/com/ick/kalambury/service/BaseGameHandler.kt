@@ -4,9 +4,9 @@ import com.ick.kalambury.GameConfig
 import com.ick.kalambury.entities.GameDataProtos
 import com.ick.kalambury.entities.content
 import com.ick.kalambury.entities.envelope
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.model.GameData
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable

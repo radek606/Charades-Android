@@ -3,6 +3,9 @@ package com.ick.kalambury.logging
 import com.google.firebase.crashlytics.BuildConfig
 import com.google.firebase.crashlytics.ktx.crashlytics
 import com.google.firebase.ktx.Firebase
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.Logger
+import kotlin.concurrent.getOrSet
 
 class CrashlyticsLogger : Logger() {
 
@@ -13,10 +16,9 @@ class CrashlyticsLogger : Logger() {
     }
 
     override fun log(priority: Log.Level, tag: String, message: String?, throwable: Throwable?) {
-        val threadString = cachedThreadString.get()
-            ?: "[${Thread.currentThread().id}] ${Thread.currentThread().name}"
-
-        cachedThreadString.set(threadString)
+        val threadString = cachedThreadString.getOrSet {
+            "[${Thread.currentThread().id}] ${Thread.currentThread().name}"
+        }
 
         val crashlytics = Firebase.crashlytics.apply {
             setCustomKey(CRASHLYTICS_KEY_PRIORITY, priority.name)

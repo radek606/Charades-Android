@@ -10,7 +10,6 @@ import com.ick.kalambury.entities.ConnectionData
 import com.ick.kalambury.entities.EndpointData
 import com.ick.kalambury.entities.GameDataProtos
 import com.ick.kalambury.list.model.Player
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.ConnectionState
 import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.ChatMessage
@@ -20,10 +19,12 @@ import com.ick.kalambury.net.connection.model.GameStateData
 import com.ick.kalambury.service.nearbyconnections.NearbyConnectionsEvent
 import com.ick.kalambury.service.nearbyconnections.RxHostNearbyConnections
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.logTag
-import com.ick.kalambury.words.Word
-import com.ick.kalambury.words.WordMatcher
-import com.ick.kalambury.words.WordsRepository
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
+import com.ick.kalambury.words.InstanceId
+import com.ick.kalambury.wordsrepository.WordMatcher
+import com.ick.kalambury.wordsrepository.WordsRepository
+import com.ick.kalambury.wordsrepository.model.Word
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
 import io.reactivex.rxjava3.processors.PublishProcessor
@@ -134,7 +135,7 @@ class LocalGameHostHandler(
                 drawables.clear()
                 it.onComplete()
             }
-            .andThen { wordsRepository.saveWordsInstance(config.gameMode, config.language) }
+            .andThen { wordsRepository.saveWordsInstance(InstanceId(config.gameMode, config.language)) }
             .observeOn(handlerThreadScheduler)
             .subscribe(
                 { handlerThreadScheduler.shutdown() },
@@ -560,7 +561,7 @@ class LocalGameHostHandler(
     }
 
     private val nextWordToGuess: Word
-        get() = wordsRepository.getWord(config.gameMode, config.language).blockingGet()
+        get() = wordsRepository.getWord(InstanceId(config.gameMode, config.language)).blockingGet()
 
     private val gameStateMessage: GameStateData
         get() = GameStateData.newBuilder(gameState)

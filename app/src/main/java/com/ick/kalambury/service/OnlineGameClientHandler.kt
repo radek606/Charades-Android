@@ -3,7 +3,6 @@ package com.ick.kalambury.service
 import android.util.Base64
 import com.ick.kalambury.BuildConfig
 import com.ick.kalambury.entities.connectionData
-import com.ick.kalambury.logging.Log
 import com.ick.kalambury.net.connection.SupportedVersionInfo
 import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.GameData
@@ -11,7 +10,8 @@ import com.ick.kalambury.service.websocket.RxWebSocket
 import com.ick.kalambury.service.websocket.WebSocketEvent
 import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.JsonUtils
-import com.ick.kalambury.util.logTag
+import com.ick.kalambury.util.log.Log
+import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.toBase64
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
