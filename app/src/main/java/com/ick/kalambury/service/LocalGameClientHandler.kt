@@ -192,6 +192,7 @@ class LocalGameClientHandler(
                 sendEndpointsToUi()
             } catch (e: InvalidProtocolBufferException) {
                 Log.w(logTag(), "handleEndpointFoundEvent() - Endpoint with incorrect data. Ignoring...")
+                sendToUI(GameEvent.State.UNSUPPORTED_VERSION)
             }
         } else {
             Log.w(
