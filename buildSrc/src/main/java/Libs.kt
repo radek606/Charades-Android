@@ -5,6 +5,7 @@ object Libs {
     const val KOTLIN_COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.KOTLIN_COROUTINES}"
     const val KOTLIN_COROUTINES_ANDROID = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.KOTLIN_COROUTINES}"
     const val KOTLIN_COROUTINES_RXJAVA = "org.jetbrains.kotlinx:kotlinx-coroutines-rx3:${Versions.KOTLIN_COROUTINES}"
+    const val KOTLIN_SERIALIZATION_JSON = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.KOTLIN_SERIALIZATION_JSON}"
 
     const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
@@ -68,16 +69,13 @@ object Libs {
     const val RXANDROID = "io.reactivex.rxjava3:rxandroid:${Versions.RXANDROID}"
     const val RXKOTLIN = "io.reactivex.rxjava3:rxkotlin:${Versions.RXKOTLIN}"
 
-    const val JACKSON = "com.fasterxml.jackson.core:jackson-databind:${Versions.JACKSON}"
-    const val JACKSON_MODULE_KOTLIN = "com.fasterxml.jackson.module:jackson-module-kotlin:${Versions.JACKSON}"
-
     const val OKHTTP_BOM = "com.squareup.okhttp3:okhttp-bom:${Versions.OKHTTP_BOM}"
     const val OKHTTP = "com.squareup.okhttp3:okhttp"
     const val OKHTTP_LOGGING_INTERCEPTOR = "com.squareup.okhttp3:logging-interceptor"
     const val OKHTTP_MOCK_WEBSERVER = "com.squareup.okhttp3:mockwebserver"
 
     const val RETROFIT = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT}"
-    const val RETROFIT_CONVERTER_JACKSON = "com.squareup.retrofit2:converter-jackson:${Versions.RETROFIT}"
+    const val RETROFIT_CONVERTER_KOTLINX_SERIALIZATION = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.RETROFIT_CONVERTER_KOTLINX_SERIALIZATION}"
     const val RETROFIT_ADAPTER_RXJAVA = "com.squareup.retrofit2:adapter-rxjava3:${Versions.RETROFIT}"
 
     const val DESUGAR_JDK_LIBS = "com.android.tools:desugar_jdk_libs:${Versions.DESUGAR_JDK_LIBS}"

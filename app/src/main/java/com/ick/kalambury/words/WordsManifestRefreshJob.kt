@@ -5,7 +5,6 @@ import androidx.hilt.work.HiltWorker
 import androidx.work.*
 import androidx.work.rxjava3.RxWorker
 import com.ick.kalambury.remoteconfig.RemoteConfigHelper
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.wordsrepository.WordsRepository
@@ -13,6 +12,8 @@ import com.ick.kalambury.wordsrepository.model.WordsManifest
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.core.Single
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 @HiltWorker
 class WordsManifestRefreshJob @AssistedInject constructor(
@@ -23,7 +24,7 @@ class WordsManifestRefreshJob @AssistedInject constructor(
 
     override fun createWork(): Single<Result> {
         return Single.fromCallable {
-            JsonUtils.fromJson(RemoteConfigHelper.remoteWordsManifest, WordsManifest::class.java)
+            Json.decodeFromString<WordsManifest>(RemoteConfigHelper.remoteWordsManifest)
         }.flatMap {
             if (it.version == 0) {
                 Log.d(logTag(), "Remote words manifest not yet fetched. Retrying...")

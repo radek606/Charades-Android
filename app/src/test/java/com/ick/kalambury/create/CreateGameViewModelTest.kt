@@ -6,7 +6,6 @@ import com.ick.kalambury.GameMode
 import com.ick.kalambury.list.model.WordsSetData
 import com.ick.kalambury.service.MockGameHandlerRepository
 import com.ick.kalambury.settings.MockMainPreferenceStorage
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.TestLogger
 import com.ick.kalambury.util.TrampolineSchedulerProvider
 import com.ick.kalambury.util.getOrAwaitValue
@@ -19,6 +18,8 @@ import com.ick.kalambury.wordsrepository.Language
 import com.ick.kalambury.wordsrepository.WordsRepositoryImpl
 import com.ick.kalambury.wordsrepository.model.WordsManifest
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import org.junit.Assert.*
 
 import org.junit.Before
@@ -111,7 +112,7 @@ class CreateGameViewModelTest {
 
     private fun getManifest(): WordsManifest {
         return javaClass.classLoader?.getResourceAsStream("manifest.json")?.use {
-            JsonUtils.fromJson(it, WordsManifest::class.java)
+            Json.decodeFromStream<WordsManifest>(it)
         } ?: throw FileNotFoundException()
     }
 }

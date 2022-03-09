@@ -1,13 +1,11 @@
 package com.ick.kalambury.wordsrepository.model
 
-import androidx.annotation.Keep
-import com.fasterxml.jackson.annotation.JsonIgnore
+import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
-@Keep
-data class WordsSet(val id: String, val name: String, val words: MutableList<Word> = mutableListOf()) {
+@Serializable
+data class WordsSet(val id: String, val name: String, val words: MutableList<Word>) {
 
-    @get:JsonIgnore
     val hasWords: Boolean
         get() = words.isNotEmpty()
 

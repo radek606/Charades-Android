@@ -1,7 +1,6 @@
 package com.ick.kalambury.wordsrepository.datasource
 
 import android.content.Context
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.crypto.AESCipherStreamsFactory
 import com.ick.kalambury.util.crypto.SecretProvider
 import com.ick.kalambury.util.log.Log
@@ -10,6 +9,9 @@ import com.ick.kalambury.wordsrepository.model.WordsInstance
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import kotlinx.serialization.json.encodeToStream
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -27,7 +29,7 @@ class WordsInstanceLocalDataSource(
             )
             .toSingle()
             .flatMap {
-                Single.fromCallable { it.use { JsonUtils.fromJson(it, WordsInstance::class.java) } }
+                Single.fromCallable { it.use { Json.decodeFromStream(it) } }
             }
     }
 
@@ -43,7 +45,7 @@ class WordsInstanceLocalDataSource(
                 { Maybe.just(getOutputStream(instance.id)) }
             )
             .flatMapCompletable {
-                Completable.fromCallable { it.use { JsonUtils.toJson(it, instance) } }
+                Completable.fromCallable { it.use { Json.encodeToStream(instance, it) } }
             }
             .doOnComplete { Log.d(logTag(), "Saved instance: ${instance.id}") }
             .doOnError {

@@ -13,6 +13,8 @@ import com.ick.kalambury.wordsrepository.model.WordsManifest
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import io.reactivex.rxjava3.core.Single
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.io.File
 import kotlin.io.path.Path
 import kotlin.io.path.moveTo
@@ -26,7 +28,7 @@ class WordsSetsUpdateFinishJob @AssistedInject constructor(
 
     override fun createWork(): Single<Result> {
         return Single.fromCallable {
-            val manifest = WordsManifest.fromString(RemoteConfigHelper.remoteWordsManifest)
+            val manifest = Json.decodeFromString<WordsManifest>(RemoteConfigHelper.remoteWordsManifest)
 
             val failedSets = inputData.getStringArray(WordsSetDownloadJob.KEY_FAILURE)
             if (failedSets != null) {

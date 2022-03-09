@@ -1,14 +1,18 @@
 package com.ick.kalambury.wordsrepository.model
 
-import androidx.annotation.Keep
 import androidx.annotation.VisibleForTesting
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.ick.kalambury.util.ByteArrayDeserializer
-import com.ick.kalambury.util.JsonUtils
+import com.ick.kalambury.util.ByteArrayBase64Serializer
+import com.ick.kalambury.util.DateAsLongSerializer
 import com.ick.kalambury.wordsrepository.Language
 import com.ick.kalambury.wordsrepository.Usage
+import kotlinx.serialization.EncodeDefault
+import kotlinx.serialization.Required
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonTransformingSerializer
+import kotlinx.serialization.json.jsonObject
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -21,60 +25,41 @@ import java.util.concurrent.TimeUnit
  * so they can't be marked as 'new' or 'updated'. It exist only to have something to start
  * and not rely only on remote service. Bundled assets won't be updated in next app versions.
  */
-@Keep
+@Serializable
 class WordsManifest(
-    @JsonProperty
-    val version: Int = 0,
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonDeserialize(using = ByteArrayDeserializer::class)
+    @EncodeDefault val version: Int = 0,
+    @Serializable(with = ByteArrayBase64Serializer::class)
     val key: ByteArray = ByteArray(0),
-
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JsonDeserialize(using = ByteArrayDeserializer::class)
+    @Serializable(with = ByteArrayBase64Serializer::class)
     val iv: ByteArray = ByteArray(0),
-
-    @JsonProperty
     val sets: List<Set> = listOf()
 ) {
 
-    companion object {
-
-        @JvmStatic
-        fun fromString(jsonString: String): WordsManifest {
-            return JsonUtils.fromJson(jsonString, WordsManifest::class.java)
-        }
-
-    }
-
-    @Keep
+    @Serializable
     class Set(val id: String,
-              val version: Int = 0,
+              @EncodeDefault val version: Int = 0,
               val name: String,
               val description: String,
               val language: Language,
-              val createdTimestamp: Date = Date(0),
-              val updatedTimestamp: Date = Date(0),
+              @Serializable(with = DateAsLongSerializer::class)
+              val createdTimestamp: Date,
+              @Serializable(with = DateAsLongSerializer::class)
+              val updatedTimestamp: Date,
               val usage: Map<Usage, Options>,
     ) {
 
-        @get:JsonIgnore
         val isNew: Boolean
             get() = version == INITIAL_SET_VERSION && isBefore(createdTimestamp)
 
-        @get:JsonIgnore
         val isUpdated: Boolean
             get() = version > INITIAL_SET_VERSION && isBefore(updatedTimestamp)
 
-        @JsonIgnore
         private fun isBefore(date: Date): Boolean {
             return Date(System.currentTimeMillis() - MARK_AS_NEW_OR_UPDATED_PERIOD).before(date)
         }
 
-        @JsonIgnore
         fun isEligible(type: Usage) = usage[type] != null
 
-        @JsonIgnore
         fun isDefault(type: Usage) = usage.getOrDefault(type, Options(false)).isDefault
 
         companion object {
@@ -85,9 +70,14 @@ class WordsManifest(
             val MARK_AS_NEW_OR_UPDATED_PERIOD = TimeUnit.DAYS.toMillis(3)
         }
 
-        @Keep
-        class Options(@JsonProperty(value = "default")
-                      val isDefault: Boolean = false)
+        @Serializable
+        class Options(@Required @SerialName(value = "default") val isDefault: Boolean = false)
     }
 
+}
+
+object WordsManifestSerializer : JsonTransformingSerializer<WordsManifest>(WordsManifest.serializer()) {
+    override fun transformSerialize(element: JsonElement): JsonElement {
+        return JsonObject(element.jsonObject.filterNot { (key, _) -> key == "key" || key == "iv" })
+    }
 }

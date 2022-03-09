@@ -29,7 +29,7 @@ class SecretProviderImpl(private val storage: SecretDataSource) : SecretProvider
     }
 
     private fun getUnencryptedSecret(secretString: String): Secret {
-        val secret = Secret.fromString(secretString)
+        val secret = Secret.fromJson(secretString)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val encryptedSecret = KeyStoreHelper.seal(secret.serialize().encodeToByteArray())
@@ -48,7 +48,7 @@ class SecretProviderImpl(private val storage: SecretDataSource) : SecretProvider
             throw RuntimeException("OS downgrade not supported. KeyStore sealed data exists on platform < M!")
         } else {
             val encryptedSecret = SealedData.fromString(secretString)
-            return Secret.fromString(String(KeyStoreHelper.unseal(encryptedSecret)))
+            return Secret.fromJson(String(KeyStoreHelper.unseal(encryptedSecret)))
         }
     }
 

@@ -1,6 +1,6 @@
 package com.ick.kalambury.net.connection
 
-import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
-@Keep
+@Serializable
 data class SupportedVersionInfo(val minVersionCode: Int = -1, val minVersionName: String = "")

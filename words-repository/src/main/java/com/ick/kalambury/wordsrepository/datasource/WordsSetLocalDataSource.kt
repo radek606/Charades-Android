@@ -1,7 +1,6 @@
 package com.ick.kalambury.wordsrepository.datasource
 
 import android.content.Context
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.crypto.AESCipherStreamsFactory
 import com.ick.kalambury.util.crypto.SecretProvider
 import com.ick.kalambury.wordsrepository.BuildConfig
@@ -9,6 +8,8 @@ import com.ick.kalambury.wordsrepository.model.WordsSet
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
 import java.io.*
 
 class WordsSetLocalDataSource (
@@ -19,7 +20,7 @@ class WordsSetLocalDataSource (
 
     override fun getAssetsWordsSet(setId: String): Single<WordsSet> {
         return Single.fromCallable { context.assets.open("words/$setId.json") }
-            .map { stream -> stream.use { JsonUtils.fromJson(it, WordsSet::class.java) } }
+            .map { stream -> stream.use { Json.decodeFromStream(it) } }
     }
 
     override fun getLocalWordsSet(setId: String): Single<WordsSet> {
@@ -29,7 +30,7 @@ class WordsSetLocalDataSource (
                 { Maybe.error(it) },
                 { Maybe.just(getFileInputStream(setId)) }
             )
-            .map { stream -> stream.use { JsonUtils.fromJson(it, WordsSet::class.java) } }
+            .map { stream -> stream.use { Json.decodeFromStream<WordsSet>(it) } }
             .toSingle()
     }
 

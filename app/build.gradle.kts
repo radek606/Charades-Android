@@ -7,6 +7,7 @@ plugins {
     id("com.android.application")
     kotlin("android")
     kotlin("kapt")
+    kotlin("plugin.serialization")
     id("kotlin-parcelize")
     id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
@@ -156,9 +157,9 @@ dependencies {
     implementation(project(":util"))
 
     implementation(Libs.KOTLIN_REFLECT)
-    implementation(Libs.KOTLIN_COROUTINES)
-    implementation(Libs.KOTLIN_COROUTINES_ANDROID)
-    implementation(Libs.KOTLIN_COROUTINES_RXJAVA)
+//    implementation(Libs.KOTLIN_COROUTINES)
+//    implementation(Libs.KOTLIN_COROUTINES_ANDROID)
+//    implementation(Libs.KOTLIN_COROUTINES_RXJAVA)
 
     implementation(Libs.CORE_KTX)
     implementation(Libs.APPCOMPAT)
@@ -227,7 +228,7 @@ dependencies {
     testImplementation(Libs.OKHTTP_MOCK_WEBSERVER)
 
     implementation(Libs.RETROFIT)
-    implementation(Libs.RETROFIT_CONVERTER_JACKSON)
+    implementation(Libs.RETROFIT_CONVERTER_KOTLINX_SERIALIZATION)
     implementation(Libs.RETROFIT_ADAPTER_RXJAVA)
 
     coreLibraryDesugaring(Libs.DESUGAR_JDK_LIBS)

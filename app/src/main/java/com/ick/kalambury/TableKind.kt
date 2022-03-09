@@ -1,8 +1,8 @@
 package com.ick.kalambury
 
-import com.fasterxml.jackson.annotation.JsonFormat
+import androidx.annotation.Keep
 
-@JsonFormat(shape = JsonFormat.Shape.STRING)
+@Keep
 enum class TableKind {
     DEFAULT, PUBLIC, PRIVATE
 }

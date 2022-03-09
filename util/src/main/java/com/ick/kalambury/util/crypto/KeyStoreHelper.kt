@@ -3,13 +3,12 @@ package com.ick.kalambury.util.crypto
 import android.os.Build
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
-import androidx.annotation.Keep
 import androidx.annotation.RequiresApi
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.ick.kalambury.util.ByteArrayDeserializer
-import com.ick.kalambury.util.ByteArraySerializer
-import com.ick.kalambury.util.JsonUtils
+import com.ick.kalambury.util.ByteArrayBase64Serializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.security.KeyStore
 import java.security.KeyStore.SecretKeyEntry
 import javax.crypto.Cipher
@@ -77,22 +76,19 @@ object KeyStoreHelper {
     }
 }
 
-@Keep
 @Suppress("ArrayInDataClass")
+@Serializable
 data class SealedData(
-    @JsonSerialize(using = ByteArraySerializer::class)
-    @JsonDeserialize(using = ByteArrayDeserializer::class)
+    @Serializable(with = ByteArrayBase64Serializer::class)
     val iv: ByteArray,
-
-    @JsonSerialize(using = ByteArraySerializer::class)
-    @JsonDeserialize(using = ByteArrayDeserializer::class)
+    @Serializable(with = ByteArrayBase64Serializer::class)
     val data: ByteArray,
 ) {
-    fun serialize(): String = JsonUtils.toJson(this)
+    fun serialize(): String = Json.encodeToString(this)
 
     companion object {
 
-        fun fromString(jsonString: String) = JsonUtils.fromJson(jsonString, SealedData::class.java)
+        fun fromString(jsonString: String) = Json.decodeFromString<SealedData>(jsonString)
 
     }
 }

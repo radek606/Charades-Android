@@ -1,12 +1,15 @@
 package com.ick.kalambury.wordsrepository
 
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonValue
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 import java.util.*
 
+@Serializable
 enum class Language(private val language: String) {
 
+    @SerialName("pl")
     PL("pl"),
+    @SerialName("en")
     EN("en");
 
     companion object {
@@ -17,14 +20,12 @@ enum class Language(private val language: String) {
             languageMap["en"] = EN
         }
 
-        @JsonCreator
         fun forLanguageName(value: String): Language {
             return languageMap.getOrDefault(value, EN)
         }
 
     }
 
-    @JsonValue
     override fun toString() = language
 
     fun toLocale() = Locale(language)

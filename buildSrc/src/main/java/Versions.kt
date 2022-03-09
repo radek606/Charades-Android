@@ -46,10 +46,11 @@ object Versions {
     const val RXANDROID = "3.0.0"
     const val RXKOTLIN = "3.0.1"
 
-    const val JACKSON = "2.13.1"
+    const val KOTLIN_SERIALIZATION_JSON = "1.3.2"
 
     const val OKHTTP_BOM = "4.9.3"
     const val RETROFIT = "2.9.0"
+    const val RETROFIT_CONVERTER_KOTLINX_SERIALIZATION = "0.8.0"
 
     const val DESUGAR_JDK_LIBS = "1.1.5"
 

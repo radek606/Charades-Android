@@ -1,43 +1,33 @@
 package com.ick.kalambury.util
 
 import android.util.Base64
-import com.fasterxml.jackson.core.JsonGenerator
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.*
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import java.io.InputStream
-import java.io.OutputStream
+import kotlinx.serialization.KSerializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import java.util.*
 
-object JsonUtils {
+object ByteArrayBase64Serializer : KSerializer<ByteArray> {
 
-    val objectMapper: ObjectMapper = jacksonObjectMapper()
-        .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
-        .enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    override val descriptor: SerialDescriptor
+        get() = PrimitiveSerialDescriptor("ByteArray", PrimitiveKind.STRING)
 
-    fun toJson(any: Any): String = objectMapper.writeValueAsString(any)
+    override fun serialize(encoder: Encoder, value: ByteArray) {
+        encoder.encodeString(Base64.encodeToString(value, Base64.NO_WRAP or Base64.NO_PADDING))
+    }
 
-    fun toJson(stream: OutputStream, any: Any) = objectMapper.writeValue(stream, any)
-
-    fun <T> fromJson(json: ByteArray, clazz: Class<T>): T = objectMapper.readValue(json, clazz)
-
-    fun <T> fromJson(json: String, clazz: Class<T>): T = objectMapper.readValue(json, clazz)
-
-    fun <T> fromJson(json: InputStream, clazz: Class<T>): T = objectMapper.readValue(json, clazz)
-
-}
-
-class ByteArraySerializer : JsonSerializer<ByteArray>() {
-
-    override fun serialize(value: ByteArray?, gen: JsonGenerator?, serializers: SerializerProvider?) {
-        gen!!.writeString(Base64.encodeToString(value, Base64.NO_WRAP or Base64.NO_PADDING))
+    override fun deserialize(decoder: Decoder): ByteArray {
+        return Base64.decode(decoder.decodeString(), Base64.NO_WRAP or Base64.NO_PADDING)
     }
 
 }
 
-class ByteArrayDeserializer : JsonDeserializer<ByteArray>() {
+object DateAsLongSerializer : KSerializer<Date> {
 
-    override fun deserialize(p: JsonParser?, ctxt: DeserializationContext?): ByteArray {
-        return Base64.decode(p!!.valueAsString, Base64.NO_WRAP or Base64.NO_PADDING)
-    }
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Date", PrimitiveKind.LONG)
+    override fun serialize(encoder: Encoder, value: Date) = encoder.encodeLong(value.time)
+    override fun deserialize(decoder: Decoder): Date = Date(decoder.decodeLong())
 
 }

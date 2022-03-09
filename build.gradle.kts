@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath("com.android.tools.build:gradle:${Versions.ANDROID_GRADLE_PLUGIN}")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}")
+        classpath("org.jetbrains.kotlin:kotlin-serialization:${Versions.KOTLIN}")
         classpath("com.google.gms:google-services:${Versions.GOOGLE_SERVICES_PLUGIN}")
         classpath("com.google.firebase:firebase-crashlytics-gradle:${Versions.FIREBASE_CRASHLYTICS_PLUGIN}")
         classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.DAGGER_HILT}")
@@ -31,7 +32,9 @@ subprojects {
         kotlinOptions.freeCompilerArgs =
             listOf(
                 "-Xopt-in=kotlin.RequiresOptIn",
-                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xopt-in=kotlinx.serialization.ExperimentalSerializationApi",
+                "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi"
             )
     }
 }

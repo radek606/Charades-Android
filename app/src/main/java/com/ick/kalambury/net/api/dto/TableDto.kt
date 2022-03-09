@@ -1,9 +1,9 @@
 package com.ick.kalambury.net.api.dto
 
-import androidx.annotation.Keep
 import com.ick.kalambury.TableKind
+import kotlinx.serialization.Serializable
 
-@Keep
+@Serializable
 data class TableDto(val id: String,
                val kind: TableKind,
                val name: String,

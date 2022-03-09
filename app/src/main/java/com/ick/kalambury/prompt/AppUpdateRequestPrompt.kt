@@ -18,12 +18,13 @@ import com.ick.kalambury.R
 import com.ick.kalambury.remoteconfig.AppUpdateData
 import com.ick.kalambury.remoteconfig.RemoteConfigHelper
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.snackbar
 import io.reactivex.rxjava3.core.Single
-import java.io.IOException
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.util.concurrent.TimeUnit
 
 @SuppressLint("WrongConstant")
@@ -128,12 +129,11 @@ class AppUpdateRequestPrompt(
     }
 
     private fun getHighestPriorityUpdate(): Int {
-        val dataString = RemoteConfigHelper.appUpdatesData
         return try {
-            JsonUtils.fromJson(dataString, AppUpdateData::class.java).updates
+            Json.decodeFromString<AppUpdateData>(RemoteConfigHelper.appUpdatesData).updates
                 .filter { it.versionCode > BuildConfig.VERSION_CODE }
                 .maxOfOrNull { it.priority } ?: 0
-        } catch (e: IOException) {
+        } catch (e: SerializationException) {
             Log.d(logTag(), "Failed parsing update data.")
             0
         }

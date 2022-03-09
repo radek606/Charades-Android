@@ -4,10 +4,12 @@ import com.ick.kalambury.net.api.dto.TableConfigDto
 import com.ick.kalambury.net.api.dto.TableIdDto
 import com.ick.kalambury.net.api.dto.TablesDto
 import com.ick.kalambury.net.api.exceptions.*
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.SchedulerProvider
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -15,7 +17,6 @@ import okhttp3.ResponseBody
 import retrofit2.HttpException
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.jackson.JacksonConverterFactory
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import retrofit2.adapter.rxjava3.Result as RetrofitResult
@@ -29,7 +30,7 @@ class RestApiManager(
     private val api: RestApiInterface = Retrofit.Builder()
         .baseUrl(baseUrl)
         .client(client)
-        .addConverterFactory(JacksonConverterFactory.create(JsonUtils.objectMapper))
+        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .build()
         .create(RestApiInterface::class.java)

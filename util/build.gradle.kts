@@ -2,6 +2,7 @@ plugins {
     id("com.android.library")
     kotlin("android")
     kotlin("kapt")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -34,8 +35,7 @@ dependencies {
     implementation(Libs.RXANDROID)
     implementation(Libs.RXKOTLIN)
 
-    api(Libs.JACKSON)
-    api(Libs.JACKSON_MODULE_KOTLIN)
+    api(Libs.KOTLIN_SERIALIZATION_JSON)
 
     coreLibraryDesugaring(Libs.DESUGAR_JDK_LIBS)
 }

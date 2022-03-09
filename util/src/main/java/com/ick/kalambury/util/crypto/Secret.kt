@@ -1,30 +1,25 @@
 package com.ick.kalambury.util.crypto
 
-import androidx.annotation.Keep
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.module.kotlin.readValue
-import com.ick.kalambury.util.ByteArrayDeserializer
-import com.ick.kalambury.util.ByteArraySerializer
-import com.ick.kalambury.util.JsonUtils
+import com.ick.kalambury.util.ByteArrayBase64Serializer
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
-@Keep
 @Suppress("ArrayInDataClass")
+@Serializable
 data class Secret(
-    @JsonSerialize(using = ByteArraySerializer::class)
-    @JsonDeserialize(using = ByteArrayDeserializer::class)
+    @Serializable(with = ByteArrayBase64Serializer::class)
     val key: ByteArray,
-
-    @JsonSerialize(using = ByteArraySerializer::class)
-    @JsonDeserialize(using = ByteArrayDeserializer::class)
+    @Serializable(with = ByteArrayBase64Serializer::class)
     val iv: ByteArray,
 ) {
 
-    fun serialize(): String = JsonUtils.toJson(this)
+    fun serialize() = Json.encodeToString(this)
 
     companion object {
 
-        fun fromString(jsonString: String) = JsonUtils.objectMapper.readValue<Secret>(jsonString)
+        fun fromJson(jsonString: String): Secret = Json.decodeFromString(jsonString)
 
     }
 

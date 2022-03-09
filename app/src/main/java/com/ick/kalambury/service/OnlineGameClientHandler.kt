@@ -9,12 +9,13 @@ import com.ick.kalambury.net.connection.model.GameData
 import com.ick.kalambury.service.websocket.RxWebSocket
 import com.ick.kalambury.service.websocket.WebSocketEvent
 import com.ick.kalambury.settings.MainPreferenceStorage
-import com.ick.kalambury.util.JsonUtils
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.toBase64
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import java.io.IOException
 
 class OnlineGameClientHandler(
@@ -161,7 +162,7 @@ class OnlineGameClientHandler(
             1003 -> {
                 // FIXME find better way to handle close reasons
                 try {
-                    val info = JsonUtils.fromJson(reason, SupportedVersionInfo::class.java)
+                    val info = Json.decodeFromString<SupportedVersionInfo>(reason)
                     GameEvent(
                         GameEvent.State.UNSUPPORTED_VERSION,
                         supportedVersionInfo = info

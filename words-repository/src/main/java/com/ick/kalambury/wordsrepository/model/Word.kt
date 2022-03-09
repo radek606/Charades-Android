@@ -1,24 +1,29 @@
 package com.ick.kalambury.wordsrepository.model
 
-import androidx.annotation.Keep
-import androidx.annotation.VisibleForTesting
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
+import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonTransformingSerializer
 
-@Keep
-data class Word constructor(
-    @JsonProperty("text")
+@Serializable
+data class Word internal constructor(
+    @SerialName("text")
+    @Serializable(with = WordDeserializer::class)
     val variants: List<String>,
-
-    @JsonIgnore
-    var setName: String? = null,
+    @Transient var setName: String? = null,
 ) {
 
-    @VisibleForTesting
-    internal constructor(variants: List<String>) : this(variants, null)
-
-    @get:JsonIgnore
     val wordString: String
         get() = variants[0]
 
+}
+
+object WordDeserializer : JsonTransformingSerializer<List<String>>(ListSerializer(String.serializer())) {
+    override fun transformDeserialize(element: JsonElement): JsonElement {
+        return if (element !is JsonArray) JsonArray(listOf(element)) else element
+    }
 }

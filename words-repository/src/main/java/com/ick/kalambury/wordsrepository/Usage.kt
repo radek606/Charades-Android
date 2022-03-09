@@ -1,16 +1,18 @@
 package com.ick.kalambury.wordsrepository
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 enum class Usage {
 
-    @JsonProperty("none")
+    @SerialName("none")
     NONE,
 
-    @JsonProperty("showing")
+    @SerialName("showing")
     SHOWING,
 
-    @JsonProperty("drawing")
+    @SerialName("drawing")
     DRAWING,
 
 }

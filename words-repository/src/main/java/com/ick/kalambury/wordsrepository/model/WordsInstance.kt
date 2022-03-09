@@ -1,25 +1,23 @@
 package com.ick.kalambury.wordsrepository.model
 
-import androidx.annotation.Keep
-import com.fasterxml.jackson.annotation.JsonIgnore
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlin.random.Random
 
-@Keep
+@Serializable
 data class WordsInstance(
     val id: String,
     val wordsSets: MutableList<WordsSet> = mutableListOf(),
     var selectedSets: List<String> = mutableListOf(),
 ) {
 
-    @JsonIgnore
+    @Transient
     private var _wordsObservable: Observable<Word> = createWordsObservable()
+    val wordsObservable
+        get() = _wordsObservable
 
-    @get:JsonIgnore
-    val wordsObservable = _wordsObservable
-
-    @get:JsonIgnore
     val hasWords: Boolean
         get() = wordsSets.isNotEmpty()
 
