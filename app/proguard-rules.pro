@@ -1,116 +1,3 @@
-# This is a configuration file for ProGuard.
-# http://proguard.sourceforge.net/index.html#manual/usage.html
-#
-# This file is no longer maintained and is not used by new (2.2+) versions of the
-# Android plugin for Gradle. Instead, the Android plugin for Gradle generates the
-# default rules at build time and stores them in the build directory.
-
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--verbose
-
--optimizations !code/simplification/cast,!field/*,!class/merging/*
--optimizationpasses 5
--allowaccessmodification
--dontpreverify
-
--keepattributes *Annotation*,SourceFile,LineNumberTable,EnclosingMethod,InnerClasses
--keep public class com.google.vending.licensing.ILicensingService
--keep public class com.android.vending.licensing.ILicensingService
-
-# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
--keepclasseswithmembernames class * {
-    native <methods>;
-}
-
-# We want to keep methods in Activity that could be used in the XML attribute onClick
--keepclassmembers class * extends android.app.Activity {
-   public void *(android.view.View);
-}
-
-#Keep names and constructors of custom views
--keep public class * extends android.view.View {
-    public <init>(android.content.Context);
-    public <init>(android.content.Context, android.util.AttributeSet);
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-    public <init>(android.content.Context, android.util.AttributeSet, int, int);
-    public void set*(...);
-}
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet);
-}
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int);
-}
--keepclasseswithmembers class * {
-    public <init>(android.content.Context, android.util.AttributeSet, int, int);
-}
-
--keep public class * extends androidx.preference.PreferenceFragmentCompat
-
-#Keep geters and setters, even if unused
--keepclassmembers class * {
-    *** get*();
-    void set*(***);
-}
-
-# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
--keepclassmembers enum * {
-    <fields>;
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-
--keepclassmembers class * implements android.os.Parcelable {
-    <fields>;
-    public static final android.os.Parcelable$Creator CREATOR;
-}
-
--keepclassmembers class **.R$* {
-    public static <fields>;
-}
-
--keepclassmembernames class * {
-    java.lang.Class class$(java.lang.String);
-    java.lang.Class class$(java.lang.String, boolean);
-}
-
-# The support library contains references to newer platform versions.
-# Don't warn about those in case this app is linking against an older
-# platform version.  We know about them, and they are safe.
--dontwarn android.support.**
-
-# Understand the @Keep support annotation.
--keep class androidx.annotation.Keep
-
--keep @androidx.annotation.Keep class * {*;}
-
--keepclasseswithmembers class * {
-    @androidx.annotation.Keep <methods>;
-}
-
--keepclasseswithmembers class * {
-    @androidx.annotation.Keep <fields>;
-}
-
--keepclasseswithmembers class * {
-    @androidx.annotation.Keep <init>(...);
-}
-
--keepclassmembers class * implements java.io.Serializable {
-    static final long serialVersionUID;
-    private static final java.io.ObjectStreamField[] serialPersistentFields;
-    private void writeObject(java.io.ObjectOutputStream);
-    private void readObject(java.io.ObjectInputStream);
-    java.lang.Object writeReplace();
-    java.lang.Object readResolve();
-}
-
--keepclassmembers class *  {
-   <init>();
-}
-#-------------
-
 #Crashlytics
 -keepattributes SourceFile,LineNumberTable,ClassName       # Keep file names and line numbers.
 -keep public class * extends java.lang.Exception           # Optional: Keep custom exceptions.
@@ -125,35 +12,33 @@
 -dontwarn okhttp3.internal.platform.ConscryptPlatform # OkHttp platform used only on JVM and when Conscrypt dependency is available.
 #------
 
-#Jackson
--keepattributes *Annotation*,EnclosingMethod,Signature,InnerClasses,RuntimeVisibleAnnotations
--keepnames class com.fasterxml.jackson.** { *; }
-
--keep class org.codehaus.** { *; }
-
--keep class com.fasterxml.jackson.databind.ObjectMapper {
-    public <methods>;
-    protected <methods>;
-}
--keep class com.fasterxml.jackson.databind.ObjectWriter {
-    public ** writeValueAsString(**);
-}
--keep @com.fasterxml.jackson.annotation.* class * { *; }
--keep @com.fasterxml.jackson.annotation.** class * { *; }
-
--keepclassmembers public final enum org.codehaus.jackson.annotate.JsonAutoDetect$Visibility {
-    public static final org.codehaus.jackson.annotate.JsonAutoDetect$Visibility *;
+#kotlinx serialization
+# Keep `Companion` object fields of serializable classes.
+# This avoids serializer lookup through `getDeclaredClasses` as done for named companion objects.
+-if @kotlinx.serialization.Serializable class **
+-keepclassmembers class <1> {
+    static <1>$Companion Companion;
 }
 
--keepclassmembers class * {
-    @com.fasterxml.jackson.annotation.JsonCreator *;
-    @com.fasterxml.jackson.annotation.JsonProperty *;
+# Keep `serializer()` on companion objects (both default and named) of serializable classes.
+-if @kotlinx.serialization.Serializable class ** {
+    static **$* *;
+}
+-keepclassmembers class <2>$<3> {
+    kotlinx.serialization.KSerializer serializer(...);
 }
 
--keep class kotlin.Metadata { *; }
--keep class kotlin.reflect.** { *; }
+# Keep `INSTANCE.serializer()` of serializable objects.
+-if @kotlinx.serialization.Serializable class ** {
+    public static ** INSTANCE;
+}
+-keepclassmembers class <1> {
+    public static <1> INSTANCE;
+    kotlinx.serialization.KSerializer serializer(...);
+}
 
--dontwarn com.fasterxml.jackson.databind.**
+# @Serializable and @Polymorphic are used at runtime for polymorphic serialization.
+-keepattributes RuntimeVisibleAnnotations,AnnotationDefault
 #-------
 
 #Retrofit
@@ -169,8 +54,9 @@
     @retrofit2.http.* <methods>;
 }
 
--keepnames class io.reactivex.rxjava3.core.Single
--keepnames class retrofit2.adapter.rxjava3.Result
+-keep class io.reactivex.rxjava3.core.Single
+-keep class retrofit2.adapter.rxjava3.Result
+-keep class kotlin.Result
 
 # Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
