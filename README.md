@@ -51,6 +51,7 @@ Currently available on the [Google Play Store](https://play.google.com/store/app
     - [Protocol Buffers](https://developers.google.com/protocol-buffers/docs/overview)
     - [OkHttp3](https://square.github.io/okhttp/)
     - [Retrofit2](https://square.github.io/retrofit/)
+    - [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization)
 
 The app is written in Kotlin and uses the Gradle build system. Build scripts are written with the Kotlin DSL.
 
