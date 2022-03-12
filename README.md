@@ -5,7 +5,7 @@ It might be suboptimal or over-engineered, because its main purpose is to try ou
 
 It implements a variant of the popular word guessing game. 
 
-Currently available on the [Google Play Store](https://play.google.com/store/apps/details?id=com.ick.kalambury) (older version).
+Currently available on the [Google Play Store](https://play.google.com/store/apps/details?id=com.ick.kalambury).
 
 <a href='https://play.google.com/store/apps/details?id=com.ick.kalambury'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height=100/></a>
 
