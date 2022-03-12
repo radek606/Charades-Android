@@ -16,8 +16,8 @@ import io.reactivex.rxjava3.core.Single
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
-import kotlin.io.path.Path
-import kotlin.io.path.moveTo
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 @HiltWorker
 class WordsSetsUpdateFinishJob @AssistedInject constructor(
@@ -61,20 +61,22 @@ class WordsSetsUpdateFinishJob @AssistedInject constructor(
 
             succeededSets.forEach { setId ->
                 val dir = wordsRepository.updater.getLocalWordsSetDirectory(setId)
-                val new = File(dir, "new")
-                val current = File(dir, BuildConfig.WORDS_SET_FILE_NAME)
-                Path(new.path).moveTo(Path(current.path), true)
+                val new = FileInputStream(File(dir, "new"))
+                val current = FileOutputStream(File(dir, BuildConfig.WORDS_SET_FILE_NAME), false)
+
+                new.copyTo(current)
+
+                new.close()
+                current.close()
             }
 
             manifest
         }
-            .flatMapCompletable {
-                Log.d(logTag(), "Finished updating words sets. Saving new manifest...")
-
-                wordsRepository.updater.saveWordsManifest(it)
-            }
+            .doOnSuccess { Log.d(logTag(), "Finished updating words sets. Saving new manifest...") }
+            .flatMapCompletable { wordsRepository.updater.saveWordsManifest(it) }
             .doOnComplete { wordsRepository.updater.finishUpdate() }
             .toSingle(Result::success)
+            .doOnError { Log.w(logTag(), "Error during words set update!", it) }
             .onErrorReturnItem(Result.failure())
     }
 
