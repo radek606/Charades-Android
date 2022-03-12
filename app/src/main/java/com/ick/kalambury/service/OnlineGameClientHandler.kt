@@ -14,6 +14,7 @@ import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.toBase64
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.IOException
@@ -167,7 +168,7 @@ class OnlineGameClientHandler(
                         GameEvent.State.UNSUPPORTED_VERSION,
                         supportedVersionInfo = info
                     )
-                } catch (e: IOException) {
+                } catch (e: SerializationException) {
                     when (reason) {
                         "102" -> GameEvent(GameEvent.State.PLAYER_LIMIT_EXCEEDED)
                         "103" -> GameEvent(GameEvent.State.TABLE_NOT_FOUND)
