@@ -47,9 +47,9 @@ class WordsInstanceLocalDataSource(
             .flatMapCompletable {
                 Completable.fromCallable { it.use { Json.encodeToStream(instance, it) } }
             }
-            .doOnComplete { Log.d(logTag(), "Saved instance: ${instance.id}") }
+            .doOnComplete { Log.d(logTag, "Saved instance: ${instance.id}") }
             .doOnError {
-                Log.w(logTag(), "Failed saving instance: ${instance.id}. Deleting...")
+                Log.w(logTag, "Failed saving instance: ${instance.id}. Deleting...")
                 context.deleteFile(instance.id)
             }
             .onErrorComplete()

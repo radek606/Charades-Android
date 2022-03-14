@@ -12,7 +12,7 @@ abstract class HostGameHandler<T : RxHostConnection<out ConnectionEvent>> constr
 
     fun broadcast(message: GameData, ids: List<String>) {
         disposables += broadcastCompletable(message, ids)
-            .subscribeBy(onError = { Log.w(logTag(), "Send failed: $message") })
+            .subscribeBy(onError = { Log.w(logTag, "Send failed: $message") })
     }
 
     fun broadcastCompletable(message: GameData, ids: List<String>): Completable {

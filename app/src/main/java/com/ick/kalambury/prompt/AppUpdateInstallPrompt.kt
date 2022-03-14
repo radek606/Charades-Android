@@ -30,12 +30,12 @@ class AppUpdateInstallPrompt(
 
     override fun preparePrompt(context: Context): Single<Boolean> {
         return Single.create { emitter ->
-            Log.d(logTag(), "Requesting in-app update info.")
+            Log.d(logTag, "Requesting in-app update info.")
             updateManager = AppUpdateManagerFactory.create(context)
             updateManager.appUpdateInfo
                 .addOnSuccessListener {
                     installStatus = it.installStatus()
-                    Log.d(logTag(), "In-app update status: " + getInstallStatusString(installStatus))
+                    Log.d(logTag, "In-app update status: " + getInstallStatusString(installStatus))
                     when(installStatus)  {
                         InstallStatus.DOWNLOADED -> emitter.onSuccess(true)
                         InstallStatus.CANCELED,
@@ -57,7 +57,7 @@ class AppUpdateInstallPrompt(
         activity.findViewById<View>(R.id.root).snackbar(
             R.string.in_app_update_ready_text, Snackbar.LENGTH_INDEFINITE) {
             action(R.string.in_app_update_ready_action, R.color.secondaryColor) {
-                Log.d(logTag(), "Installing downloaded update.")
+                Log.d(logTag, "Installing downloaded update.")
                 preferenceStorage.setAppUpdateInProgress(false)
                 updateManager.completeUpdate()
             }

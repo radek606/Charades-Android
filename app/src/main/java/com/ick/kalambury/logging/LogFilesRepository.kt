@@ -40,7 +40,7 @@ class LogFilesRepository @Inject constructor(@ApplicationContext val context: Co
                     try {
                         append(Reader(file).readAll())
                     } catch (e: IOException) {
-                        SystemLog.w(logTag(), "Failed to read log file at index $index. Removing...")
+                        SystemLog.w(logTag, "Failed to read log file at index $index. Removing...")
                         file.delete()
                     }
                 }

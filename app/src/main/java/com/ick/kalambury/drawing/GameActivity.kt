@@ -236,7 +236,7 @@ class GameActivity : BaseActivity() {
                 mInterstitialAd = interstitialAd
             }
             override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(logTag(), adError.message)
+                Log.d(logTag, adError.message)
                 mInterstitialAd = null
             }
         })
@@ -413,14 +413,14 @@ class GameActivity : BaseActivity() {
             setImmersiveMode(true)
             fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
-                    Log.d(logTag(), "Fullscreen ad dismissed.")
+                    Log.d(logTag, "Fullscreen ad dismissed.")
                 }
                 override fun onAdFailedToShowFullScreenContent(e: AdError) {
-                    Log.w(logTag(), "Failed showing fullscreen ad: $e")
+                    Log.w(logTag, "Failed showing fullscreen ad: $e")
                     finishActivity()
                 }
                 override fun onAdShowedFullScreenContent() {
-                    Log.d(logTag(), "Fullscreen ad showed.")
+                    Log.d(logTag, "Fullscreen ad showed.")
                     finishActivity()
                 }
             }

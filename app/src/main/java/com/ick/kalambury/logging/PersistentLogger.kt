@@ -25,7 +25,7 @@ class PersistentLogger(
         for (entry in buildLogEntries(priority.toValue(), tag, message, throwable, threadString)) {
             repository.write(entry)
                 .subscribeOn(scheduler)
-                .subscribeBy(onError = { SystemLog.w(logTag(), "Failed to write line.") })
+                .subscribeBy(onError = { SystemLog.w(logTag, "Failed to write line.") })
         }
     }
 

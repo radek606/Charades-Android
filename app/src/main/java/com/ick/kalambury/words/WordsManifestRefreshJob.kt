@@ -27,7 +27,7 @@ class WordsManifestRefreshJob @AssistedInject constructor(
             Json.decodeFromString<WordsManifest>(RemoteConfigHelper.remoteWordsManifest)
         }.flatMap {
             if (it.version == 0) {
-                Log.d(logTag(), "Remote words manifest not yet fetched. Retrying...")
+                Log.d(logTag, "Remote words manifest not yet fetched. Retrying...")
                 Single.just(Result.retry())
             } else {
                 handleUpdate(it)
@@ -42,7 +42,7 @@ class WordsManifestRefreshJob @AssistedInject constructor(
                 when {
                     localManifest.version == 0 -> {
                         val size = remoteManifest.sets.size
-                        Log.d(logTag(), "Local words manifest version: 0! Updating all words sets ($size of $size)")
+                        Log.d(logTag, "Local words manifest version: 0! Updating all words sets ($size of $size)")
 
                         scheduleDownloadJobs(remoteManifest.key,
                             remoteManifest.iv,
@@ -51,11 +51,11 @@ class WordsManifestRefreshJob @AssistedInject constructor(
                         Result.success()
                     }
                     localManifest.version == remoteManifest.version -> {
-                        Log.d(logTag(), "Words sets already actual. Skipping.")
+                        Log.d(logTag, "Words sets already actual. Skipping.")
                         Result.success()
                     }
                     localManifest.version > remoteManifest.version -> {
-                        Log.w(logTag(), "Local words manifest version higher than remote! " +
+                        Log.w(logTag, "Local words manifest version higher than remote! " +
                                 "Local version: ${localManifest.version}, remote version: ${remoteManifest.version}")
                         Result.failure()
                     }
@@ -69,7 +69,7 @@ class WordsManifestRefreshJob @AssistedInject constructor(
                             .map { it.id }
                             .toSet()
 
-                        Log.d(logTag(), "Manifest versions: local: ${localManifest.version}, remote: ${remoteManifest.version}. " +
+                        Log.d(logTag, "Manifest versions: local: ${localManifest.version}, remote: ${remoteManifest.version}. " +
                                 "Updating ${setsToUpdate.size} of ${remoteManifest.sets.size} words sets.")
 
                         scheduleDownloadJobs(remoteManifest.key, remoteManifest.iv, setsToUpdate)

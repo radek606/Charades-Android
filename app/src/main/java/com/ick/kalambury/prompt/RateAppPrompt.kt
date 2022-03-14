@@ -45,7 +45,7 @@ class RateAppPrompt(
     }
 
     override fun preparePrompt(context: Context): Single<Boolean> {
-        Log.d(logTag(), "Requesting in-app review info.")
+        Log.d(logTag, "Requesting in-app review info.")
         return Single.create { emitter ->
             reviewManager = ReviewManagerFactory.create(context)
             reviewManager.requestReviewFlow()
@@ -54,7 +54,7 @@ class RateAppPrompt(
                     emitter.onSuccess(true)
                 }
                 .addOnFailureListener {
-                    Log.d(logTag(), "Failed getting review info.")
+                    Log.d(logTag, "Failed getting review info.")
                     emitter.onSuccess(false)
                 }
         }
@@ -62,15 +62,15 @@ class RateAppPrompt(
 
     override fun launchPrompt(activity: FragmentActivity, navController: NavController) {
         if (reviewInfo == null) {
-            Log.w(logTag(), "Requesting in-app review flow with null reviewInfo!")
+            Log.w(logTag, "Requesting in-app review flow with null reviewInfo!")
             return
         }
 
-        Log.d(logTag(), "Requesting in-app review flow.")
+        Log.d(logTag, "Requesting in-app review flow.")
 
         reviewManager.launchReviewFlow(activity, reviewInfo!!)
             .addOnCompleteListener {
-                Log.d(logTag(), "Finished review flow. Success: ${it.isSuccessful}")
+                Log.d(logTag, "Finished review flow. Success: ${it.isSuccessful}")
                 analyticsHelper.logRateAppPrompt(rateAppNextPromptTime == 0L,
                     daysSinceInstalled)
                 val waitUntil = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(

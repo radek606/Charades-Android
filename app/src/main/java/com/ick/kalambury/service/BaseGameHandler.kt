@@ -27,7 +27,7 @@ abstract class BaseGameHandler<T : RxConnection<out ConnectionEvent>> constructo
 
     var state: GameHandler.State = GameHandler.State.CREATED
         set(value) {
-            Log.d(logTag(), "State change: $field -> $value")
+            Log.d(logTag, "State change: $field -> $value")
             field = value
         }
 
@@ -41,7 +41,7 @@ abstract class BaseGameHandler<T : RxConnection<out ConnectionEvent>> constructo
             .observeOn(handlerThreadScheduler)
             .subscribe { handleRemoteMessageEvent(it.sourceId, fromBytes(it.payload)) }
 
-        Log.d(logTag(), "Handler created.")
+        Log.d(logTag, "Handler created.")
     }
 
     override fun getGameEvents(): Flowable<GameEvent> {
@@ -54,11 +54,11 @@ abstract class BaseGameHandler<T : RxConnection<out ConnectionEvent>> constructo
         gameTimer?.cancel()
 
         if (seconds <= 0) {
-            Log.w(logTag(), "Tried starting game timer with value: $seconds! Ignoring...")
+            Log.w(logTag, "Tried starting game timer with value: $seconds! Ignoring...")
             return
         }
 
-        Log.d(logTag(), "Starting game timer")
+        Log.d(logTag, "Starting game timer")
 
         gameTimer = object : RxCountDownTimer(seconds.toLong(), 1, TimeUnit.SECONDS, handlerThreadScheduler) {
             override fun onTick(tick: Long) {
@@ -71,7 +71,7 @@ abstract class BaseGameHandler<T : RxConnection<out ConnectionEvent>> constructo
 
     fun cancelGameTimer() {
         gameTimer?.let {
-            Log.d(logTag(), "Cancelling game timer")
+            Log.d(logTag, "Cancelling game timer")
             it.cancel()
         }
     }

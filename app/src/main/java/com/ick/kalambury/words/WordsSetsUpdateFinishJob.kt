@@ -33,7 +33,7 @@ class WordsSetsUpdateFinishJob @AssistedInject constructor(
             val failedSets = inputData.getStringArray(WordsSetDownloadJob.KEY_FAILURE)
             if (failedSets != null) {
                 Log.w(
-                    logTag(),
+                    logTag,
                     "${failedSets.size} download jobs failed. Removing all new files..."
                 )
 
@@ -50,12 +50,12 @@ class WordsSetsUpdateFinishJob @AssistedInject constructor(
 
             val succeededSets = inputData.getStringArray(WordsSetDownloadJob.KEY_SUCCESS)
             if (succeededSets == null) {
-                Log.w(logTag(), "No successful download jobs!")
+                Log.w(logTag, "No successful download jobs!")
                 throw IllegalStateException("Empty succeeded sets array!")
             }
 
             Log.d(
-                logTag(),
+                logTag,
                 "All of ${succeededSets.size} download jobs succeeded. Updating words sets..."
             )
 
@@ -72,11 +72,11 @@ class WordsSetsUpdateFinishJob @AssistedInject constructor(
 
             manifest
         }
-            .doOnSuccess { Log.d(logTag(), "Finished updating words sets. Saving new manifest...") }
+            .doOnSuccess { Log.d(logTag, "Finished updating words sets. Saving new manifest...") }
             .flatMapCompletable { wordsRepository.updater.saveWordsManifest(it) }
             .doOnComplete { wordsRepository.updater.finishUpdate() }
             .toSingle(Result::success)
-            .doOnError { Log.w(logTag(), "Error during words set update!", it) }
+            .doOnError { Log.w(logTag, "Error during words set update!", it) }
             .onErrorReturnItem(Result.failure())
     }
 

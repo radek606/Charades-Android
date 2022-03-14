@@ -24,7 +24,7 @@ class MainPreferencesFirstRunMigration(
 
     override fun migrate(currentData: Preferences?): Single<Preferences> {
         return Single.fromCallable {
-            Log.d(logTag(), "Executing first run preference migration...")
+            Log.d(logTag, "Executing first run preference migration...")
 
             val locale = Locale.getDefault()
             val language = if (locale.language == "pl") "pl" else "en"

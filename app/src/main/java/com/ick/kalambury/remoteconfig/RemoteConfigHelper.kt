@@ -31,10 +31,10 @@ object RemoteConfigHelper {
     private fun fetchConfig(instance: FirebaseRemoteConfig) {
         instance.fetchAndActivate()
             .addOnSuccessListener { updated: Boolean ->
-                Log.d(logTag(), "Remote config updated: $updated")
+                Log.d(logTag, "Remote config updated: $updated")
             }
             .addOnFailureListener { e: Exception? ->
-                Log.w(logTag(), "Failed updating remote config.", e)
+                Log.w(logTag, "Failed updating remote config.", e)
             }
     }
 

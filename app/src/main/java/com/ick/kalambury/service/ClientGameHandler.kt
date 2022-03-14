@@ -19,11 +19,11 @@ abstract class ClientGameHandler<T : RxClientConnection<out ConnectionEvent>> co
 
     override fun handleRemoteMessageEvent(endpointId: String?, message: GameData) {
         if (state >= GameHandler.State.DISCONNECTING) {
-            Log.w(logTag(), "handleRemoteMessageEvent() - Already disconnecting or disconnected. Ignoring...")
+            Log.w(logTag, "handleRemoteMessageEvent() - Already disconnecting or disconnected. Ignoring...")
             return
         }
 
-        Log.d(logTag(), "handleRemoteMessageEvent(): $message")
+        Log.d(logTag, "handleRemoteMessageEvent(): $message")
 
         if (message.hasAction(GameData.INITIAL_DATA)) {
             state = GameHandler.State.CONNECTED
@@ -48,20 +48,20 @@ abstract class ClientGameHandler<T : RxClientConnection<out ConnectionEvent>> co
     override fun handleLocalGameData(gameData: GameData) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleLocalGameData() - Already disconnecting or disconnected! Ignoring..."
             )
             return
         }
 
-        Log.d(logTag(), "handleLocalGameData(): $gameData")
+        Log.d(logTag, "handleLocalGameData(): $gameData")
 
         send(gameData)
     }
 
     fun send(message: GameData) {
         disposables += sendCompletable(message)
-            .subscribeBy(onError = { Log.w(logTag(), "Send failed: $message") })
+            .subscribeBy(onError = { Log.w(logTag, "Send failed: $message") })
     }
 
     fun sendCompletable(message: GameData): Completable {

@@ -54,4 +54,5 @@ object Log {
 
 }
 
-inline fun <reified T : Any> T.logTag(): String = this.javaClass.simpleName
+val <reified T : Any> T.logTag: String
+    inline get() = this.javaClass.simpleName

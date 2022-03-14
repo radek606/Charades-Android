@@ -50,12 +50,12 @@ class AppUpdateRequestPrompt(
 
     override fun preparePrompt(context: Context): Single<Boolean> {
         return Single.create { emitter ->
-            Log.d(logTag(), "Requesting in-app update info.")
+            Log.d(logTag, "Requesting in-app update info.")
             updateManager = AppUpdateManagerFactory.create(context)
             updateManager.appUpdateInfo
                 .addOnSuccessListener {
                     if (it.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE) {
-                        Log.d(logTag(), "Update available.")
+                        Log.d(logTag, "Update available.")
                         updateMode =
                             getUpdateMode(
                                 getHighestPriorityUpdate(),
@@ -66,7 +66,7 @@ class AppUpdateRequestPrompt(
                             emitter.onSuccess(true)
                         } else {
                             Log.d(
-                                logTag(),
+                                logTag,
                                 "Low priority update or desired update type unavailable."
                             )
                             scheduleNextUpdateRequest()
@@ -77,7 +77,7 @@ class AppUpdateRequestPrompt(
                         updateMode = UPDATE_MODE_IMMEDIATE
                         emitter.onSuccess(true)
                     } else {
-                        Log.d(logTag(), "No update available or unknown state.")
+                        Log.d(logTag, "No update available or unknown state.")
                         scheduleNextUpdateRequest()
                         emitter.onSuccess(false)
                     }
@@ -88,12 +88,12 @@ class AppUpdateRequestPrompt(
 
     override fun launchPrompt(activity: FragmentActivity, navController: NavController) {
         if (appUpdateInfo == null) {
-            Log.w(logTag(), "Starting in-app update flow with null appUpdateInfo!")
+            Log.w(logTag, "Starting in-app update flow with null appUpdateInfo!")
             return
         }
 
         preferenceStorage.setAppUpdateInProgress(true)
-        Log.d(logTag(), "Starting in-app update ${getUpdateTypeString(updateMode)} flow.")
+        Log.d(logTag, "Starting in-app update ${getUpdateTypeString(updateMode)} flow.")
 
         updateManager.startUpdateFlow(
             appUpdateInfo!!,
@@ -102,15 +102,15 @@ class AppUpdateRequestPrompt(
         )
             .addOnSuccessListener { result: Int ->
                 if (result == Activity.RESULT_OK) {
-                    Log.d(logTag(), "User agreed for update. Downloading...")
+                    Log.d(logTag, "User agreed for update. Downloading...")
                     showDownloadingSnackbar(activity)
                 } else if (result == Activity.RESULT_CANCELED || result == ActivityResult.RESULT_IN_APP_UPDATE_FAILED) {
-                    Log.w(logTag(), "User denied update request or error occurred.")
+                    Log.w(logTag, "User denied update request or error occurred.")
                     scheduleNextUpdateRequest()
                 }
             }
             .addOnFailureListener { e: Exception? ->
-                Log.w(logTag(), "Failed starting in-app update flow.", e)
+                Log.w(logTag, "Failed starting in-app update flow.", e)
             }
     }
 
@@ -134,7 +134,7 @@ class AppUpdateRequestPrompt(
                 .filter { it.versionCode > BuildConfig.VERSION_CODE }
                 .maxOfOrNull { it.priority } ?: 0
         } catch (e: SerializationException) {
-            Log.d(logTag(), "Failed parsing update data.")
+            Log.d(logTag, "Failed parsing update data.")
             0
         }
     }
@@ -147,7 +147,7 @@ class AppUpdateRequestPrompt(
     private fun scheduleNextUpdateRequest() {
         val nextTime = System.currentTimeMillis() + TimeUnit.DAYS.toMillis(1)
         preferenceStorage.setAppUpdateNextPromptTime(nextTime)
-        Log.d(logTag(), "Scheduling next update check to: $nextTime")
+        Log.d(logTag, "Scheduling next update check to: $nextTime")
     }
 
     private fun getUpdateTypeString(updateType: Int) = when (updateType) {

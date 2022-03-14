@@ -113,11 +113,11 @@ class LocalGameHostHandler(
 
     override fun finish() {
         if (state >= GameHandler.State.DISCONNECTED) {
-            Log.w(logTag(), "finish() - Already disconnected! Ignoring...")
+            Log.w(logTag, "finish() - Already disconnected! Ignoring...")
             return
         }
 
-        Log.d(logTag(), "finish()")
+        Log.d(logTag, "finish()")
 
         cancelGameTimer()
         state = GameHandler.State.DISCONNECTING
@@ -139,7 +139,7 @@ class LocalGameHostHandler(
             .observeOn(handlerThreadScheduler)
             .subscribe(
                 { handlerThreadScheduler.shutdown() },
-                { Log.w(logTag(), "Failed finishing game handler.", it) }
+                { Log.w(logTag, "Failed finishing game handler.", it) }
             )
     }
 
@@ -150,7 +150,7 @@ class LocalGameHostHandler(
     override fun handleRemoteMessageEvent(endpointId: String?, message: GameData) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleRemoteMessageEvent() - Already disconnecting or disconnected. Ignoring..."
             )
             return
@@ -159,7 +159,7 @@ class LocalGameHostHandler(
         val id = users[endpointId]?.uuid ?: error("Remote data from non existent player.")
         val player = players[id] ?: error("Remote data from non existent player.")
 
-        Log.d(logTag(), "handleRemoteMessageEvent(): $message from user: ${player.name}")
+        Log.d(logTag, "handleRemoteMessageEvent(): $message from user: ${player.name}")
 
         handleGameData(player, message)
     }
@@ -243,7 +243,7 @@ class LocalGameHostHandler(
                 )
             }
             else -> {
-                Log.w(logTag(), "handleGameData() - Ignored data: $gameData")
+                Log.w(logTag, "handleGameData() - Ignored data: $gameData")
             }
         }
     }
@@ -307,12 +307,12 @@ class LocalGameHostHandler(
         if (t is ApiException) {
             val code = t.statusCode
             if (code == ConnectionsStatusCodes.STATUS_ALREADY_ADVERTISING) {
-                Log.w(logTag(), "Called startAdvertising() but already advertising. Ignoring...")
+                Log.w(logTag, "Called startAdvertising() but already advertising. Ignoring...")
                 return
             }
         }
 
-        Log.e(logTag(), "Advertising start failed", t)
+        Log.e(logTag, "Advertising start failed", t)
 
         sendToUI(GameEvent.State.ADVERTISING_FAILURE)
     }
@@ -324,7 +324,7 @@ class LocalGameHostHandler(
             is NearbyConnectionsEvent.TransferUpdate -> handleMessageTransferUpdateEvent(event)
             is NearbyConnectionsEvent.Disconnected -> handleDisconnectedEvent(event)
             else -> {
-                Log.w(logTag(), "Got $event when in host mode. Ignoring...")
+                Log.w(logTag, "Got $event when in host mode. Ignoring...")
             }
         }
     }
@@ -334,7 +334,7 @@ class LocalGameHostHandler(
 
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleConnectionInitiatedEvent() - Already in $state state. Rejecting..."
             )
             connection.rejectConnection(endpointId).subscribe()
@@ -345,7 +345,7 @@ class LocalGameHostHandler(
             ConnectionData.parseFrom(connectionInfo.endpointInfo)
         } catch (e: Exception) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleConnectionInitiatedEvent() - invalid connection data. Rejecting...",
                 e
             )
@@ -356,7 +356,7 @@ class LocalGameHostHandler(
         val user = User(endpointId, metadata.uuid, metadata.nickname)
         if (metadata.version < BuildConfig.LOCAL_GAME_MIN_SUPPORTED_VERSION) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleConnectionInitiatedEvent() - client version (${metadata.version}) " +
                         "lower than min supported version (${BuildConfig.LOCAL_GAME_MIN_SUPPORTED_VERSION}). Rejecting..."
             )
@@ -366,7 +366,7 @@ class LocalGameHostHandler(
 
         if (metadata.version > BuildConfig.VERSION_CODE) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleConnectionInitiatedEvent() - client version (${metadata.version}) " +
                         "higher than host (${BuildConfig.VERSION_CODE}). Rejecting..."
             )
@@ -375,7 +375,7 @@ class LocalGameHostHandler(
         }
 
         Log.d(
-            logTag(),
+            logTag,
             "handleConnectionInitiatedEvent() - accepting connection with user: ${user.nickname}"
         )
         users[endpointId] = user
@@ -391,7 +391,7 @@ class LocalGameHostHandler(
                 ConnectionsStatusCodes.STATUS_ALREADY_CONNECTED_TO_ENDPOINT,
                 -> {
                     Log.d(
-                        logTag(), "handleConnectionResultEvent() with user: ${it.nickname}" +
+                        logTag, "handleConnectionResultEvent() with user: ${it.nickname}" +
                                 ", status: ${result.status}"
                     )
 
@@ -399,7 +399,7 @@ class LocalGameHostHandler(
                 }
                 else -> {
                     Log.w(
-                        logTag(), "handleConnectionResultEvent() with user: ${it.nickname}" +
+                        logTag, "handleConnectionResultEvent() with user: ${it.nickname}" +
                                 ", status: ${result.status}"
                     )
 
@@ -408,7 +408,7 @@ class LocalGameHostHandler(
                 }
             }
         } ?: Log.w(
-            logTag(), "handleConnectionResultEvent() callback with unknown user" +
+            logTag, "handleConnectionResultEvent() callback with unknown user" +
                     ", status: ${result.status}"
         )
     }
@@ -474,7 +474,7 @@ class LocalGameHostHandler(
 
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleMessageTransferUpdateEvent() - Already in $state state. Ignoring..."
             )
             return
@@ -483,13 +483,13 @@ class LocalGameHostHandler(
         val user = users[endpointId]
         if (user != null) {
             Log.v(
-                logTag(), "handleMessageTransferUpdateEvent() from user: " +
+                logTag, "handleMessageTransferUpdateEvent() from user: " +
                         "${user.nickname}, msgId: ${update.payloadId}, " +
                         "status: ${update.status}, bytes: ${update.bytesTransferred}"
             )
         } else {
             Log.w(
-                logTag(), "handleMessageTransferUpdateEvent() from unknown endpoint: " +
+                logTag, "handleMessageTransferUpdateEvent() from unknown endpoint: " +
                         "$endpointId, msgId: ${update.payloadId}, " +
                         "status: ${update.status}, bytes: ${update.bytesTransferred}"
             )
@@ -499,7 +499,7 @@ class LocalGameHostHandler(
     private fun handleDisconnectedEvent(event: NearbyConnectionsEvent.Disconnected) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleDisconnectedEvent() - Already in $state state. Ignoring..."
             )
             return
@@ -507,10 +507,10 @@ class LocalGameHostHandler(
 
         val user = users.remove(event.endpointId)
         if (user != null) {
-            Log.d(logTag(), "handleDisconnectedEvent() with user: ${user.nickname}")
+            Log.d(logTag, "handleDisconnectedEvent() with user: ${user.nickname}")
             handleRemoteDisconnected(user)
         } else {
-            Log.w(logTag(), "handleDisconnectedEvent() callback with unknown user!")
+            Log.w(logTag, "handleDisconnectedEvent() callback with unknown user!")
         }
     }
 

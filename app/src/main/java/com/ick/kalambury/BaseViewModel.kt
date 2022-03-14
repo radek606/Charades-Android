@@ -22,7 +22,7 @@ abstract class BaseViewModel<T> : ViewModel() {
     val navigationActions: LiveData<Event<T>> = _navigationActions
 
     override fun onCleared() {
-        Log.d(logTag(), "onCleared()")
+        Log.d(logTag, "onCleared()")
         disposables.clear()
     }
 

@@ -34,7 +34,7 @@ class RxWebSocketImpl @Inject constructor(private val httpClient: OkHttpClient) 
             .url(connectionUrl)
             .build()
 
-        Log.d(logTag(), request.toString())
+        Log.d(logTag, request.toString())
 
         return Completable.fromAction { webSocket = httpClient.newWebSocket(request, webSocketListener) }
     }

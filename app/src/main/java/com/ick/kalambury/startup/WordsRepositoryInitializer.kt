@@ -15,7 +15,7 @@ class WordsRepositoryInitializer: Initializer<Unit> {
 
     override fun create(context: Context) {
         //do nothing except injecting WordsRepository, to force eager initialization
-        Log.d(logTag(), "Initializing words repository...")
+        Log.d(logTag, "Initializing words repository...")
 
         InitializerEntryPoint.resolve(context).inject(this)
     }

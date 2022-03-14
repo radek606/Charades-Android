@@ -49,11 +49,11 @@ class WordsSetDownloadJob @AssistedInject constructor(
                 }, {
                     when(it) {
                         is NetworkFailureException -> {
-                            Log.w(logTag(), "Network fail during words set download. Retrying...", it)
+                            Log.w(logTag, "Network fail during words set download. Retrying...", it)
                             Single.just(Result.retry())
                         }
                         else -> {
-                            Log.w(logTag(), "Error during words set download. Aborting...", it)
+                            Log.w(logTag, "Error during words set download. Aborting...", it)
                             Single.just(failure(setId))
                         }
                     }

@@ -52,7 +52,7 @@ class JoinOnlineGameViewModel @Inject constructor(
     }
 
     private fun handleError(error: Throwable) {
-        Log.w(logTag(), "Failed getting table data.", error)
+        Log.w(logTag, "Failed getting table data.", error)
         _swipeRefreshing.value = false
         _tableDataMap.value = mapOf()
         _snackbarMessage.value = Event(R.string.alert_nothing_found)

@@ -35,11 +35,11 @@ class OnlineGameClientHandler(
 
     override fun connect(endpoint: Endpoint): Completable {
         if (state >= GameHandler.State.CONNECTING) {
-            Log.w(logTag(), "connect() - Already connecting or connected! Ignoring...")
+            Log.w(logTag, "connect() - Already connecting or connected! Ignoring...")
             return Completable.complete()
         }
 
-        Log.d(logTag(), "connect()")
+        Log.d(logTag, "connect()")
 
         hostEndpoint = endpoint
 
@@ -69,11 +69,11 @@ class OnlineGameClientHandler(
 
     override fun finish() {
         if (state >= GameHandler.State.DISCONNECTED) {
-            Log.w(logTag(), "finish() - Already disconnected! Ignoring...")
+            Log.w(logTag, "finish() - Already disconnected! Ignoring...")
             return
         }
 
-        Log.d(logTag(), "finish()")
+        Log.d(logTag, "finish()")
 
         disposables.dispose()
 
@@ -91,7 +91,7 @@ class OnlineGameClientHandler(
                 .observeOn(handlerThreadScheduler)
                 .subscribe(
                     { handlerThreadScheduler.shutdown() },
-                    { Log.w(logTag(), "Failed finishing game handler.", it) }
+                    { Log.w(logTag, "Failed finishing game handler.", it) }
                 )
         } else {
             handlerThreadScheduler.shutdown()
@@ -109,19 +109,19 @@ class OnlineGameClientHandler(
     }
 
     private fun handleOpenedEvent() {
-        Log.d(logTag(), "handleOpenedEvent() - Connected to remote.")
+        Log.d(logTag, "handleOpenedEvent() - Connected to remote.")
     }
 
     private fun handleClosingEvent(closingEvent: WebSocketEvent.Closing) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleClosingEvent() - Already disconnecting or disconnected. Ignoring..."
             )
             return
         }
 
-        Log.d(logTag(), "handleClosingEvent()")
+        Log.d(logTag, "handleClosingEvent()")
 
         connection.close()
         state = GameHandler.State.DISCONNECTED
@@ -131,13 +131,13 @@ class OnlineGameClientHandler(
     private fun handleClosedEvent(closedEvent: WebSocketEvent.Closed) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleClosedEvent() - Already disconnecting or disconnected. Ignoring..."
             )
             return
         }
 
-        Log.d(logTag(), "handleClosedEvent()")
+        Log.d(logTag, "handleClosedEvent()")
 
         state = GameHandler.State.DISCONNECTED
         handleRemoteDisconnected(closedEvent.code, closedEvent.reason)
@@ -146,13 +146,13 @@ class OnlineGameClientHandler(
     private fun handleFailureEvent(failureEvent: WebSocketEvent.Failure) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleFailureEvent() - Already disconnecting or disconnected. Ignoring..."
             )
             return
         }
 
-        Log.w(logTag(), "handleFailureEvent()", failureEvent.throwable)
+        Log.w(logTag, "handleFailureEvent()", failureEvent.throwable)
 
         state = GameHandler.State.DISCONNECTED
         sendToUI(GameEvent.State.NETWORK_FAILURE)

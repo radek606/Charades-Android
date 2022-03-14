@@ -188,11 +188,11 @@ class GameViewModel @Inject constructor(
 
     private fun handleGameData(data: GameData?) {
         if (data == null) {
-            Log.w(logTag(), "Received event from service but GameData == null")
+            Log.w(logTag, "Received event from service but GameData == null")
             return
         }
 
-        Log.v(logTag(), "Game data from service: $data")
+        Log.v(logTag, "Game data from service: $data")
 
         if (data.hasAction(GameData.PLAYER_UPDATE)) {
             players = data.players

@@ -43,15 +43,15 @@ class LocalGameClientHandler(
 
     override fun startDiscovery(duration: Long) {
         if (state >= GameHandler.State.CONNECTED) {
-            Log.w(logTag(), "startDiscovery() - Already in $state state. Ignoring...")
+            Log.w(logTag, "startDiscovery() - Already in $state state. Ignoring...")
             return
         }
         if (isDiscovering) {
-            Log.w(logTag(), "startDiscovery() - Already discovering. Ignoring...")
+            Log.w(logTag, "startDiscovery() - Already discovering. Ignoring...")
             return
         }
 
-        Log.d(logTag(), "startDiscovery()")
+        Log.d(logTag, "startDiscovery()")
 
         disposables += connection.startDiscovery(
             BuildConfig.LOCAL_GAME_SERVICE_ID,
@@ -67,25 +67,25 @@ class LocalGameClientHandler(
 
                             if (state >= GameHandler.State.DISCONNECTING) {
                                 Log.w(
-                                    logTag(),
+                                    logTag,
                                     "discoveryTimer.onComplete() - Already in $state state. Ignoring..."
                                 )
                             } else {
-                                Log.d(logTag(), "Finished discovering endpoints.")
+                                Log.d(logTag, "Finished discovering endpoints.")
                                 sendEndpointsToUi(GameEvent.State.DISCOVERY_FINISHED)
                             }
                         }
-                    Log.d(logTag(), "Started discovering endpoints...")
+                    Log.d(logTag, "Started discovering endpoints...")
                 },
                 {
-                    Log.w(logTag(), "Endpoints discovery failed.", it)
+                    Log.w(logTag, "Endpoints discovery failed.", it)
                     sendToUI(GameEvent.State.DISCOVERY_FAILURE)
                 }
             )
     }
 
     override fun stopDiscovery() {
-        Log.d(logTag(), "stopDiscovery()")
+        Log.d(logTag, "stopDiscovery()")
 
         connection.stopDiscovery()
         discoveryTimerDisposable?.dispose()
@@ -94,11 +94,11 @@ class LocalGameClientHandler(
 
     override fun connect(endpoint: Endpoint): Completable {
         if (state >= GameHandler.State.CONNECTING) {
-            Log.w(logTag(), "connect() - Already connecting or connected! Ignoring...")
+            Log.w(logTag, "connect() - Already connecting or connected! Ignoring...")
             return Completable.complete()
         }
 
-        Log.d(logTag(), "connect()")
+        Log.d(logTag, "connect()")
 
         hostEndpoint = endpoint
 
@@ -126,11 +126,11 @@ class LocalGameClientHandler(
 
     override fun finish() {
         if (state >= GameHandler.State.DISCONNECTED) {
-            Log.w(logTag(), "finish() - Already disconnected! Ignoring...")
+            Log.w(logTag, "finish() - Already disconnected! Ignoring...")
             return
         }
 
-        Log.d(logTag(), "finish()")
+        Log.d(logTag, "finish()")
 
         disposables.dispose()
         discoveryTimerDisposable?.dispose()
@@ -150,7 +150,7 @@ class LocalGameClientHandler(
                 .observeOn(handlerThreadScheduler)
                 .subscribe(
                     { handlerThreadScheduler.shutdown() },
-                    { Log.w(logTag(), "Failed finishing game handler.", it) }
+                    { Log.w(logTag, "Failed finishing game handler.", it) }
                 )
         } else {
             handlerThreadScheduler.shutdown()
@@ -172,13 +172,13 @@ class LocalGameClientHandler(
     private fun handleEndpointFoundEvent(event: NearbyConnectionsEvent.EndpointFound) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleEndpointFoundEvent() - Already in $state state. Ignoring..."
             )
             return
         }
 
-        Log.d(logTag(), "handleEndpointFoundEvent()")
+        Log.d(logTag, "handleEndpointFoundEvent()")
 
         val (endpointId, endpointInfo) = event
 
@@ -191,12 +191,12 @@ class LocalGameClientHandler(
                 )
                 sendEndpointsToUi()
             } catch (e: InvalidProtocolBufferException) {
-                Log.w(logTag(), "handleEndpointFoundEvent() - Endpoint with incorrect data. Ignoring...")
+                Log.w(logTag, "handleEndpointFoundEvent() - Endpoint with incorrect data. Ignoring...")
                 sendToUI(GameEvent.State.UNSUPPORTED_VERSION)
             }
         } else {
             Log.w(
-                logTag(),
+                logTag,
                 "handleEndpointFoundEvent() - Endpoint with unsupported serviceId ${endpointInfo.serviceId}. Ignoring..."
             )
         }
@@ -205,13 +205,13 @@ class LocalGameClientHandler(
     private fun handleEndpointLostEvent(event: NearbyConnectionsEvent.EndpointLost) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleEndpointLostEvent() - Already in $state state. Ignoring..."
             )
             return
         }
 
-        Log.d(logTag(), "handleEndpointLostEvent()")
+        Log.d(logTag, "handleEndpointLostEvent()")
 
         discoveredEndpoints.remove(event.endpointId)
         sendEndpointsToUi()
@@ -222,20 +222,20 @@ class LocalGameClientHandler(
 
         if (connectionInfo.isIncomingConnection) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleConnectionInitiatedEvent() - Incoming request when in client mode. Rejecting..."
             )
             connection.rejectConnection(endpointId).subscribe()
             return
         }
 
-        Log.d(logTag(), "handleConnectionInitiatedEvent()")
+        Log.d(logTag, "handleConnectionInitiatedEvent()")
 
         if (endpointId == hostEndpoint.id) {
             connection.acceptConnection(endpointId).subscribe()
         } else {
             Log.w(
-                logTag(),
+                logTag,
                 "handleConnectionInitiatedEvent() - Connection with unknown host. Rejecting..."
             )
             connection.rejectConnection(endpointId).subscribe()
@@ -245,7 +245,7 @@ class LocalGameClientHandler(
     private fun handleConnectionResultEvent(event: NearbyConnectionsEvent.ConnectionResult) {
         val result = event.resolution
 
-        Log.d(logTag(), "handleConnectionResultEvent() result: + ${result.status}")
+        Log.d(logTag, "handleConnectionResultEvent() result: + ${result.status}")
 
         when (result.status.statusCode) {
             STATUS_OK,
@@ -260,7 +260,7 @@ class LocalGameClientHandler(
 
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleMessageTransferUpdateEvent() - Already in $state state. Ignoring..."
             )
             return
@@ -268,13 +268,13 @@ class LocalGameClientHandler(
 
         if (endpointId == hostEndpoint.id) {
             Log.v(
-                logTag(), "handleMessageTransferUpdateEvent() from user: " +
+                logTag, "handleMessageTransferUpdateEvent() from user: " +
                         "${hostEndpoint.id}, msgId: ${update.payloadId}, " +
                         "status: ${update.status}, bytes: ${update.bytesTransferred}"
             )
         } else {
             Log.w(
-                logTag(), "handleMessageTransferUpdateEvent() from unknown endpoint: " +
+                logTag, "handleMessageTransferUpdateEvent() from unknown endpoint: " +
                         "$endpointId, msgId: ${update.payloadId}, " +
                         "status: ${update.status}, bytes: ${update.bytesTransferred}"
             )
@@ -284,18 +284,18 @@ class LocalGameClientHandler(
     private fun handleDisconnectedEvent(event: NearbyConnectionsEvent.Disconnected) {
         if (state >= GameHandler.State.DISCONNECTING) {
             Log.w(
-                logTag(),
+                logTag,
                 "handleDisconnectedEvent() - Already in $state state. Ignoring..."
             )
             return
         }
 
-        Log.d(logTag(), "handleDisconnectedEvent()")
+        Log.d(logTag, "handleDisconnectedEvent()")
 
         if (event.endpointId == hostEndpoint.id) {
             sendToUI(GameEvent.State.NETWORK_FAILURE)
         } else {
-            Log.w(logTag(), "handleDisconnectedEvent() callback with unknown host!")
+            Log.w(logTag, "handleDisconnectedEvent() callback with unknown host!")
         }
     }
 

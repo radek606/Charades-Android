@@ -138,7 +138,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
                 if (bytes != null) {
                     messageEventProcessor.onNext(MessageEvent(endpointId, bytes))
                 } else {
-                    Log.w(logTag(), "Received payload of unsupported type, (other than byte array)!")
+                    Log.w(logTag, "Received payload of unsupported type, (other than byte array)!")
                 }
             }
 

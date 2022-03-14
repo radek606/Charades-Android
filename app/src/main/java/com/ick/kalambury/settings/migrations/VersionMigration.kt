@@ -27,7 +27,7 @@ abstract class VersionMigration(
             currentData!!.toMutablePreferences().let { prefs ->
                 val prefsVersion = prefs[keys.prefsVersionCode] ?: 0
 
-                Log.d(logTag(), "Executing preferences migration from version " +
+                Log.d(logTag, "Executing preferences migration from version " +
                         "$prefsVersion to ${BuildConfig.VERSION_CODE}...")
 
                 doMigrate(prefsVersion, prefs)

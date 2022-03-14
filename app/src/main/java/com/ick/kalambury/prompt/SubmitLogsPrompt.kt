@@ -23,7 +23,7 @@ class SubmitLogsPrompt(private val preferenceStorage: MainPreferenceStorage) : P
     }
 
     override fun launchPrompt(activity: FragmentActivity, navController: NavController) {
-        Log.d(logTag(), "Showing submit log request dialog.")
+        Log.d(logTag, "Showing submit log request dialog.")
 
         activity.showMessageDialog(
             title = R.string.alert_crash_title,

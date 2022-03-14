@@ -40,7 +40,7 @@ class SubmitDebugLogViewModel @Inject constructor(
         disposables += repository.getComposedLog()
             .subscribeOn(schedulerProvider.io())
             .subscribe(_logContent::postValue) {
-                Log.w(logTag(), "Failed getting composed log.", it)
+                Log.w(logTag, "Failed getting composed log.", it)
             }
     }
 
@@ -71,7 +71,7 @@ class SubmitDebugLogViewModel @Inject constructor(
                     _snackbarMessage.value = Event(R.string.log_submit_success_toast)
                 },
                 onError = {
-                    Log.w(logTag(), "Failed uploading logs.", it)
+                    Log.w(logTag, "Failed uploading logs.", it)
                     _uploadInProgress.value = false
                     _snackbarMessage.value = when(it) {
                         is TooManyRequestsException -> Event(R.string.log_submit_to_many_requests_toast)

@@ -11,7 +11,7 @@ class AdsInitializer : Initializer<Unit> {
 
     override fun create(context: Context) {
         MobileAds.initialize(context) { status ->
-            Log.d(logTag(), buildString {
+            Log.d(logTag, buildString {
                 appendLine("Mobile ads initialized. Adapters statuses:")
                 status.adapterStatusMap.forEach {
                     append("    ").append(it.key).append(": ").append(it.value.initializationState)

@@ -21,9 +21,9 @@ internal class WordsDataMigrator(
             .doOnSuccess { version = it; logVersionInfo() }
             .flatMapObservable { Observable.fromIterable(migrations) }
             .filter { it.shouldMigrate(version, wordsPropertiesStorage).blockingGet() }
-            .doOnNext { Log.d(logTag(), "Executing: ${it.javaClass.simpleName}")}
+            .doOnNext { Log.d(logTag, "Executing: ${it.javaClass.simpleName}")}
             .concatMapCompletable { it.migrate(dataSource) }
-            .doOnComplete { Log.d(logTag(), "Words repository migration complete.") }
+            .doOnComplete { Log.d(logTag, "Words repository migration complete.") }
             .doOnError { handleError(it) }
             .onErrorComplete()
             .doFinally { wordsPropertiesStorage.setWordsRepositoryVersion(BuildConfig.WORDS_REPOSITORY_VERSION) }
@@ -38,15 +38,15 @@ internal class WordsDataMigrator(
 
     private fun logVersionInfo() {
         if (version == BuildConfig.WORDS_REPOSITORY_VERSION) {
-            Log.d(logTag(), "Words repository version: $version - nothing to migrate.")
+            Log.d(logTag, "Words repository version: $version - nothing to migrate.")
         } else {
-            Log.d(logTag(), "Starting words repository migration from " +
+            Log.d(logTag, "Starting words repository migration from " +
                     "version $version to ${BuildConfig.WORDS_REPOSITORY_VERSION}.")
         }
     }
 
     private fun handleError(t: Throwable) {
-        Log.w(logTag(), "Error during words repository migration. Clearing all local files...", t)
+        Log.w(logTag, "Error during words repository migration. Clearing all local files...", t)
 
         dataSource.rootDirectory.invoke().listFiles()?.forEach {
             it.deleteRecursively()

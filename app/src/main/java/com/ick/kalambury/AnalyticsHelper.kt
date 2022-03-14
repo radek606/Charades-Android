@@ -25,9 +25,9 @@ class AnalyticsHelper @Inject constructor(
                 onSuccess = {
                     val enable = it && !BuildConfig.DEBUG
                     instance.setAnalyticsCollectionEnabled(enable)
-                    Log.i(logTag(), "Analytics enabled: $enable")
+                    Log.i(logTag, "Analytics enabled: $enable")
                 },
-                onError = { Log.w(logTag(), "Failed initializing analytics.", it) }
+                onError = { Log.w(logTag, "Failed initializing analytics.", it) }
             )
     }
 

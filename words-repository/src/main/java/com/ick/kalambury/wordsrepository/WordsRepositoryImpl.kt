@@ -73,7 +73,7 @@ class WordsRepositoryImpl @VisibleForTesting(otherwise = PACKAGE_PRIVATE) constr
                 .subscribeOn(scheduler)
                 .flatMap { manifestDataSource.getLocalWordsManifest() }
                 .doOnError {
-                    Log.d(logTag(), "Words manifest not found in local storage. " +
+                    Log.d(logTag, "Words manifest not found in local storage. " +
                         "Getting default from assets...")
                 }
                 .onErrorResumeNext { manifestDataSource.getAssetsWordsManifest() }
@@ -184,7 +184,7 @@ class WordsRepositoryImpl @VisibleForTesting(otherwise = PACKAGE_PRIVATE) constr
         return Observable.fromIterable(setIds)
             .flatMap { setId ->
                 wordsSetDataSource.getLocalWordsSet(setId)
-                    .doOnError { Log.d(logTag(), "Failed loading words set from local storage. Getting fallback assets file...")}
+                    .doOnError { Log.d(logTag, "Failed loading words set from local storage. Getting fallback assets file...")}
                     .onErrorResumeNext { wordsSetDataSource.getAssetsWordsSet(setId) }
                     .subscribeOn(scheduler)
                     .toObservable()
@@ -199,12 +199,12 @@ class WordsRepositoryImpl @VisibleForTesting(otherwise = PACKAGE_PRIVATE) constr
 
     private fun loadWordsInstance(id: Id): Single<WordsInstance> {
         return wordsInstanceDataSource.getWordsInstance(id.getId())
-            .doOnSuccess { Log.d(logTag(), "Instance: $id loaded from storage.") }
+            .doOnSuccess { Log.d(logTag, "Instance: $id loaded from storage.") }
     }
 
     private fun createWordsInstance(id: Id): Single<WordsInstance> {
         return Single.fromCallable { WordsInstance(id.getId()) }
-            .doOnSuccess { Log.d(logTag(), "Created instance: $id") }
+            .doOnSuccess { Log.d(logTag, "Created instance: $id") }
     }
 
     private fun getSelectedSetIds(id: Id): Single<Set<String>> {

@@ -11,7 +11,7 @@ class CustomUncaughtExceptionHandler(
 ) : UncaughtExceptionHandler {
 
     override fun uncaughtException(t: Thread, e: Throwable) {
-        Log.e(logTag(), throwable = e)
+        Log.e(logTag, throwable = e)
         preferenceStorage.setAppCrashed(true)
         Log.blockUntilAllWritesFinished()
         originalHandler?.uncaughtException(t, e)

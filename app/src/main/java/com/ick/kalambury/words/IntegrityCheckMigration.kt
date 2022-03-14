@@ -27,17 +27,17 @@ class IntegrityCheckMigration : DataMigration {
             if (it) {
                 Maybe.fromSingle(dataSource.getLocalWordsManifest())
             } else {
-                Log.d(logTag(), "Local manifest file not found. Nothing to check.")
+                Log.d(logTag, "Local manifest file not found. Nothing to check.")
                 Maybe.empty()
             }
         }.flatMapSingle {
             //load one of words sets to check if we have proper encryption keys after preferences migration
-            Log.d(logTag(), "Found local manifest with version: ${it.version}.")
+            Log.d(logTag, "Found local manifest with version: ${it.version}.")
             dataSource.getLocalWordsSet(it.sets.first().id)
         }.flatMapCompletable {
             //if succeeded - complete, otherwise exception will be thrown
             //that will be handled by migrator and old files will be deleted
-            Log.d(logTag(), "Successfully loaded one of words sets. Integrity checked.")
+            Log.d(logTag, "Successfully loaded one of words sets. Integrity checked.")
             Completable.complete()
         }
     }
