@@ -21,20 +21,16 @@ class KickPlayerDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         isCancelable = false
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = MaterialAlertDialogBuilder(requireContext())
+        return MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.dialog_kick_players_title)
             .setView(createView())
             .setPositiveButton(R.string.dialog_button_kick) { _, _ -> onKick() }
             .setNegativeButton(android.R.string.cancel) { _, _ -> dismiss() }
             .create()
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        return dialog
     }
 
     private fun createView(): View {

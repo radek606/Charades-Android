@@ -19,30 +19,25 @@ class PlayerDialogFragment : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setStyle(STYLE_NO_TITLE, 0)
         isCancelable = false
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val finishedGameData = viewModel.finishedGameData.value?.getContentIfNotHandled()
 
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setView(createView(finishedGameData))
-        if (finishedGameData != null) {
-            builder.setPositiveButton(R.string.dialog_button_continue) { _, _ -> dismiss() }
-            builder.setNegativeButton(R.string.dialog_button_leave) { _, _ ->
-                dismiss()
-                viewModel.onLeave()
-            }
-        } else {
-            builder.setNeutralButton(R.string.dialog_button_close) { _, _ -> dismiss() }
-        }
-
-        return builder.create().apply {
-            setCancelable(false)
-            setCanceledOnTouchOutside(false)
-        }
+        return MaterialAlertDialogBuilder(requireContext())
+            .setView(createView(finishedGameData))
+            .apply {
+                if (finishedGameData != null) {
+                    setPositiveButton(R.string.dialog_button_continue) { _, _ -> dismiss() }
+                    setNegativeButton(R.string.dialog_button_leave) { _, _ ->
+                        dismiss()
+                        viewModel.onLeave()
+                    }
+                } else {
+                    setNeutralButton(R.string.dialog_button_close) { _, _ -> dismiss() }
+                }
+            }.create()
     }
 
     private fun createView(finishedGameData: GameViewModel.FinishedGameData?): View {

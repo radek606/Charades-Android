@@ -9,14 +9,14 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDialogFragment
+import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.ick.kalambury.util.CharacterFilter
 import com.ick.kalambury.util.inflate
 
-class TextInputDialogFragment : AppCompatDialogFragment() {
+class TextInputDialogFragment : DialogFragment() {
 
     private lateinit var inputField: EditText
 
@@ -24,20 +24,16 @@ class TextInputDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NO_TITLE, 0)
         isCancelable = false
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = MaterialAlertDialogBuilder(requireContext())
+        return MaterialAlertDialogBuilder(requireContext())
             .setTitle(args.title)
             .setView(createView(requireContext()))
             .setPositiveButton(args.buttonText, null)
             .setNegativeButton(android.R.string.cancel, null)
             .create()
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        return dialog
     }
 
     private fun createView(context: Context): View {
