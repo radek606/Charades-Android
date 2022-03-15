@@ -4,7 +4,7 @@ import com.ick.kalambury.GameConfig
 import com.ick.kalambury.entities.GameDataProtos
 import com.ick.kalambury.list.model.Player
 
-class GameData (
+class GameData private constructor(
         private val originalMessage: GameDataProtos.GameData?,
         private val actions: Int,
         val actionData: String?,
@@ -36,23 +36,21 @@ class GameData (
 
     override fun toString() = buildString {
         append("GameData{actions=[")
-        when {
-            hasAction(INITIAL_DATA)       -> append("INITIAL_DATA,")
-            hasAction(PLAYER_UPDATE)      -> append("PLAYER_UPDATE,")
-            hasAction(INITIAL_DATA)       -> append("INITIAL_DATA,")
-            hasAction(PLAYER_UPDATE)      -> append("PLAYER_UPDATE,")
-            hasAction(GAME_STATE_CHANGE)  -> append("GAME_STATE_CHANGE,")
-            hasAction(GAME_FINISH)        -> append("GAME_FINISH,")
-            hasAction(CHAT_MESSAGE)       -> append("CHAT_MESSAGE,")
-            hasAction(PLAYER_READY)       -> append("PLAYER_READY,")
-            hasAction(CLEAR_SCREEN)       -> append("CLEAR_SCREEN,")
-            hasAction(ADD_NEW_OBJECT)     -> append("ADD_NEW_OBJECT,")
-            hasAction(DELETE_LAST_OBJECT) -> append("DELETE_LAST_OBJECT,")
-            hasAction(ABANDON_DRAWING)    -> append("ABANDON_DRAWING,")
-            hasAction(TIMER)              -> append("TIMER,")
-            hasAction(CONTINUE)           -> append("AGREE_CONTINUE,")
-            hasAction(QUIT_GAME)          -> append("QUIT_GAME,")
-        }
+
+        if (hasAction(INITIAL_DATA)) append("INITIAL_DATA,")
+        if (hasAction(PLAYER_UPDATE)) append("PLAYER_UPDATE,")
+        if (hasAction(GAME_STATE_CHANGE)) append("GAME_STATE_CHANGE,")
+        if (hasAction(GAME_FINISH)) append("GAME_FINISH,")
+        if (hasAction(CHAT_MESSAGE)) append("CHAT_MESSAGE,")
+        if (hasAction(PLAYER_READY)) append("PLAYER_READY,")
+        if (hasAction(CLEAR_SCREEN)) append("CLEAR_SCREEN,")
+        if (hasAction(ADD_NEW_OBJECT)) append("ADD_NEW_OBJECT,")
+        if (hasAction(DELETE_LAST_OBJECT)) append("DELETE_LAST_OBJECT,")
+        if (hasAction(ABANDON_DRAWING)) append("ABANDON_DRAWING,")
+        if (hasAction(TIMER)) append("TIMER,")
+        if (hasAction(CONTINUE)) append("AGREE_CONTINUE,")
+        if (hasAction(QUIT_GAME)) append("QUIT_GAME,")
+
         deleteCharAt(length - 1)
         append("]}")
     }
