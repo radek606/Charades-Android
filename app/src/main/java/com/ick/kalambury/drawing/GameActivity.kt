@@ -162,8 +162,6 @@ class GameActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
         handleLeaveGame()
     }
 
