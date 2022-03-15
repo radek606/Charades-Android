@@ -1,6 +1,7 @@
 package com.ick.kalambury.util.log
 
 import androidx.annotation.MainThread
+import kotlin.reflect.KClass
 
 object Log {
 
@@ -13,11 +14,11 @@ object Log {
         ASSERT,
     }
 
-    private val loggers: MutableList<Logger> = mutableListOf()
+    private val loggers: MutableMap<KClass<out Logger>, Logger> = mutableMapOf()
 
     @MainThread
-    fun initialize(vararg logger: Logger) {
-        loggers.addAll(logger)
+    fun initialize(vararg loggers: Logger) {
+        loggers.forEach { this.loggers[it::class] = it }
     }
 
     fun v(tag: String, message: String? = null, throwable: Throwable? = null) {
@@ -44,12 +45,19 @@ object Log {
         log(Level.ASSERT, tag, message, throwable)
     }
 
+    /**
+     * Log only to specified logger. Need to manually specify log level.
+     */
+    fun logTo(logger: KClass<out Logger>, priority: Level, tag: String, message: String? = null, throwable: Throwable? = null) {
+        loggers[logger]?.logInternal(priority, tag, message, throwable)
+    }
+
     fun blockUntilAllWritesFinished() {
-        loggers.forEach { it.blockUntilAllWritesFinished() }
+        loggers.values.forEach { it.blockUntilAllWritesFinished() }
     }
 
     private fun log(priority: Level, tag: String, message: String?, throwable: Throwable?) {
-        loggers.forEach { it.rawLog(priority, tag, message, throwable) }
+        loggers.values.forEach { it.logInternal(priority, tag, message, throwable) }
     }
 
 }

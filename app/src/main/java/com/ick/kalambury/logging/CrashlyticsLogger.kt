@@ -11,7 +11,7 @@ class CrashlyticsLogger : Logger() {
 
     private val cachedThreadString: ThreadLocal<String> = ThreadLocal()
 
-    override fun isEnabled(priority: Log.Level, tag: String?): Boolean {
+    override fun shouldLog(priority: Log.Level, tag: String?): Boolean {
         return priority >= Log.Level.WARNING && !BuildConfig.DEBUG
     }
 
