@@ -53,12 +53,12 @@ class DataAdapter<T : ListableData>(
 
         if (list == null || list.size < AD_POSITION) {
             destroyAd()
-            submitList(list)
+            submitList(list?.toList())
             return
         }
 
         if (list.size >= AD_POSITION) {
-            submitList(list) {
+            submitList(list.toList()) {
                 loadAd(context)
             }
         }
