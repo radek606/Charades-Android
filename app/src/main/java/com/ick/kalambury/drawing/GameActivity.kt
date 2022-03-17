@@ -70,6 +70,8 @@ class GameActivity : BaseActivity() {
 
     private var mInterstitialAd: InterstitialAd? = null
 
+    private var finishing = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -397,6 +399,9 @@ class GameActivity : BaseActivity() {
     }
 
     private fun doLeave(showAd: Boolean = true) {
+        if (finishing) return
+        finishing = true
+
         viewModel.onFinish()
 
         if (showAd) {
