@@ -68,6 +68,8 @@ class WordsSetsUpdateFinishJob @AssistedInject constructor(
 
                 new.close()
                 current.close()
+
+                File(dir, "new").delete()
             }
 
             manifest

@@ -31,7 +31,7 @@ class IntegrityCheckMigration : DataMigration {
                 Maybe.empty()
             }
         }.flatMapSingle {
-            //load one of words sets to check if we have proper encryption keys after preferences migration
+            //load one of words sets to check if we can read it without error
             Log.d(logTag, "Found local manifest with version: ${it.version}.")
             dataSource.getLocalWordsSet(it.sets.first().id)
         }.flatMapCompletable {
@@ -43,7 +43,7 @@ class IntegrityCheckMigration : DataMigration {
     }
 
     internal companion object {
-        private const val INTEGRITY_CHECK_VERSION = 1
+        private const val INTEGRITY_CHECK_VERSION = 2
     }
 
 }
