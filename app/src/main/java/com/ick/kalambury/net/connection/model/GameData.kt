@@ -170,6 +170,8 @@ class GameData private constructor(
             }.build()
         }
 
+        fun config(config: GameConfig) = Builder().withConfig(config).build()
+
         fun drawable(drawable: DrawableData) = Builder().addDrawable(drawable).build()
 
         fun message(message: ChatMessage) = Builder().addChatMessage(message).build()

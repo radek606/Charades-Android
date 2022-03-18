@@ -35,7 +35,7 @@ data class Player(
     var connectionState: ConnectionState by user::connectionState
 
     val active: Boolean
-        get() = user.connectionState >= ConnectionState.CONNECTED
+        get() = state >= InGameState.IN_GAME
 
     constructor(user: User) : this(
         user.id,
@@ -81,6 +81,7 @@ data class Player(
         fun fromProto(proto: GameDataProtos.Player): Player {
             return Player(User(proto.id, proto.id, proto.nickname)).apply {
                 connectionState = if(proto.active) ConnectionState.CONNECTED else ConnectionState.DISCONNECTED
+                state = if(proto.active) InGameState.IN_GAME else InGameState.NONE
                 operator = proto.operator
                 points = proto.points
                 winner = proto.winner

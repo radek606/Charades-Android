@@ -183,6 +183,7 @@ class LocalGameHostHandler(
                 } else {
                     broadcast(
                         GameData.Builder()
+                            .withPlayers(players)
                             .withGameState(gameStateMessage)
                             .withDrawables(drawables)
                             .build(), one(player)
@@ -418,12 +419,8 @@ class LocalGameHostHandler(
 
         player.connectionState = ConnectionState.CONNECTED
         players[user.uuid] = player
-        broadcast(
-            GameData.Builder()
-                .withConfig(config)
-                .withPlayers(players)
-                .build(), one(player)
-        )
+
+        broadcast(GameData.config(config), one(player))
     }
 
     private fun handleRemoteDisconnected(user: User) {
