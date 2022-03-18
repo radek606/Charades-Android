@@ -153,6 +153,9 @@
 
     <string name="alert_wifi_not_enabled">Brak dostępu do internetu.</string>
 
+    <string name="alert_location_not_enabled_title">Lokalizacja wyłączona</string>
+    <string name="alert_location_not_enabled_message">Lokalizacja jest wymagana w trybie gry lokalnej do odnajdywania innych graczy. Włącz lokalizację w ustawieniach urządzenia aby kontynuować.</string>
+
     <string name="alert_permission_localization_request_message">Tryb gry lokalnej korzysta z Wi-Fi i Bluetooth, aby umożliwić graczom połączenie się ze sobą, ale aby Bluetooth mógł zostać użyty, wymagane jest pozwolenie na dostęp do lokalizacji.</string>
     <string name="alert_permission_localization_denied_message">Brak pozwolenia na dostęp do lokalizacji. Opcje gry lokalnej będą niedostępne dopóki zgoda na dostęp do lokalizacji nie zostanie udzielona.</string>
 

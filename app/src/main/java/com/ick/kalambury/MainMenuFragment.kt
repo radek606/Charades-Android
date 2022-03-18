@@ -2,11 +2,13 @@ package com.ick.kalambury
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
 import androidx.core.content.ContextCompat
+import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.ick.kalambury.MainMenuNavigationActions.*
@@ -14,9 +16,13 @@ import com.ick.kalambury.databinding.FragmentMainMenuBinding
 import com.ick.kalambury.util.showMessageDialog
 import com.ick.kalambury.util.snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainMenuFragment : BaseFragment() {
+
+    @set:Inject
+    var locationManager: LocationManager? = null
 
     private val requestLocationPermissions =
         registerForActivityResult(RequestPermission(), ::handlePermissionRequestResult)
@@ -87,7 +93,7 @@ class MainMenuFragment : BaseFragment() {
 
     private fun navigateToCreateGame(mode: GameMode) {
         if (mode == GameMode.DRAWING_LOCAL) {
-            checkPermissions {
+            checkPrerequisites {
                 findNavController().navigate(MainMenuFragmentDirections.mainMenuFragmentToCreateGame(mode))
             }
         } else {
@@ -96,7 +102,7 @@ class MainMenuFragment : BaseFragment() {
     }
 
     private fun navigateToJoinLocalGame() {
-        checkPermissions {
+        checkPrerequisites {
             findNavController().navigate(MainMenuFragmentDirections.actionMainMenuFragmentToJoinLocalGameFragment())
         }
     }
@@ -109,7 +115,7 @@ class MainMenuFragment : BaseFragment() {
         findNavController().navigate(MainNavDirections.actionGlobalSettingsFragment())
     }
 
-    private inline fun checkPermissions(grantedAction: () -> Unit) {
+    private inline fun checkPrerequisites(grantedAction: () -> Unit) {
         val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
             Manifest.permission.ACCESS_FINE_LOCATION
         else
@@ -120,7 +126,11 @@ class MainMenuFragment : BaseFragment() {
                 requireContext(),
                 permission
             ) == PackageManager.PERMISSION_GRANTED -> {
-                grantedAction.invoke()
+                if (isLocationEnabled()) {
+                    grantedAction.invoke()
+                } else {
+                    showLocationDisabledDialog()
+                }
             }
             shouldShowRequestPermissionRationale(permission) -> {
                 showRequestPermissionRationale(permission)
@@ -143,6 +153,18 @@ class MainMenuFragment : BaseFragment() {
             messageId = R.string.alert_permission_localization_denied_message,
             cancelable = false
         )
+    }
+
+    private fun showLocationDisabledDialog() {
+        requireContext().showMessageDialog(
+            title = R.string.alert_location_not_enabled_title,
+            messageId = R.string.alert_location_not_enabled_message,
+            cancelable = true
+        )
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        return locationManager?.let { LocationManagerCompat.isLocationEnabled(it) } ?: false
     }
 
     private fun handlePermissionRequestResult(isGranted: Boolean) {

@@ -1,6 +1,7 @@
 package com.ick.kalambury.di
 
 import android.content.Context
+import android.location.LocationManager
 import android.os.Vibrator
 import androidx.annotation.Nullable
 import androidx.core.content.getSystemService
@@ -17,6 +18,11 @@ class AppModule {
     @Provides
     @Nullable
     fun provideVibratorService(@ApplicationContext context: Context): Vibrator? =
+        context.getSystemService()
+
+    @Provides
+    @Nullable
+    fun provideLocationManager(@ApplicationContext context: Context): LocationManager? =
         context.getSystemService()
 
 }

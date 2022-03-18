@@ -153,6 +153,10 @@
 
     <string name="alert_wifi_not_enabled">No internet connection.</string>
 
+    <string name="alert_location_not_enabled_title">Location not enabled</string>
+    <string name="alert_location_not_enabled_message">Location is required in local game mode to find other players. Enable it in device\'s settings to continue.</string>
+
+
     <string name="alert_permission_localization_request_message">Local game mode uses Wi-Fi and Bluetooth to let players connect but to be able to use Bluetooth, app will ask for location permission.</string>
     <string name="alert_permission_localization_denied_message">Location permission permanently denied. Local game options will become unavailable until location permission will be granted.</string>
 
