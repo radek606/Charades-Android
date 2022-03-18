@@ -415,9 +415,9 @@ class LocalGameHostHandler(
     }
 
     private fun handleNewRemotePlayer(user: User) {
-        val player = players.getOrDefault(user.uuid, Player(user))
-
-        player.connectionState = ConnectionState.CONNECTED
+        val player = Player(user).apply {
+            connectionState = ConnectionState.CONNECTED
+        }
         players[user.uuid] = player
 
         broadcast(GameData.config(config), one(player))
