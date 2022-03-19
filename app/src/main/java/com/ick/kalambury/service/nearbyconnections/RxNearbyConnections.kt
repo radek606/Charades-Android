@@ -34,7 +34,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
         return Completable.create { emitter ->
             client.startAdvertising(endpointData, serviceId, connectionLifecycleCallback, options)
                 .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener(emitter::onError)
+                .addOnFailureListener(emitter::tryOnError)
         }
     }
 
@@ -44,7 +44,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
         return Completable.create { emitter ->
             client.startDiscovery(serviceId, endpointDiscoveryCallback, options)
                 .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener(emitter::onError)
+                .addOnFailureListener(emitter::tryOnError)
         }
     }
 
@@ -54,7 +54,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
         return Completable.create { emitter ->
             client.requestConnection(endpointData, endpointId, connectionLifecycleCallback)
                 .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener(emitter::onError)
+                .addOnFailureListener(emitter::tryOnError)
         }
     }
 
@@ -62,7 +62,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
         return Completable.create { emitter ->
             client.acceptConnection(endpointId, payloadCallback)
                 .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener(emitter::onError)
+                .addOnFailureListener(emitter::tryOnError)
         }
     }
 
@@ -70,7 +70,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
         return Completable.create { emitter ->
             client.rejectConnection(endpointId)
                 .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener(emitter::onError)
+                .addOnFailureListener(emitter::tryOnError)
         }
     }
 
@@ -82,7 +82,7 @@ class RxNearbyConnections(context: Context) : RxClientNearbyConnections, RxHostN
         return Completable.create { emitter ->
             client.sendPayload(endpointIds, Payload.fromBytes(message))
                 .addOnSuccessListener { emitter.onComplete() }
-                .addOnFailureListener(emitter::onError)
+                .addOnFailureListener(emitter::tryOnError)
         }
     }
 

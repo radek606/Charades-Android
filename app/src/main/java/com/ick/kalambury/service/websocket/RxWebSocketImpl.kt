@@ -45,9 +45,9 @@ class RxWebSocketImpl @Inject constructor(private val httpClient: OkHttpClient) 
                 if (send(message.toByteString())) {
                     it.onComplete()
                 } else {
-                    it.onError(MessageSendFailedException())
+                    it.tryOnError(MessageSendFailedException())
                 }
-            } ?: it.onError(IllegalStateException("WebSocket not connected!"))
+            } ?: it.tryOnError(IllegalStateException("WebSocket not connected!"))
         }
     }
 
