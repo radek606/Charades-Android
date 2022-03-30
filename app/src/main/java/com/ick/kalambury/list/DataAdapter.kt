@@ -45,7 +45,7 @@ class DataAdapter<T : ListableData>(
         lifecycle.addObserver(this)
     }
 
-    fun setItems(list: List<T>?, selected: List<String>? = null) {
+    fun setItems(list: List<T>?, selected: List<String>? = null, onFinish: (() -> Unit)? = null) {
         _selectedItemIds.clear()
         if (listType.itemMode == ItemMode.SELECTABLE) {
             _selectedItemIds.addAll(selected ?: list?.filter { it.selected }?.map { it.id }.orEmpty())
@@ -59,6 +59,7 @@ class DataAdapter<T : ListableData>(
 
         if (list.size >= AD_POSITION) {
             submitList(list.toList()) {
+                onFinish?.invoke()
                 loadAd(context)
             }
         }

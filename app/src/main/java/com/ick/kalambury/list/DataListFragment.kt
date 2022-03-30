@@ -60,7 +60,11 @@ class DataListFragment<T : ListableData> : BaseFragment() {
         }
 
         viewModel.getDataList(type.key)
-            .observe(viewLifecycleOwner) { items: List<T>? -> listAdapter.setItems(items) }
+            .observe(viewLifecycleOwner) { items: List<T>? ->
+                listAdapter.setItems(items) {
+                    binding.list.smoothScrollToPosition(0)
+                }
+            }
     }
 
     companion object {
