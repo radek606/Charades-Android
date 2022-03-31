@@ -24,6 +24,7 @@ class LoggerModule {
             LogSectionSystemInfo(context, preferenceStorage),
             LogSectionThreads(),
             LogSectionBlockedThreads(),
+            LogSectionPermissions(context),
             LogSectionLogcat(),
             LogSectionLogger(logFilesRepository)
         ))
