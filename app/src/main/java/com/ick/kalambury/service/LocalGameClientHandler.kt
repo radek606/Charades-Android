@@ -16,6 +16,7 @@ import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import java.util.concurrent.TimeUnit
 import com.ick.kalambury.entities.EndpointData as EndpointDataProto
 
@@ -37,7 +38,10 @@ class LocalGameClientHandler(
             .subscribe(::handleNearbyConnectionsEvents)
     }
 
-    override fun ready(): Completable = sendCompletable(GameData.action(GameData.PLAYER_READY))
+    override fun ready(): Completable {
+        return sendCompletable(GameData.action(GameData.PLAYER_READY))
+            .subscribeOn(handlerThreadScheduler)
+    }
 
     override fun startDiscovery(duration: Long) {
         if (state >= GameHandler.State.CONNECTED) {
@@ -55,10 +59,12 @@ class LocalGameClientHandler(
             BuildConfig.LOCAL_GAME_SERVICE_ID,
             DiscoveryOptions.Builder().setStrategy(Strategy.P2P_STAR).build()
         )
+            .subscribeOn(handlerThreadScheduler)
             .subscribe(
                 {
                     isDiscovering = true
                     discoveryTimerDisposable = Completable.timer(duration, TimeUnit.MILLISECONDS)
+                        .observeOn(handlerThreadScheduler)
                         .subscribe {
                             isDiscovering = false
                             connection.stopDiscovery()
@@ -137,16 +143,15 @@ class LocalGameClientHandler(
             state = GameHandler.State.DISCONNECTING
 
             sendCompletable(GameData.Builder(GameData.QUIT_GAME).build())
+                .subscribeOn(handlerThreadScheduler)
                 .onErrorComplete()
                 .andThen {
                     connection.disconnect(hostEndpoint.id)
                     state = GameHandler.State.DISCONNECTED
+                    it.onComplete()
                 }
-                .observeOn(handlerThreadScheduler)
-                .subscribe(
-                    { handlerThreadScheduler.shutdown() },
-                    { Log.w(logTag, "Failed finishing game handler.", it) }
-                )
+                .doFinally { handlerThreadScheduler.shutdown() }
+                .subscribeBy(onError = { Log.w(logTag, "Failed finishing game handler.", it) })
         } else {
             handlerThreadScheduler.shutdown()
             state = GameHandler.State.DISCONNECTED

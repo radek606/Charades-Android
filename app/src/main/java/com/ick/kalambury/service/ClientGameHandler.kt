@@ -61,6 +61,7 @@ abstract class ClientGameHandler<T : RxClientConnection<out ConnectionEvent>> co
 
     fun send(message: GameData) {
         disposables += sendCompletable(message)
+            .subscribeOn(handlerThreadScheduler)
             .subscribeBy(onError = { Log.w(logTag, "Send failed: $message", it) })
     }
 

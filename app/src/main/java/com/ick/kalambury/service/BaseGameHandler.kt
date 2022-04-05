@@ -38,7 +38,7 @@ abstract class BaseGameHandler<T : RxConnection<out ConnectionEvent>> constructo
 
     init {
         disposables += connection.messageEvent()
-            .observeOn(handlerThreadScheduler)
+            .observeOn(handlerThreadScheduler, true)
             .subscribe { handleRemoteMessageEvent(it.sourceId, fromBytes(it.payload)) }
 
         Log.d(logTag, "Handler created.")

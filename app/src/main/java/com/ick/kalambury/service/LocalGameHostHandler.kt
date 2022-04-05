@@ -26,6 +26,7 @@ import com.ick.kalambury.wordsrepository.WordsRepository
 import com.ick.kalambury.wordsrepository.model.Word
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import io.reactivex.rxjava3.processors.PublishProcessor
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -128,6 +129,7 @@ class LocalGameHostHandler(
         connection.stopAdvertising()
 
         broadcastCompletable(GameData.action(GameData.QUIT_GAME), players.allExcept(localPlayer))
+            .subscribeOn(handlerThreadScheduler)
             .onErrorComplete()
             .andThen {
                 connection.disconnectAll()
@@ -137,12 +139,9 @@ class LocalGameHostHandler(
                 drawables.clear()
                 it.onComplete()
             }
-            .andThen { wordsRepository.saveWordsInstance(InstanceId(config.gameMode, config.language)) }
-            .observeOn(handlerThreadScheduler)
-            .subscribe(
-                { handlerThreadScheduler.shutdown() },
-                { Log.w(logTag, "Failed finishing game handler.", it) }
-            )
+            .andThen(wordsRepository.saveWordsInstance(InstanceId(config.gameMode, config.language)))
+            .doFinally { handlerThreadScheduler.shutdown() }
+            .subscribeBy(onError = { Log.w(logTag, "Failed finishing game handler.", it) })
     }
 
     override fun handleLocalGameData(gameData: GameData) {

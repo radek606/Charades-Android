@@ -13,6 +13,7 @@ import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.toBase64
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.plusAssign
+import io.reactivex.rxjava3.kotlin.subscribeBy
 import kotlinx.serialization.SerializationException
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -61,7 +62,10 @@ class OnlineGameClientHandler(
             .subscribeOn(handlerThreadScheduler)
     }
 
-    override fun ready(): Completable = sendCompletable(GameData.action(GameData.PLAYER_READY))
+    override fun ready(): Completable {
+        return sendCompletable(GameData.action(GameData.PLAYER_READY))
+            .subscribeOn(handlerThreadScheduler)
+    }
 
     override fun finish() {
         if (state >= GameHandler.State.DISCONNECTED) {
@@ -79,16 +83,15 @@ class OnlineGameClientHandler(
             state = GameHandler.State.DISCONNECTING
 
             sendCompletable(GameData.action(GameData.QUIT_GAME))
+                .subscribeOn(handlerThreadScheduler)
+                .onErrorComplete()
                 .andThen {
                     connection.close()
                     state = GameHandler.State.DISCONNECTED
                     it.onComplete()
                 }
-                .observeOn(handlerThreadScheduler)
-                .subscribe(
-                    { handlerThreadScheduler.shutdown() },
-                    { Log.w(logTag, "Failed finishing game handler.", it) }
-                )
+                .doFinally { handlerThreadScheduler.shutdown() }
+                .subscribeBy(onError = { Log.w(logTag, "Failed finishing game handler.", it) })
         } else {
             handlerThreadScheduler.shutdown()
             state = GameHandler.State.DISCONNECTED
