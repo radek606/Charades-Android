@@ -7,19 +7,15 @@ class LogSectionLogcat : LogSection {
     override val title: String
         get() = "LOGCAT"
 
-    override fun getContent(): String {
-        return try {
-            val log = StringBuilder()
-
+    override fun getContent() = buildString {
+        try {
             Runtime.getRuntime()
                 .exec("logcat -d")
                 .inputStream
                 .bufferedReader()
-                .forEachLine { log.appendLine(it) }
-
-            log.toString()
+                .forEachLine { appendLine(it) }
         } catch (e: IOException) {
-            "Failed to retrieve logs."
+            append("Failed to retrieve logs.")
         }
     }
 

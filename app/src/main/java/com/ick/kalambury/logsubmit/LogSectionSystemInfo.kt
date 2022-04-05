@@ -15,7 +15,10 @@ import io.reactivex.rxjava3.core.Single
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class LogSectionSystemInfo(val context: Context, val preferenceStorage: MainPreferenceStorage) : LogSection {
+class LogSectionSystemInfo(
+    private val context: Context,
+    private val preferenceStorage: MainPreferenceStorage,
+) : LogSection {
 
     override val title: String
         get() = "SYSINFO"
@@ -25,38 +28,38 @@ class LogSectionSystemInfo(val context: Context, val preferenceStorage: MainPref
             preferenceStorage.firstInstallTime.firstOrError(),
             preferenceStorage.firstInstallVersion.firstOrError()
         ) { installTime, installVersion ->
-            val builder = StringBuilder()
-            builder.append("Time          : ").appendLine(System.currentTimeMillis())
-            builder.append("Manufacturer  : ").appendLine(Build.MANUFACTURER)
-            builder.append("Model         : ").appendLine(Build.MODEL)
-            builder.append("Product       : ").appendLine(Build.PRODUCT)
-            builder.append("Screen        : ").append(getScreenResolution(context)).append(", ")
-                                              .append(getScreenDensity(context)).append(", ")
-                                              .append(getScreenRefreshRate(context)).appendLine()
-            builder.append("Font Scale    : ").appendLine(context.resources.configuration.fontScale)
-            builder.append("Android       : ").append(Build.VERSION.RELEASE).append(" (")
-                                              .append(Build.VERSION.INCREMENTAL).append(", ")
-                                              .append(Build.DISPLAY).appendLine(")")
-            builder.append("Play Services : ").appendLine(getPlayServicesString(context))
-            builder.append("Locale        : ").appendLine(Locale.getDefault().toString())
-            builder.append("First Version : ").appendLine(installVersion)
-            builder.append("Days Installed: ").appendLine(getDaysSinceFirstInstalled(installTime))
-            builder.append("Build Variant : ").append(BuildConfig.FLAVOR)
-                                              .append(BuildConfig.BUILD_TYPE).appendLine()
-            builder.append("App           : ")
-            try {
-                val pm: PackageManager = context.packageManager
-                builder.append(pm.getApplicationLabel(context.applicationInfo))
-                    .append(" ")
-                    .append(BuildConfig.VERSION_NAME)
-                    .append(" (")
-                    .append(BuildConfig.VERSION_CODE)
-                    .appendLine(")")
-            } catch (nnfe: PackageManager.NameNotFoundException) {
-                builder.appendLine("Unknown")
+            buildString {
+                append("Time          : ").appendLine(System.currentTimeMillis())
+                append("Manufacturer  : ").appendLine(Build.MANUFACTURER)
+                append("Model         : ").appendLine(Build.MODEL)
+                append("Product       : ").appendLine(Build.PRODUCT)
+                append("Screen        : ").append(getScreenResolution(context)).append(", ")
+                    .append(getScreenDensity(context)).append(", ")
+                    .append(getScreenRefreshRate(context)).appendLine()
+                append("Font Scale    : ").appendLine(context.resources.configuration.fontScale)
+                append("Android       : ").append(Build.VERSION.RELEASE).append(" (")
+                    .append(Build.VERSION.INCREMENTAL).append(", ")
+                    .append(Build.DISPLAY).appendLine(")")
+                append("Play Services : ").appendLine(getPlayServicesString(context))
+                append("Locale        : ").appendLine(Locale.getDefault().toString())
+                append("First Version : ").appendLine(installVersion)
+                append("Days Installed: ").appendLine(getDaysSinceFirstInstalled(installTime))
+                append("Build Variant : ").append(BuildConfig.FLAVOR)
+                    .append(BuildConfig.BUILD_TYPE).appendLine()
+                append("App           : ")
+                try {
+                    val pm: PackageManager = context.packageManager
+                    append(pm.getApplicationLabel(context.applicationInfo))
+                        .append(" ")
+                        .append(BuildConfig.VERSION_NAME)
+                        .append(" (")
+                        .append(BuildConfig.VERSION_CODE)
+                        .appendLine(")")
+                } catch (nnfe: PackageManager.NameNotFoundException) {
+                    appendLine("Unknown")
+                }
+                append("Package       : ").append(BuildConfig.APPLICATION_ID)
             }
-            builder.append("Package       : ").append(BuildConfig.APPLICATION_ID)
-            builder.toString()
         }.blockingGet()
     }
 

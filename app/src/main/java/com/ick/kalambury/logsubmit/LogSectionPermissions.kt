@@ -10,9 +10,7 @@ class LogSectionPermissions(val context: Context) : LogSection {
     override val title: String
         get() = "PERMISSIONS"
 
-    override fun getContent(): String {
-        val builder = StringBuilder()
-
+    override fun getContent() = buildString {
         val status: MutableList<Pair<String, Boolean>> = mutableListOf()
         val info = context.packageManager.getPackageInfo(
             BuildConfig.APPLICATION_ID,
@@ -24,9 +22,8 @@ class LogSectionPermissions(val context: Context) : LogSection {
         }
 
         status.sortedWith(compareBy { it.first }).forEach {
-            builder.append(it.first).append(": ").append(it.second).appendLine()
+            append(it.first).append(": ").append(it.second).appendLine()
         }
-
-        return builder.toString()
     }
+
 }
