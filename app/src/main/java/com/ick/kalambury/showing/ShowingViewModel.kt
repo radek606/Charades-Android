@@ -38,8 +38,8 @@ class ShowingViewModel @Inject constructor(
     private val _wordLabel: MutableLiveData<Label> = MutableLiveData(Label.res(R.string.sa_ltf_password_init_val))
     val wordLabel: LiveData<Label> = _wordLabel
 
-    private val _timeUpLabel: MutableLiveData<Label> = MutableLiveData()
-    val timeUpLabel: LiveData<Label> = _timeUpLabel
+    private val _timeUpLabel: MutableLiveData<Label?> = MutableLiveData()
+    val timeUpLabel: LiveData<Label?> = _timeUpLabel
 
     private val _timer: MutableLiveData<Int> = MutableLiveData(0)
     val timer: LiveData<Int> = _timer
