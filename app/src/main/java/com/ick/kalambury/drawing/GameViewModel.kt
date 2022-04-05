@@ -33,6 +33,7 @@ import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.wordsrepository.Language
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.plusAssign
 import javax.inject.Inject
 
@@ -41,7 +42,7 @@ class GameViewModel @Inject constructor(
     gameHandlerRepository: GameHandlerRepository,
     private val preferenceStorage: MainPreferenceStorage,
     private val messageFormatter: MessageFormatter,
-    private val schedulerProvider: SchedulerProvider,
+    schedulerProvider: SchedulerProvider,
 ) : BaseViewModel<Unit>() {
 
     enum class ViewTransitions {
@@ -145,12 +146,13 @@ class GameViewModel @Inject constructor(
             .observeOn(schedulerProvider.main())
             .subscribe(::handleGameEvents)
 
-        disposables += preferenceStorage.localUserData
-            .firstOrError()
-            .doAfterSuccess { self = it }
-            .flatMap { preferenceStorage.chatSize.firstOrError() }
-            .doAfterSuccess { lastMessages = LimitedMutableList(it) }
-            .flatMapCompletable { gameHandler.ready() }
+        disposables += Single.zip(
+            preferenceStorage.localUserData.firstOrError(),
+            preferenceStorage.chatSize.firstOrError()
+        ) { user, chatSize ->
+            self = user
+            lastMessages = LimitedMutableList(chatSize)
+        }.flatMapCompletable { gameHandler.ready() }
             .observeOn(schedulerProvider.main())
             .subscribe()
 

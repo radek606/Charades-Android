@@ -122,10 +122,10 @@ class LocalGameHostHandler(
 
         Log.d(logTag, "finish()")
 
-        cancelGameTimer()
         state = GameHandler.State.DISCONNECTING
         disposables.dispose()
 
+        cancelGameTimer()
         connection.stopAdvertising()
 
         broadcastCompletable(GameData.action(GameData.QUIT_GAME), players.allExcept(localPlayer))
@@ -585,28 +585,20 @@ class LocalGameHostHandler(
                 currentTimeLeft = tick.toInt()
                 inactivitySeconds++
                 if (currentTimeLeft == seconds / 2) {
-                    val data = GameData.Builder()
-                        .addChatMessage(ChatMessage.hint(currentWord!!.wordString.substring(0, 1)))
-                        .build()
-                    send(data, players.all)
+                    val msg = ChatMessage.hint(currentWord!!.wordString.substring(0, 1))
+                    send(GameData.message(msg), players.all)
                 }
                 if (currentTimeLeft == seconds / 4) {
-                    val data = GameData.Builder()
-                        .addChatMessage(ChatMessage.hint(currentWord!!.wordString.substring(0, 2)))
-                        .build()
-                    send(data, players.all)
+                    val msg = ChatMessage.hint(currentWord!!.wordString.substring(0, 2))
+                    send(GameData.message(msg), players.all)
                 }
                 if (currentTimeLeft == seconds / 8) {
-                    val data = GameData.Builder()
-                        .addChatMessage(ChatMessage.littleTimeWarn())
-                        .build()
-                    send(data, one(players[drawingPlayerId]!!))
+                    val msg = ChatMessage.littleTimeWarn()
+                    send(GameData.message(msg), one(players[drawingPlayerId]!!))
                 }
                 if (inactivitySeconds == INACTIVITY_LIMIT_SECONDS / 3 * 2) {
-                    val data = GameData.Builder()
-                        .addChatMessage(ChatMessage.inactivityWarn())
-                        .build()
-                    send(data, one(players[drawingPlayerId]!!))
+                    val msg = ChatMessage.inactivityWarn()
+                    send(GameData.message(msg), one(players[drawingPlayerId]!!))
                 }
                 if (inactivitySeconds >= INACTIVITY_LIMIT_SECONDS) {
                     updateRounds()
@@ -617,8 +609,10 @@ class LocalGameHostHandler(
                     setGameTimer(config.roundTime)
                     val data = GameData.Builder()
                         .withGameState(gameStateMessage)
-                        .addChatMessage(ChatMessage.playerInactive(players[lastPlayer]!!.name))
-                        .addChatMessage(ChatMessage.playerDraw(players[drawingPlayerId]!!.name))
+                        .withChatMessages(
+                            ChatMessage.playerInactive(players[lastPlayer]!!.name),
+                            ChatMessage.playerDraw(players[drawingPlayerId]!!.name)
+                        )
                         .build()
                     send(data, players.all)
                 }
