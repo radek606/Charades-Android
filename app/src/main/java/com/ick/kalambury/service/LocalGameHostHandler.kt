@@ -339,7 +339,7 @@ class LocalGameHostHandler(
                 logTag,
                 "handleConnectionInitiatedEvent() - Already in $state state. Rejecting..."
             )
-            connection.rejectConnection(endpointId).subscribe()
+            disposables += connection.rejectConnection(endpointId).subscribe()
             return
         }
 
@@ -351,7 +351,7 @@ class LocalGameHostHandler(
                 "handleConnectionInitiatedEvent() - invalid connection data. Rejecting...",
                 e
             )
-            connection.rejectConnection(endpointId).subscribe()
+            disposables += connection.rejectConnection(endpointId).subscribe()
             return
         }
 
@@ -362,7 +362,7 @@ class LocalGameHostHandler(
                 "handleConnectionInitiatedEvent() - client version (${metadata.version}) " +
                         "lower than min supported version (${BuildConfig.LOCAL_GAME_MIN_SUPPORTED_VERSION}). Rejecting..."
             )
-            connection.rejectConnection(endpointId).subscribe()
+            disposables += connection.rejectConnection(endpointId).subscribe()
             return
         }
 
@@ -372,7 +372,7 @@ class LocalGameHostHandler(
                 "handleConnectionInitiatedEvent() - client version (${metadata.version}) " +
                         "higher than host (${BuildConfig.VERSION_CODE}). Rejecting..."
             )
-            connection.rejectConnection(endpointId).subscribe()
+            disposables += connection.rejectConnection(endpointId).subscribe()
             return
         }
 
@@ -381,7 +381,7 @@ class LocalGameHostHandler(
             "handleConnectionInitiatedEvent() - accepting connection with user: ${user.nickname}"
         )
         users[endpointId] = user
-        connection.acceptConnection(endpointId).subscribe()
+        disposables += connection.acceptConnection(endpointId).subscribe()
     }
 
     private fun handleConnectionResultEvent(event: NearbyConnectionsEvent.ConnectionResult) {

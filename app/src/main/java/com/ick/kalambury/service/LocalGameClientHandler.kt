@@ -34,7 +34,7 @@ class LocalGameClientHandler(
 
     init {
         disposables += connection.connectionEvents()
-            .observeOn(handlerThreadScheduler)
+            .observeOn(handlerThreadScheduler, true)
             .subscribe(::handleNearbyConnectionsEvents)
     }
 
@@ -225,13 +225,13 @@ class LocalGameClientHandler(
                 logTag,
                 "handleConnectionInitiatedEvent() - Incoming request when in client mode. Rejecting..."
             )
-            connection.rejectConnection(endpointId).subscribe()
+            disposables += connection.rejectConnection(endpointId).subscribe()
             return
         }
 
         Log.d(logTag, "handleConnectionInitiatedEvent()")
 
-        if (endpointId == hostEndpoint.id) {
+        disposables += if (endpointId == hostEndpoint.id) {
             connection.acceptConnection(endpointId).subscribe()
         } else {
             Log.w(
