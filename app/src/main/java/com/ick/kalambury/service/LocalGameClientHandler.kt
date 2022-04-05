@@ -11,7 +11,6 @@ import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.GameData
 import com.ick.kalambury.service.nearbyconnections.NearbyConnectionsEvent
 import com.ick.kalambury.service.nearbyconnections.RxClientNearbyConnections
-import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import io.reactivex.rxjava3.core.Completable
@@ -22,7 +21,6 @@ import com.ick.kalambury.entities.EndpointData as EndpointDataProto
 
 class LocalGameClientHandler(
     conn: RxClientNearbyConnections,
-    private val preferenceStorage: MainPreferenceStorage,
 ) : ClientGameHandler<RxClientNearbyConnections>(conn) {
 
     override lateinit var localUser: User
@@ -92,7 +90,7 @@ class LocalGameClientHandler(
         isDiscovering = false
     }
 
-    override fun connect(endpoint: Endpoint): Completable {
+    override fun connect(localUser: User, endpoint: Endpoint): Completable {
         if (state >= GameHandler.State.CONNECTING) {
             Log.w(logTag, "connect() - Already connecting or connected! Ignoring...")
             return Completable.complete()
@@ -100,6 +98,7 @@ class LocalGameClientHandler(
 
         Log.d(logTag, "connect()")
 
+        this.localUser = localUser
         hostEndpoint = endpoint
 
         if (isDiscovering) {
@@ -109,19 +108,15 @@ class LocalGameClientHandler(
         state = GameHandler.State.CONNECTING
         notifyUI()
 
-        return preferenceStorage.localUserData
-            .firstOrError()
-            .doOnSuccess { localUser = it }
-            .map {
-                connectionData {
-                    this.endpoint = endpoint.id
-                    nickname = it.nickname
-                    uuid = it.uuid
-                    version = BuildConfig.VERSION_CODE
-                }.toByteArray()
-            }
-            .observeOn(handlerThreadScheduler)
-            .flatMapCompletable { connection.connect(it, endpoint.id) }
+        val connectionData = connectionData {
+            this.endpoint = endpoint.id
+            nickname = localUser.nickname
+            uuid = localUser.uuid
+            version = BuildConfig.VERSION_CODE
+        }.toByteArray()
+
+        return connection.connect(connectionData, endpoint.id)
+            .subscribeOn(handlerThreadScheduler)
     }
 
     override fun finish() {

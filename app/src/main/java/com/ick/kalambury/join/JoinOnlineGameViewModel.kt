@@ -14,6 +14,7 @@ import com.ick.kalambury.net.api.dto.TablesDto
 import com.ick.kalambury.service.GameEvent
 import com.ick.kalambury.service.GameEvent.State
 import com.ick.kalambury.service.GameHandlerRepository
+import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.SchedulerProvider
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
@@ -25,8 +26,9 @@ import javax.inject.Inject
 class JoinOnlineGameViewModel @Inject constructor(
     private val apiManager: RestApiManager,
     gameHandlerRepository: GameHandlerRepository,
+    preferenceStorage: MainPreferenceStorage,
     private val schedulers: SchedulerProvider,
-) : JoinGameViewModel<TableData>(gameHandlerRepository, schedulers) {
+) : JoinGameViewModel<TableData>(gameHandlerRepository, preferenceStorage, schedulers) {
 
     override val gameMode = GameMode.DRAWING_ONLINE
 

@@ -160,8 +160,12 @@ class CreateGameViewModel @Inject constructor(
     }
 
     private fun startLocalGame(): Completable {
-        gameHandlerRepository.createHostHandler(getGameConfig())
-        return wordsRepository.prepareWordsInstance(InstanceId(gameMode, language), categories)
+        val handler = gameHandlerRepository.createHostHandler(getGameConfig())
+        return preferenceStorage.localUserData
+            .firstOrError()
+            .flatMapCompletable { handler.connect(it) }
+            .andThen(wordsRepository.prepareWordsInstance(InstanceId(gameMode, language), categories))
+
     }
 
     private fun startOnlineGame(): Completable {
@@ -170,7 +174,9 @@ class CreateGameViewModel @Inject constructor(
             .observeOn(schedulers.main())
             .subscribe(::handleGameEvent)
 
-        return handler.connect()
+        return preferenceStorage.localUserData
+            .firstOrError()
+            .flatMapCompletable { handler.connect(it) }
     }
 
     private fun handleGameEvent(event: GameEvent) {

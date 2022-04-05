@@ -1,6 +1,7 @@
 package com.ick.kalambury.service
 
 import com.ick.kalambury.GameConfig
+import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.GameData
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
@@ -29,7 +30,7 @@ interface GameHandler {
      *
      * Default endpoint parameter is meant to be used with 'host' handlers only
      */
-    fun connect(endpoint: Endpoint = Endpoint.DEFAULT): Completable
+    fun connect(localUser: User, endpoint: Endpoint = Endpoint.DEFAULT): Completable
 
     fun handleLocalGameData(gameData: GameData)
     fun getGameEvents(): Flowable<GameEvent>

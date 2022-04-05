@@ -10,6 +10,7 @@ import com.ick.kalambury.list.model.EndpointData
 import com.ick.kalambury.net.connection.SupportedVersionInfo
 import com.ick.kalambury.service.GameEvent
 import com.ick.kalambury.service.GameHandlerRepository
+import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.SchedulerProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -17,8 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class JoinLocalGameViewModel @Inject constructor(
     gameHandlerRepository: GameHandlerRepository,
+    preferenceStorage: MainPreferenceStorage,
     schedulerProvider: SchedulerProvider,
-): JoinGameViewModel<EndpointData>(gameHandlerRepository, schedulerProvider) {
+): JoinGameViewModel<EndpointData>(gameHandlerRepository, preferenceStorage, schedulerProvider) {
 
     override val gameMode = GameMode.DRAWING_LOCAL
 

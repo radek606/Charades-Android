@@ -6,7 +6,6 @@ import com.ick.kalambury.service.*
 import com.ick.kalambury.service.nearbyconnections.RxClientNearbyConnections
 import com.ick.kalambury.service.nearbyconnections.RxHostNearbyConnections
 import com.ick.kalambury.service.websocket.RxWebSocket
-import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.wordsrepository.WordsRepository
 import dagger.Binds
 import dagger.Module
@@ -25,41 +24,29 @@ class GameHandlersModule {
     fun provideLocalHostHandler(
         connection: RxHostNearbyConnections,
         wordsRepository: WordsRepository,
-        mainPreferenceStorage: MainPreferenceStorage,
     ): GameHandler {
-        return LocalGameHostHandler(connection, wordsRepository, mainPreferenceStorage)
+        return LocalGameHostHandler(connection, wordsRepository)
     }
 
     @Provides
     @IntoMap
     @GameHandlerKey(mode = GameMode.DRAWING_LOCAL, host = false)
-    fun provideLocalClientHandler(
-            connection: RxClientNearbyConnections,
-            preferenceStorage: MainPreferenceStorage,
-    ): GameHandler {
-        return LocalGameClientHandler(connection, preferenceStorage)
+    fun provideLocalClientHandler(connection: RxClientNearbyConnections): GameHandler {
+        return LocalGameClientHandler(connection)
     }
 
     @Provides
     @IntoMap
     @GameHandlerKey(mode = GameMode.DRAWING_ONLINE, host = true)
-    fun provideOnlineHostHandler(
-            apiManager: RestApiManager,
-            preferenceStorage: MainPreferenceStorage,
-            connection: RxWebSocket,
-    ): GameHandler {
-        return OnlineGameHostHandler(apiManager, preferenceStorage,
-                OnlineGameClientHandler(connection, preferenceStorage))
+    fun provideOnlineHostHandler(apiManager: RestApiManager, connection: RxWebSocket): GameHandler {
+        return OnlineGameHostHandler(apiManager, OnlineGameClientHandler(connection))
     }
 
     @Provides
     @IntoMap
     @GameHandlerKey(mode = GameMode.DRAWING_ONLINE, host = false)
-    fun provideOnlineClientHandler(
-            connection: RxWebSocket,
-            preferenceStorage: MainPreferenceStorage,
-    ): GameHandler {
-        return OnlineGameClientHandler(connection, preferenceStorage)
+    fun provideOnlineClientHandler(connection: RxWebSocket): GameHandler {
+        return OnlineGameClientHandler(connection)
     }
 
 }

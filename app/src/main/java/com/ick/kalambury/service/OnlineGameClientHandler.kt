@@ -8,7 +8,6 @@ import com.ick.kalambury.net.connection.User
 import com.ick.kalambury.net.connection.model.GameData
 import com.ick.kalambury.service.websocket.RxWebSocket
 import com.ick.kalambury.service.websocket.WebSocketEvent
-import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.util.toBase64
@@ -21,7 +20,6 @@ import java.io.IOException
 
 class OnlineGameClientHandler(
     socket: RxWebSocket,
-    private val preferenceStorage: MainPreferenceStorage,
 ) : ClientGameHandler<RxWebSocket>(socket) {
 
     override lateinit var localUser: User
@@ -33,7 +31,7 @@ class OnlineGameClientHandler(
             .subscribe(::handleWebSocketEvents)
     }
 
-    override fun connect(endpoint: Endpoint): Completable {
+    override fun connect(localUser: User, endpoint: Endpoint): Completable {
         if (state >= GameHandler.State.CONNECTING) {
             Log.w(logTag, "connect() - Already connecting or connected! Ignoring...")
             return Completable.complete()
@@ -41,28 +39,26 @@ class OnlineGameClientHandler(
 
         Log.d(logTag, "connect()")
 
+        this.localUser = localUser
         hostEndpoint = endpoint
 
         state = GameHandler.State.CONNECTING
         notifyUI()
 
-        return preferenceStorage.localUserData
-            .firstOrError()
-            .doOnSuccess { localUser = it }
-            .map {
-                connectionData {
-                    this.endpoint = endpoint.id
-                    nickname = it.nickname
-                    uuid = it.uuid
-                    version = BuildConfig.VERSION_CODE
-                }.toBase64(Base64.NO_WRAP or Base64.URL_SAFE)
-            }
-            .map {
-                BuildConfig.SERVICE_URL
-                    .replace("https://", "wss://")
-                    .replace("http://", "ws://") + String.format(GAME_SOCKET_PATH, it)
-            }
-            .flatMapCompletable { connection.connect(it) }
+        val connectionData = connectionData {
+            this.endpoint = endpoint.id
+            nickname = localUser.nickname
+            uuid = localUser.uuid
+            version = BuildConfig.VERSION_CODE
+        }.toBase64(Base64.NO_WRAP or Base64.URL_SAFE)
+
+        val connectionUrl = BuildConfig.SERVICE_URL
+            .replace("https://", "wss://")
+            .replace("http://", "ws://")
+            .plus(String.format(GAME_SOCKET_PATH, connectionData))
+
+        return connection.connect(connectionUrl)
+            .subscribeOn(handlerThreadScheduler)
     }
 
     override fun ready(): Completable = sendCompletable(GameData.action(GameData.PLAYER_READY))

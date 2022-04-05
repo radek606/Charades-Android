@@ -18,7 +18,6 @@ import com.ick.kalambury.net.connection.model.GameData
 import com.ick.kalambury.net.connection.model.GameStateData
 import com.ick.kalambury.service.nearbyconnections.NearbyConnectionsEvent
 import com.ick.kalambury.service.nearbyconnections.RxHostNearbyConnections
-import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.log.Log
 import com.ick.kalambury.util.log.logTag
 import com.ick.kalambury.words.InstanceId
@@ -34,7 +33,6 @@ import java.util.concurrent.TimeUnit
 class LocalGameHostHandler(
     conn: RxHostNearbyConnections,
     private val wordsRepository: WordsRepository,
-    private val mainPreferenceStorage: MainPreferenceStorage,
 ) : HostGameHandler<RxHostNearbyConnections>(conn) {
 
     private lateinit var localPlayer: Player
@@ -67,17 +65,18 @@ class LocalGameHostHandler(
             .subscribe { handleGameData(localPlayer, it) }
     }
 
-    //as host we don't need to connect to anything, so just return 'complete' straight away
-    override fun connect(endpoint: Endpoint): Completable = Completable.complete()
+    //as host we don't need to connect to anything, so just do some initialization
+    override fun connect(localUser: User, endpoint: Endpoint): Completable {
+        return Completable.fromAction {
+            initEndpointInfo(localUser)
+            initLocalPlayer(localUser)
+        }.subscribeOn(handlerThreadScheduler)
+    }
 
     override fun ready(): Completable {
-        return mainPreferenceStorage.localUserData
-            .firstOrError()
-            .map {
-                initLocalPlayer(it)
-                initEndpointInfo(it)
-            }
-            .flatMapCompletable { startAdvertising() }
+        return Completable.fromAction { initialState() }
+            .subscribeOn(handlerThreadScheduler)
+            .andThen(startAdvertising())
             .doOnError(::handleAdvertisingFailed)
             .onErrorComplete()
     }
@@ -98,6 +97,9 @@ class LocalGameHostHandler(
             operator = true
         }
         players[localPlayer.uuid] = localPlayer
+    }
+
+    private fun initialState() {
         firstPlayerId = localPlayer.uuid
         operatorPlayerId = localPlayer.uuid
         winnerPlayerId = null

@@ -11,6 +11,7 @@ import com.ick.kalambury.service.ClientGameHandler
 import com.ick.kalambury.service.Endpoint
 import com.ick.kalambury.service.GameEvent
 import com.ick.kalambury.service.GameHandlerRepository
+import com.ick.kalambury.settings.MainPreferenceStorage
 import com.ick.kalambury.util.SchedulerProvider
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.kotlin.plusAssign
@@ -18,6 +19,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 
 abstract class JoinGameViewModel<D : ListableData> constructor(
     private val gameHandlerRepository: GameHandlerRepository,
+    private val preferenceStorage: MainPreferenceStorage,
     private val schedulerProvider: SchedulerProvider,
 ) : BaseViewModel<JoinGameNavigationActions>() {
 
@@ -56,7 +58,9 @@ abstract class JoinGameViewModel<D : ListableData> constructor(
         selectedItem = item as? Connectable
         selectedItem?.connecting = true
 
-        disposables += gameHandler.connect(Endpoint(item.id, item.text.toString()))
+        disposables += preferenceStorage.localUserData
+            .firstOrError()
+            .flatMapCompletable { gameHandler.connect(it, Endpoint(item.id, item.text.toString())) }
             .observeOn(schedulerProvider.main())
             .subscribeBy(
                 onComplete = {

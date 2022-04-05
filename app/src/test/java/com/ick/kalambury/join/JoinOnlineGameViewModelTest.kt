@@ -6,6 +6,7 @@ import com.ick.kalambury.di.NoopTrustStore
 import com.ick.kalambury.net.DevHttpClientFactory
 import com.ick.kalambury.net.api.RestApiManager
 import com.ick.kalambury.service.MockGameHandlerRepository
+import com.ick.kalambury.settings.MockMainPreferenceStorage
 import com.ick.kalambury.util.TrampolineSchedulerProvider
 import com.ick.kalambury.util.getOrAwaitValue
 import okhttp3.mockwebserver.MockResponse
@@ -39,6 +40,7 @@ class JoinOnlineGameViewModelTest {
         viewModel = JoinOnlineGameViewModel(
             manager,
             MockGameHandlerRepository(),
+            MockMainPreferenceStorage(),
             TrampolineSchedulerProvider,
         )
     }
