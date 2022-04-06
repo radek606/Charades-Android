@@ -126,9 +126,10 @@ android {
     }
 
     lint {
-        isCheckDependencies = true
-        isAbortOnError = true
-        disable("LintError")
+        checkGeneratedSources = true
+        checkDependencies = true
+        abortOnError = true
+        disable += "LintError"
     }
 
     productFlavors {
@@ -176,7 +177,7 @@ dependencies {
 
     implementation(Libs.MATERIAL)
 
-    implementation(Libs.WORK_RUNTIME)
+    implementation(Libs.WORK_RUNTIME_KTX)
     implementation(Libs.WORK_RXJAVA)
     androidTestImplementation(Libs.WORK_TESTING)
 
@@ -184,11 +185,10 @@ dependencies {
     implementation(Libs.NAVIGATION_FRAGMENT_KTX)
     androidTestImplementation(Libs.NAVIGATION_TESTING)
 
-    implementation(Libs.LIFECYCLE_RUNTIME_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LIFECYCLE_SAVED_STATE)
-    implementation(Libs.LIFECYCLE_COMMON)
+    kapt(Libs.LIFECYCLE_COMPILER)
 
     implementation(Libs.DATA_STORE_PREFERENCES)
     implementation(Libs.DATA_STORE_PREFERENCES_RXJAVA)
@@ -203,6 +203,7 @@ dependencies {
 
     implementation(Libs.APP_STARTUP)
 
+    implementation(Libs.PLAY_CORE)
     implementation(Libs.PLAY_CORE_KTX)
 
     implementation(platform(Libs.FIREBASE_BOM))
@@ -210,8 +211,6 @@ dependencies {
     implementation(Libs.FIREBASE_CRASHLYTICS_KTX)
     implementation(Libs.FIREBASE_REMOTE_CONFIG_KTX)
 
-    implementation(Libs.PLAY_SERVICES_BASE)
-    implementation(Libs.PLAY_SERVICES_TASKS)
     implementation(Libs.PLAY_SERVICES_ASD_LITE)
     implementation(Libs.PLAY_SERVICES_NEARBY)
 

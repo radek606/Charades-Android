@@ -98,7 +98,7 @@ class AppUpdateRequestPrompt(
         updateManager.startUpdateFlow(
             appUpdateInfo!!,
             activity,
-            AppUpdateOptions.newBuilder(updateMode).build()
+            AppUpdateOptions.defaultOptions(updateMode)
         )
             .addOnSuccessListener { result: Int ->
                 if (result == Activity.RESULT_OK) {

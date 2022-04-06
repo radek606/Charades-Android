@@ -11,7 +11,7 @@ object Libs {
     const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
     const val ANNOTATION = "androidx.annotation:annotation:${Versions.ANNOTATION}"
 
-    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT}"
+    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
     const val CARDVIEW = "androidx.cardview:cardview:${Versions.CARDVIEW}"
     const val BROWSER = "androidx.browser:browser:${Versions.BROWSER}"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
@@ -23,7 +23,7 @@ object Libs {
 
     const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
 
-    const val WORK_RUNTIME = "androidx.work:work-runtime:${Versions.WORK_MANAGER}"
+    const val WORK_RUNTIME_KTX = "androidx.work:work-runtime-ktx:${Versions.WORK_MANAGER}"
     const val WORK_RXJAVA = "androidx.work:work-rxjava3:${Versions.WORK_MANAGER}"
     const val WORK_TESTING = "androidx.work:work-testing:${Versions.WORK_MANAGER}"
 
@@ -31,11 +31,10 @@ object Libs {
     const val NAVIGATION_FRAGMENT_KTX = "androidx.navigation:navigation-fragment-ktx:${Versions.NAVIGATION}"
     const val NAVIGATION_TESTING = "androidx.navigation:navigation-testing:${Versions.NAVIGATION}"
 
-    const val LIFECYCLE_RUNTIME_KTX = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE}"
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFECYCLE}"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFECYCLE}"
     const val LIFECYCLE_SAVED_STATE = "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.LIFECYCLE}"
-    const val LIFECYCLE_COMMON = "androidx.lifecycle:lifecycle-common-java8:${Versions.LIFECYCLE}"
+    const val LIFECYCLE_COMPILER = "androidx.lifecycle:lifecycle-compiler:${Versions.LIFECYCLE}"
 
     const val DATA_STORE_PREFERENCES = "androidx.datastore:datastore-preferences:${Versions.DATA_STORE_PREFERENCES}"
     const val DATA_STORE_PREFERENCES_RXJAVA = "androidx.datastore:datastore-preferences-rxjava3:${Versions.DATA_STORE_PREFERENCES}"
@@ -49,6 +48,7 @@ object Libs {
 
     const val APP_STARTUP = "androidx.startup:startup-runtime:${Versions.APP_STARTUP}"
 
+    const val PLAY_CORE = "com.google.android.play:core:${Versions.PLAY_CORE}"
     const val PLAY_CORE_KTX = "com.google.android.play:core-ktx:${Versions.PLAY_CORE_KTX}"
 
     const val FIREBASE_BOM = "com.google.firebase:firebase-bom:${Versions.FIREBASE_BOM}"
@@ -56,8 +56,6 @@ object Libs {
     const val FIREBASE_CRASHLYTICS_KTX = "com.google.firebase:firebase-crashlytics-ktx"
     const val FIREBASE_REMOTE_CONFIG_KTX = "com.google.firebase:firebase-config-ktx"
 
-    const val PLAY_SERVICES_BASE = "com.google.android.gms:play-services-base:${Versions.PLAY_SERVICES_BASE}"
-    const val PLAY_SERVICES_TASKS = "com.google.android.gms:play-services-tasks:${Versions.PLAY_SERVICES_BASE}"
     const val PLAY_SERVICES_ASD_LITE = "com.google.android.gms:play-services-ads-lite:${Versions.PLAY_SERVICES_ASD_LITE}"
     const val PLAY_SERVICES_NEARBY = "com.google.android.gms:play-services-nearby:${Versions.PLAY_SERVICES_NEARBY}"
 

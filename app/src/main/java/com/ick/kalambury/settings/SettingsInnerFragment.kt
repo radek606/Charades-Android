@@ -41,9 +41,9 @@ class SettingsInnerFragment : PreferenceFragmentCompat() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        view?.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
+        view.setBackgroundColor(ContextCompat.getColor(requireContext(), android.R.color.white))
         return view
     }
 

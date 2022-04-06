@@ -84,25 +84,25 @@ class WordsManifestRefreshJob @AssistedInject constructor(
         val downloadJobs: MutableList<OneTimeWorkRequest> = ArrayList(setIds.size)
 
         for (id in setIds) {
-            val data = Data.Builder()
-                .putString(WordsSetDownloadJob.KEY_WORDS_SET_ID, id)
-                .putByteArray(WordsSetDownloadJob.KEY_SECRET_KEY, key)
-                .putByteArray(WordsSetDownloadJob.KEY_SECRET_IV, iv)
-                .build()
+            val data = workDataOf(
+                WordsSetDownloadJob.KEY_WORDS_SET_ID to id,
+                WordsSetDownloadJob.KEY_SECRET_KEY to key,
+                WordsSetDownloadJob.KEY_SECRET_IV to iv
+            )
 
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
                 .build()
 
-            downloadJobs.add(OneTimeWorkRequest.Builder(WordsSetDownloadJob::class.java)
+            downloadJobs.add(OneTimeWorkRequestBuilder<WordsSetDownloadJob>()
                 .addTag(id)
                 .setConstraints(constraints)
                 .setInputData(data)
                 .build())
         }
 
-        val updateFinishJob = OneTimeWorkRequest.Builder(WordsSetsUpdateFinishJob::class.java)
-            .setInputMerger(ArrayCreatingInputMerger::class.java)
+        val updateFinishJob = OneTimeWorkRequestBuilder<WordsSetsUpdateFinishJob>()
+            .setInputMerger(ArrayCreatingInputMerger::class)
             .build()
 
         WorkManager.getInstance(context)
