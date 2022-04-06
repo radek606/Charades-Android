@@ -4,8 +4,11 @@
     package="com.ick.kalambury">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -32,7 +35,8 @@
         android:appCategory="game"
         android:isGame="true"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/backup_rules"
+        android:fullBackupContent="@xml/backup_rules_legacy"
         android:supportsRtl="true"
         android:resizeableActivity="false"
         android:theme="@style/AppTheme"

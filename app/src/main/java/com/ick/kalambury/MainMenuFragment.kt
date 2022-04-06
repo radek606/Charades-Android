@@ -6,7 +6,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
 import android.view.*
-import androidx.activity.result.contract.ActivityResultContracts.RequestPermission
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
 import androidx.core.content.ContextCompat
 import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.viewModels
@@ -24,8 +24,8 @@ class MainMenuFragment : BaseFragment() {
     @set:Inject
     var locationManager: LocationManager? = null
 
-    private val requestLocationPermissions =
-        registerForActivityResult(RequestPermission(), ::handlePermissionRequestResult)
+    private val requestPermissions =
+        registerForActivityResult(RequestMultiplePermissions(), ::handlePermissionRequestResult)
 
     private val viewModel: MainMenuViewModel by viewModels()
     private lateinit var binding: FragmentMainMenuBinding
@@ -116,36 +116,56 @@ class MainMenuFragment : BaseFragment() {
     }
 
     private inline fun checkPrerequisites(grantedAction: () -> Unit) {
-        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q)
-            Manifest.permission.ACCESS_FINE_LOCATION
-        else
-            Manifest.permission.ACCESS_COARSE_LOCATION
+        val permissions = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.S ->
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.BLUETOOTH_SCAN,
+                    Manifest.permission.BLUETOOTH_ADVERTISE,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                )
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q ->
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+            else ->
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
 
         when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                permission
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            hasPermissions(permissions) -> {
                 if (isLocationEnabled()) {
                     grantedAction.invoke()
                 } else {
                     showLocationDisabledDialog()
                 }
             }
-            shouldShowRequestPermissionRationale(permission) -> {
-                showRequestPermissionRationale(permission)
+            shouldShowRationale(permissions) -> {
+                showRequestPermissionRationale(permissions)
             }
             else -> {
-                requestLocationPermissions.launch(permission)
+                requestPermissions.launch(permissions)
             }
         }
     }
 
-    private fun showRequestPermissionRationale(permission: String) {
+    private fun hasPermissions(permissions: Array<String>): Boolean {
+        return permissions.all {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                it
+            ) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun shouldShowRationale(permissions: Array<String>): Boolean {
+        return permissions.any { shouldShowRequestPermissionRationale(it) }
+    }
+
+    private fun showRequestPermissionRationale(permissions: Array<String>) {
         requireContext().showMessageDialog(
             messageId = R.string.alert_permission_localization_request_message,
             cancelable = false
-        ) { _, _ -> requestLocationPermissions.launch(permission) }
+        ) { _, _ -> requestPermissions.launch(permissions) }
     }
 
     private fun showPermissionDeniedDialog() {
@@ -167,8 +187,8 @@ class MainMenuFragment : BaseFragment() {
         return locationManager?.let { LocationManagerCompat.isLocationEnabled(it) } ?: false
     }
 
-    private fun handlePermissionRequestResult(isGranted: Boolean) {
-        if (isGranted) {
+    private fun handlePermissionRequestResult(permissions: Map<String, Boolean>) {
+        if (permissions.values.all { it }) {
             viewModel.onPermissionRequestResult()
         } else {
             showPermissionDeniedDialog()

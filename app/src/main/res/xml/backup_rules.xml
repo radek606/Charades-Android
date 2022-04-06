@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<full-backup-content xmlns:tools="http://schemas.android.com/tools">
-    <exclude domain="file" path="words" tools:ignore="FullBackupContent"/>
-</full-backup-content>
+<data-extraction-rules>
+    <cloud-backup>
+        <exclude domain="file" path="words"/>
+    </cloud-backup>
+    <device-transfer>
+        <exclude domain="file" path="words"/>
+    </device-transfer>
+</data-extraction-rules>
